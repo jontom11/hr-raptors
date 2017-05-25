@@ -2,14 +2,16 @@ import React from 'react';
 
 class Footer extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {};
   }
 
   render() {
     return (
       <footer>
-        <h1>Footer</h1>
+        <div className="footer">
+          <h1>footer</h1>
+        </div>
       </footer>
     );
   }

@@ -1,9 +1,9 @@
 import React from 'react';
 
-class View extends React.Component{
+class View extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {};
   }
 
   render() {
@@ -14,8 +14,7 @@ class View extends React.Component{
         <h2>This is Alexi</h2>
         <p>center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center centercenter center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center centercenter center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center  center center  center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center center </p>
       </article>
-    )
-
+    );
   }
 }
 

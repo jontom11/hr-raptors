@@ -3,7 +3,7 @@ import React from 'react';
 import AppBar from 'material-ui/AppBar';
 
 class Nav extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {};
   }
@@ -19,7 +19,7 @@ class Nav extends React.Component {
           />
         </div>
       </nav>
-      );
+    );
   }
 }
 

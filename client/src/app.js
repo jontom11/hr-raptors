@@ -29,7 +29,7 @@ class App extends React.Component {
           <div className='bodywrap'>
             <SideBar />
             <View />
-            <div className='footer'>footer</div>
+            <Footer />
           </div>
         </div>
       </MuiThemeProvider>
