@@ -15,6 +15,9 @@ import Nav from './components/Nav/nav';
 import SideBar from './components/SideBar/sidebar';
 import Code from './components/Code/code';
 
+import { Provider } from 'react-redux';
+import store from './store';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -40,6 +43,7 @@ class App extends React.Component {
       main = <Code />;
     }
     return (
+      <Provider store={store}>
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <div className='wrap'>
           <Nav onClick={this.toggleView.bind(this)} />
@@ -49,6 +53,7 @@ class App extends React.Component {
           </div>
         </div>
       </MuiThemeProvider>
+      </Provider>
     );
   }
 }
