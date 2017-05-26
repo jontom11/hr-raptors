@@ -12,6 +12,7 @@ class View extends React.Component {
       <article className="center">
         <h1>Hello World from React</h1>
         <h2>This is the Main Page</h2>
+        <Layout />
       </article>
     );
   }
