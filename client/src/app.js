@@ -21,15 +21,15 @@ class App extends React.Component {
     this.state = {
       viewState: true,
     };
-  this.toggleView = this.toggleView.bind(this);
+    this.toggleView = this.toggleView.bind(this);
   }
 
-    toggleView() {
-      console.log('I was clicked');
-      this.setState({
-        viewState: !this.state.viewState,
-      })
-    }
+  toggleView() {
+    console.log('I was clicked');
+    this.setState({
+      viewState: !this.state.viewState,
+    });
+  }
 
 
   render() {
