@@ -3,7 +3,9 @@ import React from 'react';
 class SideBar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      open: false,
+    };
   }
 
   render() {

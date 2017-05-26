@@ -13,23 +13,39 @@ injectTapEventPlugin();
 import View from './components/View/view';
 import Nav from './components/Nav/nav';
 import SideBar from './components/SideBar/sidebar';
-import Footer from './components/Footer/Footer';
+import Code from './components/Code/code';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      viewState: true,
+    };
+  this.toggleView = this.toggleView.bind(this);
   }
 
+    toggleView() {
+      console.log('I was clicked');
+      this.setState({
+        viewState: !this.state.viewState,
+      })
+    }
+
+
   render() {
+    let main = <View />;
+    if (this.state.viewState) {
+      main = <View />;
+    } else {
+      main = <Code />;
+    }
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <div className='wrap'>
-          <Nav />
+          <Nav onClick={this.toggleView.bind(this)} />
           <div className='bodywrap'>
             <SideBar />
-            <View />
-            <Footer />
+            {main}
           </div>
         </div>
       </MuiThemeProvider>

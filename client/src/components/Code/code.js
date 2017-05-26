@@ -1,6 +1,6 @@
 import React from 'react';
 
-class View extends React.Component {
+class Code extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -11,10 +11,10 @@ class View extends React.Component {
     return (
       <article className="center">
         <h1>Hello World from React</h1>
-        <h2>This is the Main Page</h2>
+        <h2>This is some code</h2>
       </article>
     );
   }
 }
 
-export default View;
+export default Code;
