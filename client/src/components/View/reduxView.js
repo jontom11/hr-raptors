@@ -11,7 +11,7 @@ import { fetchCode, addCode } from "../../actions/codeActions"
     code: store.code.code,
   };
 })
-class Layout extends React.Component {
+class reduxView extends React.Component {
   componentWillMount() {
     this.props.dispatch(fetchUser())
   }
@@ -49,4 +49,4 @@ class Layout extends React.Component {
   }
 }
 
-export default Layout;
+export default reduxView;

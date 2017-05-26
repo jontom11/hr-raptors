@@ -16,7 +16,6 @@ class Nav extends React.Component {
           <AppBar
           className="navbar"
           title="Title"
-          iconClassNameRight="muidocs-icon-navigation-expand-more"
           iconElementRight={<FlatButton onClick={this.props.onClick} label="Code" />}
           />
         </div>
