@@ -1,10 +1,16 @@
 {
   "name": "course.thesis",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=6.4.0"
+  },
   "scripts": {
-    "start": "nodemon server",
+    "postinstall-dev": "curl -s https://raw.githubusercontent.com/reactorcore/pomander/master/bin/install | bash",
+    "start-dev": "nodemon index.js",
+    "start": "node index.js",
     "test": "NODE_ENV=test grunt test",
-    "build": "webpack --watch"
+    "build": "webpack --watch",
+    "heroku-postbuild": "knex migrate:latest && webpack -d --config webpack.config.babel.js"
   },
   "author": "Hack Reactor",
   "license": "MIT",
