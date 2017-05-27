@@ -15,13 +15,30 @@ const config = {
         use: [
           { loader: 'babel-loader',
             options: {
-              presets: ['react', 'es2015']
+              presets: ['react', 'es2015'],
+              plugins: ['transform-decorators-legacy'],
             }
           }
         ]
-      }
+      },
+      {
+        test: /\.scss$/,
+        use: [{
+          loader: 'style-loader' // creates style nodes from JS strings
+        }, {
+          loader: 'css-loader' // translates CSS into CommonJS
+        }, {
+          loader: 'sass-loader' // compiles Sass to CSS
+        }]
+      },
     ]
-  }
+  },
+  // loaders: [
+  //   {
+  //     test: /\.scss$/,
+  //     loaders: ["style-loader", "css-loader", "sass-loader"]
+  //   }
+  // ],
 };
 
 export default config;

@@ -1,0 +1,19 @@
+{
+  "name": "hr-raptors",
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+
+  "addons": [
+    "heroku-redis",
+    {
+      "plan": "heroku-postgresql:hobby-dev",
+      "options": {
+        "version": "9.5"
+      }
+    }
+  ],
+  "description": "FILL_ME_IN"
+}

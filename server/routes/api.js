@@ -11,4 +11,20 @@ router.route('/')
     res.status(201).send({ data: 'Posted!' });
   });
 
+var code = [ {id:"1", text: "Hello World"}, {id:"2", text: "Hello AGAIN World"},
+  {id:"3", text: '<a class="waves-effect waves-teal btn-flat">Button</a>'}
+];
+
+router.route('/code')
+.get((req, res) => {
+  console.log('GOT SOMETHING');
+  res.status(200).send(code);
+});
+
+router.route('/users')
+.get((req, res) => {
+  console.log('GOT SOMETHING');
+  res.status(200).send({name: 'Alexi', age: 22});
+});
+
 module.exports = router;
