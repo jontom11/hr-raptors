@@ -1,0 +1,268 @@
+Searching 19936 files for "localhost:3000"
+
+/Users/jt/Desktop/HR/hr-raptors/.env:
+    1  GOOGLE_CLIENT_ID=838429217770-7p8oev7d05m4giqovakfmvjsgg6psdv3.apps.googleusercontent.com
+    2  GOOGLE_CLIENT_SECRET=QeVgt54oxny0ogZUccVWSIhz
+    3: GOOGLE_CALLBACK_URL=http://localhost:3000/auth/google/callback
+    4  
+    5  FACEBOOK_CLIENT_ID=186970091827545
+    6  FACEBOOK_CLIENT_SECRET=5a7c50d7e8ad94c2edb978f54b1c3710
+    7: FACEBOOK_CALLBACK_URL=http://localhost:3000/auth/facebook/callback
+    8  
+    9  TWITTER_CLIENT_ID=ahlp6B3eiityWTiwjva44upDK
+   10  TWITTER_CLIENT_SECRET=0yZeAHSUcl1AGscfpv07jaJaND3iCUdNdGjbo7ePjrNhoJLQxN
+   11: TWITTER_CALLBACK_URL=http://localhost:3000/auth/twitter/callback
+   12  
+   13  DATABASE_URL=postgres://postgres:postgres@localhost:5432/thesis
+
+/Users/jt/Desktop/HR/hr-raptors/node_modules/accepts/README.md:
+  117  You can test this out with the cURL program:
+  118  ```sh
+  119: curl -I -H'Accept: text/html' http://localhost:3000/
+  120  ```
+  121  
+
+/Users/jt/Desktop/HR/hr-raptors/node_modules/express/lib/response.js:
+  668   * Example:
+  669   *
+  670:  *    res.append('Link', ['<http://localhost/>', '<http://localhost:3000/>']);
+  671   *    res.append('Set-Cookie', 'foo=bar; Path=/; HttpOnly');
+  672   *    res.append('Warning', '199 Miscellaneous warning');
+
+/Users/jt/Desktop/HR/hr-raptors/node_modules/http-proxy-middleware/README.md:
+   23  app.listen(3000);
+   24  
+   25: // http://localhost:3000/api/foo/bar -> http://www.example.org/api/foo/bar
+   26  ```
+   27  
+   ..
+  112          },
+  113          router: {
+  114:             // when request.headers.host == 'dev.localhost:3000',
+  115              // override target 'http://www.example.org' to 'http://localhost:8000'
+  116:             'dev.localhost:3000' : 'http://localhost:8000'
+  117          }
+  118      };
+  ...
+  196      // The order of the configuration matters.
+  197      router: {
+  198:         'integration.localhost:3000' : 'http://localhost:8001',  // host only
+  199:         'staging.localhost:3000'     : 'http://localhost:8002',  // host only
+  200:         'localhost:3000/api'         : 'http://localhost:8003',  // host + path
+  201          '/rest'                      : 'http://localhost:8004'   // path only
+  202      }
+
+/Users/jt/Desktop/HR/hr-raptors/node_modules/http-proxy-middleware/lib/router.js:
+   29          if (containsPath(key)) {
+   30  
+   31:             if (hostAndPath.indexOf(key) > -1) {    // match 'localhost:3000/api'
+   32                  result = table[key];
+   33                  logger.debug('[HPM] Router table match: "%s"', key);
+   ..
+   36          } else {
+   37  
+   38:             if (key === host) {                     // match 'localhost:3000'
+   39                  result = table[key];
+   40                  logger.debug('[HPM] Router table match: "%s"', host);
+
+/Users/jt/Desktop/HR/hr-raptors/node_modules/oauth/examples/express-gdata/server.js:
+   38  	                  "anonymous",
+   39  	                  "1.0",
+   40: 	                  "http://localhost:3000/google_cb"+( req.param('action') && req.param('action') != "" ? "?action="+querystring.escape(req.param('action')) : "" ),
+   41  	                  "HMAC-SHA1");
+   42  
+   ..
+  166  
+  167  app.listen(3000);
+  168: console.log("listening on http://localhost:3000");
+  169  
+
+/Users/jt/Desktop/HR/hr-raptors/node_modules/passport-facebook/README.md:
+   45      clientID: FACEBOOK_APP_ID,
+   46      clientSecret: FACEBOOK_APP_SECRET,
+   47:     callbackURL: "http://localhost:3000/auth/facebook/callback"
+   48    },
+   49    function(accessToken, refreshToken, profile, cb) {
+   ..
+  118    clientID: FACEBOOK_APP_ID,
+  119    clientSecret: FACEBOOK_APP_SECRET,
+  120:   callbackURL: "http://localhost:3000/auth/facebook/callback",
+  121    profileFields: ['id', 'displayName', 'photos', 'email']
+  122  }), ...)
+  ...
+  134    clientID: FACEBOOK_APP_ID,
+  135    clientSecret: FACEBOOK_APP_SECRET,
+  136:   callbackURL: "http://localhost:3000/auth/facebook/callback",
+  137    enableProof: true
+  138  }, ...)
+
+/Users/jt/Desktop/HR/hr-raptors/node_modules/passport-oauth2/README.md:
+   46      clientID: EXAMPLE_CLIENT_ID,
+   47      clientSecret: EXAMPLE_CLIENT_SECRET,
+   48:     callbackURL: "http://localhost:3000/auth/example/callback"
+   49    },
+   50    function(accessToken, refreshToken, profile, cb) {
+
+/Users/jt/Desktop/HR/hr-raptors/node_modules/q/README.md:
+  603  
+  604  ```javascript
+  605: requestOkText("http://localhost:3000")
+  606  .then(function (responseText) {
+  607      // If the HTTP response returns 200 OK, log the response text.
+
+/Users/jt/Desktop/HR/hr-raptors/node_modules/stream-http/test/node/http-browserify.js:
+   61  
+   62  	var resolved = url.resolve(location, request._opts.url)
+   63: 	t.equal(resolved, 'foo://localhost:3000/bar', 'Url should be correct')
+   64  	t.end()
+   65  })
+   ..
+   80  
+   81  	var resolved = url.resolve(fileLocation, request._opts.url)
+   82: 	t.equal(resolved, 'http://localhost:3000/bar', 'Url should be correct')
+   83  	t.end()
+   84  })
+
+/Users/jt/Desktop/HR/hr-raptors/server/app.js:
+   26  app.use(function(req, res, next) {
+   27    // Website you wish to allow to connect
+   28:   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+   29    // Request methods you wish to allow
+   30    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+23 matches across 11 files
+
+
+Searching 19936 files for "localhost:3000"
+
+/Users/jt/Desktop/HR/hr-raptors/.env:
+    1  GOOGLE_CLIENT_ID=838429217770-7p8oev7d05m4giqovakfmvjsgg6psdv3.apps.googleusercontent.com
+    2  GOOGLE_CLIENT_SECRET=QeVgt54oxny0ogZUccVWSIhz
+    3: GOOGLE_CALLBACK_URL=http://localhost:3000/auth/google/callback
+    4  
+    5  FACEBOOK_CLIENT_ID=186970091827545
+    6  FACEBOOK_CLIENT_SECRET=5a7c50d7e8ad94c2edb978f54b1c3710
+    7: FACEBOOK_CALLBACK_URL=http://localhost:3000/auth/facebook/callback
+    8  
+    9  TWITTER_CLIENT_ID=ahlp6B3eiityWTiwjva44upDK
+   10  TWITTER_CLIENT_SECRET=0yZeAHSUcl1AGscfpv07jaJaND3iCUdNdGjbo7ePjrNhoJLQxN
+   11: TWITTER_CALLBACK_URL=http://localhost:3000/auth/twitter/callback
+   12  
+   13  DATABASE_URL=postgres://postgres:postgres@localhost:5432/thesis
+
+/Users/jt/Desktop/HR/hr-raptors/node_modules/accepts/README.md:
+  117  You can test this out with the cURL program:
+  118  ```sh
+  119: curl -I -H'Accept: text/html' http://localhost:3000/
+  120  ```
+  121  
+
+/Users/jt/Desktop/HR/hr-raptors/node_modules/express/lib/response.js:
+  668   * Example:
+  669   *
+  670:  *    res.append('Link', ['<http://localhost/>', '<http://localhost:3000/>']);
+  671   *    res.append('Set-Cookie', 'foo=bar; Path=/; HttpOnly');
+  672   *    res.append('Warning', '199 Miscellaneous warning');
+
+/Users/jt/Desktop/HR/hr-raptors/node_modules/http-proxy-middleware/README.md:
+   23  app.listen(3000);
+   24  
+   25: // http://localhost:3000/api/foo/bar -> http://www.example.org/api/foo/bar
+   26  ```
+   27  
+   ..
+  112          },
+  113          router: {
+  114:             // when request.headers.host == 'dev.localhost:3000',
+  115              // override target 'http://www.example.org' to 'http://localhost:8000'
+  116:             'dev.localhost:3000' : 'http://localhost:8000'
+  117          }
+  118      };
+  ...
+  196      // The order of the configuration matters.
+  197      router: {
+  198:         'integration.localhost:3000' : 'http://localhost:8001',  // host only
+  199:         'staging.localhost:3000'     : 'http://localhost:8002',  // host only
+  200:         'localhost:3000/api'         : 'http://localhost:8003',  // host + path
+  201          '/rest'                      : 'http://localhost:8004'   // path only
+  202      }
+
+/Users/jt/Desktop/HR/hr-raptors/node_modules/http-proxy-middleware/lib/router.js:
+   29          if (containsPath(key)) {
+   30  
+   31:             if (hostAndPath.indexOf(key) > -1) {    // match 'localhost:3000/api'
+   32                  result = table[key];
+   33                  logger.debug('[HPM] Router table match: "%s"', key);
+   ..
+   36          } else {
+   37  
+   38:             if (key === host) {                     // match 'localhost:3000'
+   39                  result = table[key];
+   40                  logger.debug('[HPM] Router table match: "%s"', host);
+
+/Users/jt/Desktop/HR/hr-raptors/node_modules/oauth/examples/express-gdata/server.js:
+   38  	                  "anonymous",
+   39  	                  "1.0",
+   40: 	                  "http://localhost:3000/google_cb"+( req.param('action') && req.param('action') != "" ? "?action="+querystring.escape(req.param('action')) : "" ),
+   41  	                  "HMAC-SHA1");
+   42  
+   ..
+  166  
+  167  app.listen(3000);
+  168: console.log("listening on http://localhost:3000");
+  169  
+
+/Users/jt/Desktop/HR/hr-raptors/node_modules/passport-facebook/README.md:
+   45      clientID: FACEBOOK_APP_ID,
+   46      clientSecret: FACEBOOK_APP_SECRET,
+   47:     callbackURL: "http://localhost:3000/auth/facebook/callback"
+   48    },
+   49    function(accessToken, refreshToken, profile, cb) {
+   ..
+  118    clientID: FACEBOOK_APP_ID,
+  119    clientSecret: FACEBOOK_APP_SECRET,
+  120:   callbackURL: "http://localhost:3000/auth/facebook/callback",
+  121    profileFields: ['id', 'displayName', 'photos', 'email']
+  122  }), ...)
+  ...
+  134    clientID: FACEBOOK_APP_ID,
+  135    clientSecret: FACEBOOK_APP_SECRET,
+  136:   callbackURL: "http://localhost:3000/auth/facebook/callback",
+  137    enableProof: true
+  138  }, ...)
+
+/Users/jt/Desktop/HR/hr-raptors/node_modules/passport-oauth2/README.md:
+   46      clientID: EXAMPLE_CLIENT_ID,
+   47      clientSecret: EXAMPLE_CLIENT_SECRET,
+   48:     callbackURL: "http://localhost:3000/auth/example/callback"
+   49    },
+   50    function(accessToken, refreshToken, profile, cb) {
+
+/Users/jt/Desktop/HR/hr-raptors/node_modules/q/README.md:
+  603  
+  604  ```javascript
+  605: requestOkText("http://localhost:3000")
+  606  .then(function (responseText) {
+  607      // If the HTTP response returns 200 OK, log the response text.
+
+/Users/jt/Desktop/HR/hr-raptors/node_modules/stream-http/test/node/http-browserify.js:
+   61  
+   62  	var resolved = url.resolve(location, request._opts.url)
+   63: 	t.equal(resolved, 'foo://localhost:3000/bar', 'Url should be correct')
+   64  	t.end()
+   65  })
+   ..
+   80  
+   81  	var resolved = url.resolve(fileLocation, request._opts.url)
+   82: 	t.equal(resolved, 'http://localhost:3000/bar', 'Url should be correct')
+   83  	t.end()
+   84  })
+
+/Users/jt/Desktop/HR/hr-raptors/server/app.js:
+   26  app.use(function(req, res, next) {
+   27    // Website you wish to allow to connect
+   28:   res.setHeader('Access-Control-Allow-Origin', 'http://materialstudio.herokuapp.com' || 'http://localhost:3000');
+   29    // Request methods you wish to allow
+   30    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+23 matches across 11 files
