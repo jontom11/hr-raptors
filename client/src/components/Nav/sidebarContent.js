@@ -46,7 +46,7 @@ const SidebarContent = (props) => {
         <div style={styles.divider} />
         <SingleComponent/>
         {componentsKey.map((component, index) =>
-          <FlatButton key={index} fullWidth={true} style={styles.sidebarLink}>{component}</FlatButton>
+          <FlatButton key={index} fullWidth={true} style={styles.sidebarLink}><SingleComponent component={component} /></FlatButton>
         )}
       </div>
     </div>
