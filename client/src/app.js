@@ -12,7 +12,6 @@ injectTapEventPlugin();
 
 import View from './components/View/view';
 import Nav from './components/Nav/nav';
-import SideBar from './components/SideBar/sidebar';
 import Code from './components/Code/code';
 
 import { Provider } from 'react-redux';
@@ -52,7 +51,7 @@ class App extends React.Component {
           <div>
             <h3 draggable="true">HELLO</h3>
           </div>
-          <SideBar view={main} toggleView={this.toggleView} />
+          <Nav view={main} toggleView={this.toggleView} />
         </div>
       </MuiThemeProvider>
       </Provider>

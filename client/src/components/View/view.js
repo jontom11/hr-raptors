@@ -2,9 +2,6 @@ import React from 'react';
 
 import ReduxView from './reduxView';
 import ComponentView from './componentView';
-import HTML5Backend from 'react-dnd-html5-backend';
-import SingleComponent from '../Sidebar/component';
-
 
 class View extends React.Component {
   constructor(props) {

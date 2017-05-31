@@ -1,10 +1,10 @@
 import React from 'react';
-import MaterialTitlePanel from './materialTitlePanel';
 import PropTypes from 'prop-types';
-
 import FlatButton from 'material-ui/FlatButton';
+import _ from 'lodash';
 
-const dummyComponents = ['Component 1', 'Component 2', 'Component 3', 'Component 4', 'Component 5', 'Component 6'];
+import MaterialTitlePanel from './navTitlePanel';
+import components from '../dragItems';
 
 const styles = {
   sidebar: {
@@ -32,6 +32,10 @@ const styles = {
 
 const SidebarContent = (props) => {
   const style = props.style ? Object.assign({}, styles.sidebar, props.style) : styles.sidebar;
+  const componentsKey = [];
+  _.forEach(components, (e, k) => {
+    componentsKey.push(k);
+  });
 
   return (
     <div>
@@ -39,7 +43,7 @@ const SidebarContent = (props) => {
       <div style={styles.content}>
         <h3 href="#" style={styles.sidebarLink}>Components</h3>
         <div style={styles.divider} />
-        {dummyComponents.map((component, index) =>
+        {componentsKey.map((component, index) =>
           <FlatButton key={index} fullWidth={true} style={styles.sidebarLink}>{component}</FlatButton>
         )}
       </div>

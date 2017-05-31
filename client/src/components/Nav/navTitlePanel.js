@@ -15,7 +15,7 @@ const styles = {
   },
 };
 
-const MaterialTitlePanel = (props) => {
+const NavTitlePanel = (props) => {
   const rootStyle = Object.assign({}, styles.root, props.style);
   const headerStyle = props.style ? styles.header : Object.assign({}, styles.header, {position: 'fixed'});
 
@@ -26,7 +26,7 @@ const MaterialTitlePanel = (props) => {
   );
 };
 
-MaterialTitlePanel.propTypes = {
+NavTitlePanel.propTypes = {
   style: PropTypes.object,
   title: PropTypes.oneOfType([
     PropTypes.string,
@@ -34,4 +34,4 @@ MaterialTitlePanel.propTypes = {
   ]),
 };
 
-export default MaterialTitlePanel;
+export default NavTitlePanel;
