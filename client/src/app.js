@@ -48,9 +48,8 @@ class App extends React.Component {
     return (
       <Provider store={store}>
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-        <div className='wrap'>
-          <Nav onClick={this.toggleView} />
-          <div className='bodywrap'>
+        <div>
+          <div>
             <div>
               <h3 draggable="true"></h3>
             </div>
