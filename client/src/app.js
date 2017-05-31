@@ -17,6 +17,9 @@ import Code from './components/Code/code';
 
 import { Provider } from 'react-redux';
 import store from './store';
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from 'react-dnd';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -49,7 +52,7 @@ class App extends React.Component {
           <Nav onClick={this.toggleView} />
           <div className='bodywrap'>
             <div>
-              <h3 draggable="true">HELLO</h3>
+              <h3 draggable="true"></h3>
             </div>
             <SideBar />
             {main}
@@ -60,5 +63,5 @@ class App extends React.Component {
     );
   }
 }
-
+App = DragDropContext(HTML5Backend)(App);
 ReactDOM.render(<App />, document.getElementById('root'));

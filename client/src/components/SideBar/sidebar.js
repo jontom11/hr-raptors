@@ -1,4 +1,5 @@
 import React from 'react';
+import SingleComponent from './component'
 
 class SideBar extends React.Component {
   constructor(props) {
@@ -11,8 +12,8 @@ class SideBar extends React.Component {
   render() {
     return (
       <div>
+          <SingleComponent/>
         <div className="left">
-        <h1>Side Bar</h1>
         </div>
       </div>
     );
