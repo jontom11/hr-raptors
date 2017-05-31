@@ -16,11 +16,12 @@ const styles = {
 };
 
 const MaterialTitlePanel = (props) => {
-  const rootStyle = props.sideStyle ? Object.assign({}, styles.root, props.sideStyle) : Object.assign({}, styles.root, props.style);
+  const rootStyle = Object.assign({}, styles.root, props.style);
+  const headerStyle = props.style ? styles.header : Object.assign({}, styles.header, {position: 'fixed'});
 
   return (
     <div style={rootStyle}>
-      <div style={styles.header}>{props.title}</div>
+      <div style={headerStyle}>{props.title}</div>
     </div>
   );
 };

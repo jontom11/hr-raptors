@@ -9,7 +9,7 @@ const dummyComponents = ['Component 1', 'Component 2', 'Component 3', 'Component
 const styles = {
   sidebar: {
     width: 256,
-    height: '100%',
+    maxHeight: '100%',
   },
   sidebarLink: {
     display: 'block',

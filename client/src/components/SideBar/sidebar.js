@@ -16,9 +16,6 @@ const styles = {
   content: {
     padding: '2.5vh',
   },
-  sideStyle: {
-    height: '300px',
-  }
 };
 
 class SideBar extends React.Component {
@@ -50,18 +47,19 @@ class SideBar extends React.Component {
     const sidebar = <SidebarContent />;
 
     const contentHeader = (
-      <span>
+      <div>
         {!this.state.docked ?
-        <a onClick={this.menuButtonClick} href="#" style={styles.contentHeaderMenuLink}><i className="fa fa-bars" aria-hidden="true" /></a> :
-          <a onClick={this.menuButtonClick} href="#" style={styles.contentHeaderMenuLink}><i className="fa fa-times" aria-hidden="true" /></a>}
+        <a onClick={this.menuButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-bars" aria-hidden="true" /></a> :
+          <a onClick={this.menuButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-times" aria-hidden="true" /></a>}
         <span> React Sidebar</span>
-        <FlatButton label="Code" onClick={this.props.toggleView} />
-      </span>);
+        <div className="floatright">
+          <a onClick={this.props.toggleView} style={styles.contentHeaderMenuLink}><i className="fa fa-code" aria-hidden="true" /></a>
+        </div>
+      </div>);
 
     const sidebarProps = {
       sidebar: sidebar,
       docked: this.state.docked,
-      sidebarClassName: 'custom-sidebar-class',
       open: this.state.open,
       touch: this.state.touch,
       shadow: this.state.shadow,
@@ -69,9 +67,13 @@ class SideBar extends React.Component {
       touchHandleWidth: this.state.touchHandleWidth,
       dragToggleDistance: this.state.dragToggleDistance,
       transitions: this.state.transitions,
+      styles: {
+        sidebar: Object.assign({}, styles.sidebar, {position: 'fixed'})
+      },
     };
-
+    console.log('HELLLOOO', sidebarProps);
     return (
+
       <Sidebar {...sidebarProps}>
         <MaterialTitlePanel title={contentHeader} />
         <div style={styles.content}>
