@@ -27,7 +27,7 @@ class reduxView extends React.Component {
   render() {
     const { user, code } = this.props;
     // user = this.props.user;
-    // code = this.props.code 
+    // code = this.props.code
     if (!code.length) {
       return (
         <div>
@@ -42,8 +42,8 @@ class reduxView extends React.Component {
     return (
       <div>
         <h1>{user.name} <small>{user.age}</small></h1>
-        <ul>{mappedCode}</ul>
         <button onClick={this.addCodeClick.bind(this)}>add code</button>
+        <ul>{mappedCode}</ul>
       </div>
     );
   }
