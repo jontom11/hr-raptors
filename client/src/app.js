@@ -12,7 +12,6 @@ injectTapEventPlugin();
 
 import View from './components/View/view';
 import Nav from './components/Nav/nav';
-import SideBar from './components/SideBar/sidebar';
 import Code from './components/Code/code';
 
 import { Provider } from 'react-redux';
@@ -48,15 +47,11 @@ class App extends React.Component {
     return (
       <Provider store={store}>
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-        <div className='wrap'>
-          <Nav onClick={this.toggleView} />
-          <div className='bodywrap'>
-            <div>
-              <h3 draggable="true"></h3>
-            </div>
-            <SideBar />
-            {main}
+        <div>
+          <div>
+            <h3 draggable="true">HELLO</h3>
           </div>
+          <Nav view={main} toggleView={this.toggleView} />
         </div>
       </MuiThemeProvider>
       </Provider>
