@@ -8,7 +8,6 @@ const dummyComponents = ['Component 1', 'Component 2', 'Component 3', 'Component
 
 const styles = {
   sidebar: {
-    width: 256,
     maxHeight: '100%',
   },
   sidebarLink: {
@@ -36,7 +35,7 @@ const SidebarContent = (props) => {
 
   return (
     <div>
-    <MaterialTitlePanel title="Menu" style={style} />
+    <MaterialTitlePanel title="Material UI" style={style} />
       <div style={styles.content}>
         <h3 href="#" style={styles.sidebarLink}>Components</h3>
         <div style={styles.divider} />

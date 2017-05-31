@@ -47,13 +47,12 @@ class SideBar extends React.Component {
     const sidebar = <SidebarContent />;
 
     const contentHeader = (
-      <div>
+      <div className="nav-wrapper">
+        <div className="left">
         {!this.state.docked ?
         <a onClick={this.menuButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-bars" aria-hidden="true" /></a> :
           <a onClick={this.menuButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-times" aria-hidden="true" /></a>}
-        <span> React Sidebar</span>
-        <div className="floatright">
-          <a onClick={this.props.toggleView} style={styles.contentHeaderMenuLink}><i className="fa fa-code" aria-hidden="true" /></a>
+        <a onClick={this.props.toggleView} style={styles.contentHeaderMenuLink}><i className="fa fa-code" aria-hidden="true" /></a>
         </div>
       </div>);
 
@@ -71,7 +70,7 @@ class SideBar extends React.Component {
         sidebar: Object.assign({}, styles.sidebar, {position: 'fixed'})
       },
     };
-    console.log('HELLLOOO', sidebarProps);
+
     return (
 
       <Sidebar {...sidebarProps}>

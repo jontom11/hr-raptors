@@ -15,7 +15,7 @@ class View extends React.Component {
   render() {
 
     return (
-      <article className="center">
+      <article className="center-content">
         <h1>Hello World from React</h1>
         <h2>This is the Main Page</h2>
         <ComponentView />

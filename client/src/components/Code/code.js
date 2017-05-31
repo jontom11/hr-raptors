@@ -9,7 +9,7 @@ class Code extends React.Component {
   render() {
 
     return (
-      <article className="center">
+      <article className="center-content">
         <h1>Hello World from React</h1>
         <h2>This is some code</h2>
       </article>
