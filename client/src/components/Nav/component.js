@@ -16,6 +16,11 @@ const componentSource = {
   }
 };
 class SingleComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   render() {
     const { connectDragSource, isDragging } = this.props;
     return connectDragSource(
@@ -23,7 +28,7 @@ class SingleComponent extends Component {
         opacity: isDragging ? 0.5 : 1,
         cursor: 'move',
       }}>
-        DRAGGABLE COMPONENT
+        {this.props.component}
       </div>
     );
   }
