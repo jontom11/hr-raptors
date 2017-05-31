@@ -16,6 +16,9 @@ const styles = {
   content: {
     padding: '2.5vh',
   },
+  sideStyle: {
+    height: '300px',
+  }
 };
 
 class SideBar extends React.Component {

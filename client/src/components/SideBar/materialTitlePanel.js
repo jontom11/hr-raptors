@@ -16,7 +16,7 @@ const styles = {
 };
 
 const MaterialTitlePanel = (props) => {
-  const rootStyle = Object.assign({}, styles.root, props.style);
+  const rootStyle = props.sideStyle ? Object.assign({}, styles.root, props.sideStyle) : Object.assign({}, styles.root, props.style);
 
   return (
     <div style={rootStyle}>

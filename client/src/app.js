@@ -48,14 +48,12 @@ class App extends React.Component {
     return (
       <Provider store={store}>
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-
+        <div>
           <div>
-            <div>
-              <h3 draggable="true"></h3>
-            </div>
-            <SideBar view={main} toggleView={this.toggleView} />
+            <h3 draggable="true">HELLO</h3>
           </div>
-
+          <SideBar view={main} toggleView={this.toggleView} />
+        </div>
       </MuiThemeProvider>
       </Provider>
     );

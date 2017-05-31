@@ -14,7 +14,7 @@ const styles = {
   sidebarLink: {
     display: 'block',
     padding: '1vh 0px',
-    color: '#757575',
+    color: '#000',
     textDecoration: 'none',
     lineHeight: 'inherit',
 
@@ -22,7 +22,7 @@ const styles = {
   divider: {
     margin: '8px 0',
     height: 1,
-    backgroundColor: '#757575',
+    backgroundColor: '#000',
   },
   content: {
     padding: '2.5vh',
