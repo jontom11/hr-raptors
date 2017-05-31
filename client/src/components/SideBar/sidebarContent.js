@@ -1,6 +1,10 @@
 import React from 'react';
-import MaterialTitlePanel from './material_title_panel';
+import MaterialTitlePanel from './materialTitlePanel';
 import PropTypes from 'prop-types';
+
+import FlatButton from 'material-ui/FlatButton';
+
+const dummyComponents = ['Component 1', 'Component 2', 'Component 3', 'Component 4', 'Component 5', 'Component 6'];
 
 const styles = {
   sidebar: {
@@ -9,9 +13,11 @@ const styles = {
   },
   sidebarLink: {
     display: 'block',
-    padding: '16px 0px',
+    padding: '1vh 0px',
     color: '#757575',
     textDecoration: 'none',
+    lineHeight: 'inherit',
+
   },
   divider: {
     margin: '8px 0',
@@ -19,7 +25,7 @@ const styles = {
     backgroundColor: '#757575',
   },
   content: {
-    padding: '16px',
+    padding: '2.5vh',
     height: '100%',
     backgroundColor: 'white',
   },
@@ -28,22 +34,17 @@ const styles = {
 const SidebarContent = (props) => {
   const style = props.style ? Object.assign({}, styles.sidebar, props.style) : styles.sidebar;
 
-  const links = [];
-
-  for (let i = 0; i < 10; i++) {
-    links.push(
-      <a key={i} href="#" style={styles.sidebarLink}>Mock menu item {i}</a>);
-  }
-
   return (
-    <MaterialTitlePanel title="Menu" style={style}>
+    <div>
+    <MaterialTitlePanel title="Menu" style={style} />
       <div style={styles.content}>
-        <a href="#" style={styles.sidebarLink}>Home</a>
-        <a href="#" style={styles.sidebarLink}>Responsive Example</a>
+        <h3 href="#" style={styles.sidebarLink}>Components</h3>
         <div style={styles.divider} />
-        {links}
+        {dummyComponents.map((component, index) =>
+          <FlatButton key={index} fullWidth={true} style={styles.sidebarLink}>{component}</FlatButton>
+        )}
       </div>
-    </MaterialTitlePanel>
+    </div>
   );
 };
 

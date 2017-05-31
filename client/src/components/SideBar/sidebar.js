@@ -2,8 +2,10 @@ import React from 'react';
 import SingleComponent from './component'
 
 import Sidebar from 'react-sidebar';
-import MaterialTitlePanel from './material_title_panel';
-import SidebarContent from './sidebar_content';
+import MaterialTitlePanel from './materialTitlePanel';
+import SidebarContent from './sidebarContent';
+import View from '../View/view';
+import FlatButton from 'material-ui/FlatButton';
 
 const styles = {
   contentHeaderMenuLink: {
@@ -12,7 +14,7 @@ const styles = {
     padding: 8,
   },
   content: {
-    padding: '16px',
+    padding: '2.5vh',
   },
 };
 
@@ -31,46 +33,14 @@ class SideBar extends React.Component {
       dragToggleDistance: 30,
     };
 
-    this.renderPropCheckbox = this.renderPropCheckbox.bind(this);
-    this.renderPropNumber = this.renderPropNumber.bind(this);
-    this.onSetOpen = this.onSetOpen.bind(this);
     this.menuButtonClick = this.menuButtonClick.bind(this);
   }
 
-  onSetOpen(dock) {
-    this.setState({docked: dock});
-  }
-
   menuButtonClick(ev) {
-    ev.preventDefault();
-    this.onSetOpen(!this.state.docked);
-  }
-
-  renderPropCheckbox(prop) {
-    const toggleMethod = (ev) => {
-      const newState = {};
-      newState[prop] = ev.target.checked;
-      this.setState(newState);
-    };
-
-    return (
-      <p key={prop}>
-        <input type="checkbox" onChange={toggleMethod} checked={this.state[prop]} id={prop} />
-        <label htmlFor={prop}> {prop}</label>
-      </p>);
-  }
-
-  renderPropNumber(prop) {
-    const setMethod = (ev) => {
-      const newState = {};
-      newState[prop] = parseInt(ev.target.value, 10);
-      this.setState(newState);
-    };
-
-    return (
-      <p key={prop}>
-        {prop} <input type="number" onChange={setMethod} value={this.state[prop]} />
-      </p>);
+    // ev.preventDefault();
+    this.setState({
+      docked: !this.state.docked,
+    });
   }
 
   render() {
@@ -82,6 +52,7 @@ class SideBar extends React.Component {
         <a onClick={this.menuButtonClick} href="#" style={styles.contentHeaderMenuLink}><i className="fa fa-bars" aria-hidden="true" /></a> :
           <a onClick={this.menuButtonClick} href="#" style={styles.contentHeaderMenuLink}><i className="fa fa-times" aria-hidden="true" /></a>}
         <span> React Sidebar</span>
+        <FlatButton label="Code" onClick={this.props.toggleView} />
       </span>);
 
     const sidebarProps = {
@@ -95,7 +66,6 @@ class SideBar extends React.Component {
       touchHandleWidth: this.state.touchHandleWidth,
       dragToggleDistance: this.state.dragToggleDistance,
       transitions: this.state.transitions,
-      onSetOpen: this.onSetOpen,
     };
 
     return (

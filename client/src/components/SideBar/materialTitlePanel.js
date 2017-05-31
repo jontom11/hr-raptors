@@ -9,18 +9,18 @@ const styles = {
   header: {
     backgroundColor: '#03a9f4',
     color: 'white',
-    padding: '16px',
+    padding: '2.5vh',
     fontSize: '1.5em',
+    width: '100%',
   },
 };
 
 const MaterialTitlePanel = (props) => {
-  const rootStyle = props.style ? Object.assign({}, styles.root, props.style) : styles.root;
+  const rootStyle = Object.assign({}, styles.root, props.style);
 
   return (
     <div style={rootStyle}>
       <div style={styles.header}>{props.title}</div>
-      {props.children}
     </div>
   );
 };
@@ -31,7 +31,6 @@ MaterialTitlePanel.propTypes = {
     PropTypes.string,
     PropTypes.object,
   ]),
-  children: PropTypes.object,
 };
 
 export default MaterialTitlePanel;
