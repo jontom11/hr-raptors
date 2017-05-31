@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 import MaterialTitlePanel from './navTitlePanel';
 import components from '../dragItems';
+import SingleComponent from './component';
 
 const styles = {
   sidebar: {
@@ -43,6 +44,7 @@ const SidebarContent = (props) => {
       <div style={styles.content}>
         <h3 href="#" style={styles.sidebarLink}>Components</h3>
         <div style={styles.divider} />
+        <SingleComponent/>
         {componentsKey.map((component, index) =>
           <FlatButton key={index} fullWidth={true} style={styles.sidebarLink}>{component}</FlatButton>
         )}

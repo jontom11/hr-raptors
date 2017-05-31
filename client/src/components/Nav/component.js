@@ -3,28 +3,27 @@ import { ItemTypes } from '../View/Constants';
 import { DragSource } from 'react-dnd';
 import PropTypes from 'prop-types';
 
-function collect(connect, monitor) {
+const collect = function(connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
-  }
-}
+    isDragging: monitor.isDragging(),
+  };
+};
+
 const componentSource = {
   beginDrag(props) {
     return {};
   }
 };
- class SingleComponent extends Component {
+class SingleComponent extends Component {
   render() {
     const { connectDragSource, isDragging } = this.props;
     return connectDragSource(
       <div style={{
         opacity: isDragging ? 0.5 : 1,
-        fontSize: 25,
-        fontWeight: 'bold',
-        cursor: 'move'
+        cursor: 'move',
       }}>
-        SIDE BAR
+        DRAGGABLE COMPONENT
       </div>
     );
   }
