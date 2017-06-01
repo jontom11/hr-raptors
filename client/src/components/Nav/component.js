@@ -12,7 +12,7 @@ const collect = function(connect, monitor) {
 
 const componentSource = {
   beginDrag(props) {
-    return {id:props.id};
+    return {component:props.component};
   }
 };
 class SingleComponent extends Component {
@@ -22,7 +22,7 @@ class SingleComponent extends Component {
   }
 
   render() {
-    const { connectDragSource, isDragging } = this.props;
+    const { connectDragSource, isDragging, component } = this.props;
     return connectDragSource(
       <div style={{
         opacity: isDragging ? 0.5 : 1,
