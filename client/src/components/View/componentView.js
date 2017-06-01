@@ -1,18 +1,39 @@
 import React from 'react';
 import { DropTarget } from 'react-dnd';
+import { ItemTypes } from './Constants';
 
+const squareTarget = {
+  drop(props, monitor) {
+    const item = monitor.getItem();
+    console.log(item);
+    return item;
+  }
+}
+function collect(connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver()
+  };
+}
 class ComponentView extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
+ renderOverlay(color) {
+    return (
+      <div style={{
+        height: '100px',
+        width: '100px',
+        backgroundColor: color,
+      }} />
+    );
   }
 
   render() {
-
-    return (
-        <div style={{width: '100px', height: '100px',backgroundColor:'red'}}>
-        </div>
+   const { connectDropTarget, isOver } = this.props;
+    return connectDropTarget(
+<div>
+    {isOver && this.renderOverlay('red')}
+    {!isOver && this.renderOverlay('blue')}
+    </div>
     );
+  }
 }
-}
-export default ComponentView;
+export default DropTarget(ItemTypes.COMPONENT, squareTarget, collect)(ComponentView);
