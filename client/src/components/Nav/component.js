@@ -12,7 +12,7 @@ const collect = function(connect, monitor) {
 
 const componentSource = {
   beginDrag(props) {
-    return {};
+    return {id:props.id};
   }
 };
 class SingleComponent extends Component {

@@ -19,8 +19,8 @@ class ComponentView extends React.Component {
   renderOverlay(color) {
     return (
        <div style={{
-         height: '100px',
-         width: '100px',
+         height: '400px',
+         width: '400px',
          backgroundColor: color,
        }} />
     );
