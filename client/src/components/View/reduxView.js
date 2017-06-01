@@ -4,6 +4,8 @@ import ReactDOMServer from 'react-dom/server';
 import { fetchUser } from "../../actions/userActions"
 import { fetchCode, addCode, clearCode } from "../../actions/codeActions"
 import dragItems from '../dragItems.js'
+import componentView from './componentView';
+
 
 @connect((store) => {
   return {
@@ -16,26 +18,27 @@ class reduxView extends React.Component {
   componentWillMount() {
     this.props.dispatch(fetchUser());
   }
+  //###################### HTML CODE VIEW ############
+  componentWillReceiveProps(newProps) {
+    console.log('ID', newProps.newComponentID)
+    if (newProps.newComponentID !== this.props.newComponentID) {  
+      this.props.dispatch(addCode(newProps.newComponentID, dragItems[newProps.newComponentName]));
+    }
+  }  
+  //###################### HTML CODE VIEW ############
 
   fetchCode() {
     this.props.dispatch(fetchCode());
   }
 
   addCodeClick() {
-    this.props.dispatch(addCode('3', dragItems.button ));
+    this.props.dispatch(addCode('3', 'hello'));
   }
-  //#################
-  addCodeClick1() {
-    this.props.dispatch(addCode('3', dragItems.icon ));
-  }
-  addCodeClick2() {
-    this.props.dispatch(addCode('3', dragItems.card ));
-  }
-  //#############
 
   clearCodeClick() {
     this.props.dispatch(clearCode());
   }
+
 
   render() {
     const { user, code } = this.props;
@@ -56,9 +59,9 @@ class reduxView extends React.Component {
       <div>
         <h1>{user.name} <small>{user.age}</small></h1>
         <button onClick={this.addCodeClick.bind(this)}>add button</button>
-        <button onClick={this.addCodeClick1.bind(this)}>add icon</button>
-        <button onClick={this.addCodeClick2.bind(this)}>add card</button>
         <button onClick={this.clearCodeClick.bind(this)}>clear code</button>
+        <div>{componentView}</div>
+        <componentView />
         <ul>{mappedCode}</ul>
       </div>
     );
