@@ -7,16 +7,15 @@ class View extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      item:null,
-      count: 0
+      currentItem:null,
+      currentItemID: 0
     };
     this.AddedComponent = this.AddedComponent.bind(this);
   }
 
-  AddedComponent(someItem) {
-    var newCount = this.state.count+1;
-    this.setState({item:someItem, count: newCount});
-
+  AddedComponent(droppedInItem) {
+    var newCount = this.state.currentItemID+1;
+    this.setState({currentItem:droppedInItem, currentItemID: newCount});
   }
 
   render() {
@@ -27,7 +26,7 @@ class View extends React.Component {
         <h2>This is the Main Page</h2>
         <div>{ComponentView}</div>
         <ComponentView added={this.AddedComponent.bind(this)}/>
-        <ReduxView newComponentName={this.state.item} newComponentID={this.state.count}/>
+        <ReduxView newComponentName={this.state.currentItem} newComponentID={this.state.currentItemID}/>
       </article>
     );
   }
