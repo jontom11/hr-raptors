@@ -8,26 +8,26 @@ const squareTarget = {
     console.log(item);
     return item;
   }
-}
-function collect(connect, monitor) {
+};
+let collect = function(connect, monitor) {
   return {
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver()
   };
-}
+};
 class ComponentView extends React.Component {
- renderOverlay(color) {
+  renderOverlay(color) {
     return (
-      <div style={{
-        height: '100px',
-        width: '100px',
-        backgroundColor: color,
-      }} />
+       <div style={{
+         height: '100px',
+         width: '100px',
+         backgroundColor: color,
+       }} />
     );
   }
 
   render() {
-   const { connectDropTarget, isOver } = this.props;
+    const { connectDropTarget, isOver } = this.props;
     return connectDropTarget(
 <div>
     {isOver && this.renderOverlay('red')}
