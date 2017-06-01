@@ -2,7 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 
 import { fetchUser } from "../../actions/userActions"
-import { fetchCode, addCode } from "../../actions/codeActions"
+import { fetchCode, addCode, clearCode } from "../../actions/codeActions"
 
 @connect((store) => {
   return {
@@ -24,10 +24,14 @@ class reduxView extends React.Component {
     this.props.dispatch(addCode('3', 'Hello JT'));
   }
 
+  clearCodeClick() {
+    this.props.dispatch(clearCode());
+  }
+
   render() {
     const { user, code } = this.props;
     // user = this.props.user;
-    // code = this.props.code 
+    // code = this.props.code
     if (!code.length) {
       return (
         <div>
@@ -42,8 +46,9 @@ class reduxView extends React.Component {
     return (
       <div>
         <h1>{user.name} <small>{user.age}</small></h1>
-        <ul>{mappedCode}</ul>
         <button onClick={this.addCodeClick.bind(this)}>add code</button>
+        <button onClick={this.clearCodeClick.bind(this)}>clear code</button>
+        <ul>{mappedCode}</ul>
       </div>
     );
   }

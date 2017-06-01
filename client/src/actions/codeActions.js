@@ -24,4 +24,10 @@ module.exports = {
       },
     };
   },
+  clearCode: () => {
+    return {
+      type: 'CLEAR_CODE',
+      payload: {},
+    };
+  },
 };
