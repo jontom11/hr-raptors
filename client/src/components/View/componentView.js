@@ -1,6 +1,6 @@
 import React from 'react';
 import { DropTarget } from 'react-dnd';
-import { ItemTypes } from './constants';
+import { ItemTypes } from './Constants';
 
 const squareTarget = {
   drop(props, monitor) {
