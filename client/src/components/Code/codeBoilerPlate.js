@@ -18,11 +18,7 @@ const CodeBoilerPlate = (props) => {
 
         </head>
         <body>
-        <pre>
-        <h1>My HTML Boilerplate</h1>
-        <h2>Hello World</h2>
-        {props.code}
-        </pre>
+          {props.code}
         </body>
         </html>
 
