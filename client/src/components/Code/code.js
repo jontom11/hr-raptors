@@ -1,8 +1,9 @@
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
 
-import { connect } from "react-redux"
-import { fetchCode } from "../../actions/codeActions"
+import { connect } from 'react-redux';
+import { fetchCode } from '../../actions/codeActions';
+
+import CodeBoilerPlate from './codeBoilerPlate';
 
 @connect((store) => {
   return {
@@ -21,20 +22,18 @@ class Code extends React.Component {
   }
 
   render() {
-    const { view } = this.props;
+    const { view, code } = this.props;
 
     const mappedCode = view.map((code, index) =>
       <div key={index} className="codepart">
-        {ReactDOMServer.renderToStaticMarkup(<div>{code.code}</div>)}
+        {code.code}
       </div>
     );
 
     return (
       <article className="center-content">
-        <h1>Materialize Studio</h1>
-        <h2>Your project code goes here</h2>
         <div className="scrollbar" id="style-1">
-          {mappedCode}
+          <CodeBoilerPlate code={mappedCode} />
         </div>
       </article>
     )
