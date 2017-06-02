@@ -36,6 +36,7 @@ class View extends React.Component {
   }
 
   handleDroppedComponent(componentKey) {
+    console.log()
     var key = componentKey.component;
     this.props.view[this.props.index] = Object.assign({}, this.props.view[this.props.index], {isDropped: true, code: componentData[key]});
     this.props.view[this.props.index + 1] = this.state.viewDefault;
