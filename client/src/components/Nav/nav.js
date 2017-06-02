@@ -49,7 +49,9 @@ class Nav extends React.Component {
         {!this.state.docked ?
         <a onClick={this.menuButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-bars" aria-hidden="true" /></a> :
           <a onClick={this.menuButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-times" aria-hidden="true" /></a>}
-        <a onClick={this.props.toggleView} style={styles.contentHeaderMenuLink}><i className="fa fa-code" aria-hidden="true" /></a>
+          {this.props.viewState ?
+            <a onClick={this.props.toggleView} style={styles.contentHeaderMenuLink}><i className="fa fa-code" aria-hidden="true" /></a> :
+            <a onClick={this.props.toggleView} style={styles.contentHeaderMenuLink}><i className="fa fa-desktop" aria-hidden="true" /></a>}
         </div>
       </div>);
 

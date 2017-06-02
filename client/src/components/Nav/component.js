@@ -15,6 +15,7 @@ const componentSource = {
     return {component:props.component};
   }
 };
+
 class SingleComponent extends Component {
   constructor(props) {
     super(props);
