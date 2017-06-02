@@ -128,14 +128,14 @@ passport.use('facebook', new FacebookStrategy({
 );
 
 // REQUIRES PERMISSIONS FROM TWITTER TO OBTAIN USER EMAIL ADDRESSES
-passport.use('twitter', new TwitterStrategy({
-  consumerKey: process.env.TWITTER_CLIENT_ID,
-  consumerSecret: process.env.TWITTER_CLIENT_SECRET,
-  callbackURL: process.env.TWITTER_CALLBACK_URL,
-  userProfileURL: 'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true'
-},
-  (accessToken, refreshToken, profile, done) => getOrCreateOAuthProfile('twitter', profile, done))
-);
+// passport.use('twitter', new TwitterStrategy({
+//   consumerKey: process.env.TWITTER_CLIENT_ID,
+//   consumerSecret: process.env.TWITTER_CLIENT_SECRET,
+//   callbackURL: process.env.TWITTER_CALLBACK_URL,
+//   userProfileURL: 'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true'
+// },
+//   (accessToken, refreshToken, profile, done) => getOrCreateOAuthProfile('twitter', profile, done))
+// );
 
 const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
   return models.Auth.where({ type, oauth_id: oauthProfile.id }).fetch({
