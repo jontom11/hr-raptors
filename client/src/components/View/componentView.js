@@ -17,15 +17,17 @@ let collect = function(connect, monitor) {
   };
 };
 
-
 class ComponentView extends React.Component {
   renderOverlay(color) {
     return (
       <div>
        <div style={{
-         height: '20px',
+         marginTop: '27px',
+         height: '25px',
          width: '100%',
+         borderRadius: '5px',
          backgroundColor: color,
+         text: "DROP HERE",
        }} />
        </div>
     );
@@ -35,8 +37,8 @@ class ComponentView extends React.Component {
     const { connectDropTarget, isOver } = this.props;
     return connectDropTarget(
       <div>
-        {isOver && this.renderOverlay('red')}
-        {!isOver && this.renderOverlay('blue')}
+        {isOver && this.renderOverlay('#87CEFA')}
+        {!isOver && this.renderOverlay('none')}
       </div>
     );
   }
