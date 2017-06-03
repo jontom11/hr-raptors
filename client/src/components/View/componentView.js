@@ -4,11 +4,9 @@ import { ItemTypes } from './constants';
 
 const squareTarget = {
   drop(props, monitor) {
-    const componentKey = monitor.getItem();
-    console.log(componentKey);
-    console.log('DROPPED', props);
-    props.handleDroppedComponent(componentKey);
-    return componentKey;
+    const item = monitor.getItem();
+    props.added(item.component);
+    return item;
   }
 };
 
@@ -19,14 +17,17 @@ let collect = function(connect, monitor) {
   };
 };
 
+
 class ComponentView extends React.Component {
   renderOverlay(color) {
     return (
-      <div style={{
-        height: '1.5em',
-        width: '100%',
-        backgroundColor: color,
-      }} />
+      <div>
+       <div style={{
+         height: '20px',
+         width: '100%',
+         backgroundColor: color,
+       }} />
+       </div>
     );
   }
 
@@ -40,4 +41,4 @@ class ComponentView extends React.Component {
     );
   }
 }
-export default DropTarget(ItemTypes.COMPONENT, squareTarget, collect)(ComponentView);
+export default DropTarget(ItemTypes.COMPONENT, squareTarget, collect)(ComponentView, squareTarget);

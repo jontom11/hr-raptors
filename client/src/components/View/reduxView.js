@@ -1,8 +1,15 @@
-import React from "react";
-import { connect } from "react-redux";
-
+import React from "react"
+import { connect } from "react-redux"
 import { fetchUser } from "../../actions/userActions"
-import { fetchCode, addCode, clearCode } from "../../actions/codeActions"
+import { addCode, clearCode } from "../../actions/codeActions"
+import dragItems from '../dragItems.js'
+
+
+const styles = {
+  bottomUp: {
+    marginBottom: '-2%',
+  },
+};
 
 @connect((store) => {
   return {
@@ -12,43 +19,37 @@ import { fetchCode, addCode, clearCode } from "../../actions/codeActions"
   };
 })
 class reduxView extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   componentWillMount() {
     this.props.dispatch(fetchUser());
   }
 
-  fetchCode() {
-    this.props.dispatch(fetchCode());
-  }
-
-  addCodeClick() {
-    this.props.dispatch(addCode('3', 'Hello JT'));
+  componentWillReceiveProps(newProps) {
+    if (newProps.newComponentID !== this.props.newComponentID) {
+      this.props.dispatch(addCode(newProps.newComponentID, dragItems[newProps.newComponentName]));
+    }
   }
 
   clearCodeClick() {
     this.props.dispatch(clearCode());
   }
 
+
   render() {
     const { user, code } = this.props;
-    // user = this.props.user;
-    // code = this.props.code
-    if (!code.length) {
-      return (
-        <div>
-          <h1>{user.name} <small>{user.age}</small></h1>
-          <button onClick={this.fetchCode.bind(this)}>load code</button>
-        </div>
-      );
-    }
-
     const mappedCode = code.map((code, key) => <li key={key}>{code.text}</li>);
 
     return (
-      <div>
+      <div style={styles.bottomUp}>
         <h1>{user.name} <small>{user.age}</small></h1>
-        <button onClick={this.addCodeClick.bind(this)}>add code</button>
         <button onClick={this.clearCodeClick.bind(this)}>clear code</button>
         <ul>{mappedCode}</ul>
+
+
       </div>
     );
   }

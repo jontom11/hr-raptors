@@ -51,7 +51,7 @@ class App extends React.Component {
           <div>
             <h3 draggable="true">HELLO</h3>
           </div>
-          <Nav view={main} toggleView={this.toggleView} viewState={this.state.viewState} />
+          <Nav view={main} toggleView={this.toggleView} />
         </div>
       </MuiThemeProvider>
       </Provider>
