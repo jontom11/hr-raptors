@@ -29,8 +29,6 @@ class Code extends React.Component {
 
   render() {
     const { view, code } = this.props;
- 
-      console.log(stringed);
     const mappedCode = view.map((code, index) =>
       <div key={index} className="codepart">
         {code.code}
