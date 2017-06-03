@@ -6,9 +6,9 @@ let beautify_html = require('js-beautify').html;
 const CodeBoilerPlate = (props) => {
 
   return (
+  <code>
     <div>
       {beautify_html(ReactDOMServer.renderToStaticMarkup(
-
         <html lang="en">
         <head>
           <meta charset="utf-8" />
@@ -23,9 +23,9 @@ const CodeBoilerPlate = (props) => {
           {props.code}
         </body>
         </html>
-
       ),{'wrap-attributes':'force'})}
       </div>
+  </code>
   );
 };
 

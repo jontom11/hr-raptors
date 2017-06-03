@@ -27,8 +27,8 @@ class Code extends React.Component {
     );
 
     return (
-       <article className="center-content">
-        <div className="scrollbar  display-linebreak" id="style-1">
+       <article className="center-content code-view">
+        <div className="code-view display-linebreak" >
           <CodeBoilerPlate code={mappedCode} />
         </div>
       </article>
