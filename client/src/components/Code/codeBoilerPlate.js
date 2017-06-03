@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
+let beautify_html = require('js-beautify').html;
+let beautify = require('js-beautify');
+
 const CodeBoilerPlate = (props) => {
 
   return (
     <div>
-      {ReactDOMServer.renderToStaticMarkup(
+      {beautify_html(ReactDOMServer.renderToStaticMarkup(
 
         <html lang="en">
         <head>
@@ -22,7 +25,7 @@ const CodeBoilerPlate = (props) => {
         </body>
         </html>
 
-      )}
+      ),{'wrap-attributes':'force'})}
       </div>
   );
 };
