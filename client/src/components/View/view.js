@@ -19,6 +19,12 @@ class View extends React.Component {
     this.state = {
       componentName: null,
       componentID: 0,
+      dropTarget: (
+        <div className="col s12">
+          <DropTarget handleDroppedComponent={this.handleDroppedComponent.bind(this)} />
+        </div>),
+      isDropped: false,
+      dropTop: false,
     };
     this.handleDroppedComponent = this.handleDroppedComponent.bind(this);
   }
@@ -36,6 +42,16 @@ class View extends React.Component {
     this.setState({
       componentName: droppedInItem,
       componentID: newCount,
+      dropTop: false,
+    });
+  }
+
+  handleDroppedComponentTop(droppedInItem) {
+    var newCount = this.state.componentID + 1;
+    this.setState({
+      componentName: droppedInItem,
+      componentID: newCount,
+      dropTop: true,
     });
   }
 
@@ -47,14 +63,8 @@ class View extends React.Component {
         <h1>{user.name} <small>{user.age}</small></h1>
         <button onClick={this.clearCodeClick.bind(this)}>clear code</button>
 
-        <div className="row">
-          <div className="col s4"><DropTarget handleDrop={this.handleDroppedComponent.bind(this)}/></div>
-          <div className="col s4"><DropTarget handleDrop={this.handleDroppedComponent.bind(this)}/></div>
-          <div className="col s4"><DropTarget handleDrop={this.handleDroppedComponent.bind(this)}/></div>
-        </div>
-
-        <DropTarget handleDrop={this.handleDroppedComponent.bind(this)}/>
-        <ReduxView componentName={this.state.componentName} componentID={this.state.componentID}/>
+        <DropTarget handleDrop={this.handleDroppedComponentTop.bind(this)}/>
+        <ReduxView componentState={this.state} />
         <DropTarget handleDrop={this.handleDroppedComponent.bind(this)}/>
 
       </article>

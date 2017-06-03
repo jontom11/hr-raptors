@@ -15,12 +15,25 @@ module.exports = {
       });
     };
   },
-  addCode: (id, componentCode) => {
+  addCode: (id, componentCode, isDropped, dropTarget) => {
     return {
       type: 'ADD_CODE',
       payload: {
         id,
-        componentCode
+        componentCode,
+        isDropped,
+        dropTarget,
+      },
+    };
+  },
+  addCodeTop: (id, componentCode, isDropped, dropTarget) => {
+    return {
+      type: 'ADD_CODE_TOP',
+      payload: {
+        id,
+        componentCode,
+        isDropped,
+        dropTarget,
       },
     };
   },

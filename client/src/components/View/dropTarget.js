@@ -22,7 +22,6 @@ class ComponentView extends React.Component {
     return (
       <div>
        <div style={{
-         marginTop: '27px',
          height: '25px',
          width: '100%',
          borderRadius: '5px',
@@ -37,7 +36,7 @@ class ComponentView extends React.Component {
     return connectDropTarget(
       <div>
         {isOver && this.renderOverlay('#87CEFA')}
-        {!isOver && this.renderOverlay('red')}
+        {!isOver && this.renderOverlay('none')}
       </div>
     );
   }

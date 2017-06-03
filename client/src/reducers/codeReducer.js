@@ -20,6 +20,9 @@ export default function reducer(state = {
   case 'ADD_CODE': {
     return Object.assign({}, state, {components: state.components.concat(action.payload)});
   }
+  case 'ADD_CODE_TOP': {
+    return Object.assign({}, state, {components: [action.payload].concat(state.components)});
+  }
   case 'CLEAR_CODE': {
     return Object.assign({}, state, {code: [] });
   }

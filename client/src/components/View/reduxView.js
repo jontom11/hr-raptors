@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addCode } from '../../actions/codeActions';
+import { addCode, addCodeTop } from '../../actions/codeActions';
 import dragItems from '../dragItems.js';
 
 
@@ -21,9 +21,11 @@ class reduxView extends React.Component {
     this.state = {};
   }
 
-  componentWillReceiveProps(newProps) {
-    if (newProps.componentID !== this.props.componentID) {
-      this.props.dispatch(addCode(newProps.componentID, dragItems[newProps.componentName], this.state.viewDefault));
+  componentWillReceiveProps(nextProps) {
+    console.log('NEXT_PROPS', nextProps.componentState.dropTarget)
+    if (nextProps.componentState.componentID !== this.props.componentState.componentID) {
+      nextProps.componentState.dropTop ? this.props.dispatch(addCodeTop(nextProps.componentState.componentID, dragItems[nextProps.componentState.componentName], nextProps.componentState.isDropped, nextProps.componentState.dropTarget)) :
+      this.props.dispatch(addCode(nextProps.componentState.componentID, dragItems[nextProps.componentState.componentName], nextProps.componentState.isDropped, nextProps.componentState.dropTarget));
     }
   }
 
