@@ -4,6 +4,10 @@ import ComponentView from '../components/View/componentView';
 export default function reducer(state = {
   code: [],
   view: [],
+  list: {},
+  head: null,
+  tail: null,
+  item: 1,
   index: 0,
   fetching: false,
   fetched: false,
@@ -29,11 +33,11 @@ export default function reducer(state = {
   case 'FETCH_DEFAULT_VIEW': {
     return Object.assign({}, state, {view: state.view.concat(action.payload.view)});
   }
-  case 'FETCH_VIEW': {
-    return Object.assign({}, state, {fetchingView: true});
+  case 'UPDATE_ALL': {
+    return Object.assign({}, state, action.payload.all);
   }
   case 'CHANGE_DROP_COMPONENT': {
-    return Object.assign({}, state, {view: action.payload.view});
+    return Object.assign({}, state, {view: action.payload.view}, {index: action.payload.index});
   }
   case 'INCREMENT_INDEX': {
     return Object.assign({}, state, {index: action.payload.index});

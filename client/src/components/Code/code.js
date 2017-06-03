@@ -28,13 +28,15 @@ class Code extends React.Component {
   }
 
   render() {
+
     const { view, code } = this.props;
+
     const mappedCode = view.map((code, index) =>
       <div key={index} className="codepart">
         {code.code}
       </div>
     );
-   
+
     return (
        <article className="center-content">
         <div className="scrollbar  display-linebreak" id="style-1">

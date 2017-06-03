@@ -36,15 +36,16 @@ module.exports = {
       payload: { view },
     };
   },
-  fetchView: () => {
+  updateAll: (all) => {
     return {
-      type: 'FETCH_VIEW',
+      type: 'UPDATE_ALL',
+      payload: { all }
     };
   },
-  changeDropComponent: (view) => {
+  changeDropComponent: (view, index) => {
     return {
       type: 'CHANGE_DROP_COMPONENT',
-      payload: { view },
+      payload: { view, index },
     };
   },
   incrementIndex: (index) => {
@@ -53,4 +54,5 @@ module.exports = {
       payload: { index },
     };
   },
+
 };
