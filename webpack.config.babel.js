@@ -33,6 +33,12 @@ const config = {
       },
     ]
   },
+  // loaders: [
+  //   {
+  //     test: /\.scss$/,
+  //     loaders: ["style-loader", "css-loader", "sass-loader"]
+  //   }
+  // ],
 };
 
 export default config;

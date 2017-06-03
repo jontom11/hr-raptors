@@ -30,29 +30,4 @@ module.exports = {
       payload: {},
     };
   },
-  fetchDefaultView: (view) => {
-    return {
-      type: 'FETCH_DEFAULT_VIEW',
-      payload: { view },
-    };
-  },
-  updateAll: (all) => {
-    return {
-      type: 'UPDATE_ALL',
-      payload: { all }
-    };
-  },
-  changeDropComponent: (view, index) => {
-    return {
-      type: 'CHANGE_DROP_COMPONENT',
-      payload: { view, index },
-    };
-  },
-  incrementIndex: (index) => {
-    return {
-      type: 'INCREMENT_INDEX',
-      payload: { index },
-    };
-  },
-
 };

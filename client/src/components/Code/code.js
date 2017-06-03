@@ -1,9 +1,9 @@
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
-import { connect } from 'react-redux';
-import { fetchCode } from '../../actions/codeActions';
-
-import CodeBoilerPlate from './codeBoilerPlate';
+import { connect } from "react-redux"
+import { fetchCode } from "../../actions/codeActions"
+//
 
 var HtmlToReactParser = require('html-to-react').Parser;
 
@@ -13,15 +13,16 @@ let beautify = require('js-beautify');
 @connect((store) => {
   return {
     code: store.code.code,
-    view: store.code.view,
   };
 })
 
 class Code extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     componentsCode: []
+  //   };
+  // }
 
   fetchCode() {
     this.props.dispatch(fetchCode());
