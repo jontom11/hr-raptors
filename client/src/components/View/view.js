@@ -46,6 +46,13 @@ class View extends React.Component {
       <article className="center-content">
         <h1>{user.name} <small>{user.age}</small></h1>
         <button onClick={this.clearCodeClick.bind(this)}>clear code</button>
+
+        <div className="row">
+          <div className="col s4"><ComponentView added={this.AddedComponent.bind(this)}/></div>
+          <div className="col s4"><ComponentView added={this.AddedComponent.bind(this)}/></div>
+          <div className="col s4"><ComponentView added={this.AddedComponent.bind(this)}/></div>
+        </div>
+
         <ComponentView added={this.AddedComponent.bind(this)}/>
         <ReduxView newComponentName={this.state.currentItem} newComponentID={this.state.currentItemID}/>
         <ComponentView added={this.AddedComponent.bind(this)}/>
