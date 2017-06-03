@@ -7,6 +7,7 @@ import CodeBoilerPlate from './codeBoilerPlate';
 
 import DragItems from '../dragItems'
 var HtmlToReactParser = require('html-to-react').Parser;
+
 let beautify_html = require('js-beautify').html;
 let beautify = require('js-beautify');
 
