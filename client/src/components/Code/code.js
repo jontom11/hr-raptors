@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from "react-redux"
 import { fetchCode } from "../../actions/codeActions"
 
-import CodeBoilerPlate from './CodeBoilerPlate'
+import CodeBoilerPlate from './codeBoilerPlate'
 
 @connect((store) => {
   return {
