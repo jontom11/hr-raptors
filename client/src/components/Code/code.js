@@ -5,7 +5,6 @@ import { fetchCode } from '../../actions/codeActions';
 
 import CodeBoilerPlate from './codeBoilerPlate';
 
-import DragItems from '../dragItems'
 var HtmlToReactParser = require('html-to-react').Parser;
 
 let beautify_html = require('js-beautify').html;
@@ -30,9 +29,7 @@ class Code extends React.Component {
 
   render() {
     const { view, code } = this.props;
-    var codeString ='';
-    var count = 0;
-    var stringed = String(DragItems.button);
+ 
       console.log(stringed);
     const mappedCode = view.map((code, index) =>
       <div key={index} className="codepart">
