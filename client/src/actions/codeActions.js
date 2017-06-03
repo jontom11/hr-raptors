@@ -15,12 +15,12 @@ module.exports = {
       });
     };
   },
-  addCode: (id, text) => {
+  addCode: (id, componentCode) => {
     return {
       type: 'ADD_CODE',
       payload: {
         id,
-        text
+        componentCode
       },
     };
   },

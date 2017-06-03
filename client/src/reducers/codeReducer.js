@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function reducer(state = {
-  code: [],
+  components: [],
   fetching: false,
   fetched: false,
   error: null,
@@ -18,7 +18,7 @@ export default function reducer(state = {
     return Object.assign({}, state, {fetching: false, fetched: true, code: action.payload});
   }
   case 'ADD_CODE': {
-    return Object.assign({}, state, {code: state.code.concat(action.payload)});
+    return Object.assign({}, state, {components: state.components.concat(action.payload)});
   }
   case 'CLEAR_CODE': {
     return Object.assign({}, state, {code: [] });

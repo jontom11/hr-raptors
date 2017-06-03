@@ -1,7 +1,7 @@
-import React from "react"
-import { connect } from "react-redux"
-import { addCode } from "../../actions/codeActions"
-import dragItems from '../dragItems.js'
+import React from 'react';
+import { connect } from 'react-redux';
+import { addCode } from '../../actions/codeActions';
+import dragItems from '../dragItems.js';
 
 
 const styles = {
@@ -12,7 +12,7 @@ const styles = {
 
 @connect((store) => {
   return {
-    code: store.code.code,
+    components: store.code.components,
   };
 })
 class reduxView extends React.Component {
@@ -22,14 +22,14 @@ class reduxView extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.newComponentID !== this.props.newComponentID) {
-      this.props.dispatch(addCode(newProps.newComponentID, dragItems[newProps.newComponentName]));
+    if (newProps.componentID !== this.props.componentID) {
+      this.props.dispatch(addCode(newProps.componentID, dragItems[newProps.componentName], this.state.viewDefault));
     }
   }
 
   render() {
-    const { code } = this.props;
-    const mappedCode = code.map((code, key) => <li key={key}>{code.text}</li>);
+    const { components } = this.props;
+    const mappedCode = components.map((code, key) => <li key={key}>{code.componentCode}</li>);
 
     return (
       <div style={styles.bottomUp}>

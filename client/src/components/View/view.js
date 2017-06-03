@@ -4,7 +4,7 @@ import { fetchUser } from "../../actions/userActions"
 import { clearCode } from "../../actions/codeActions"
 
 import ReduxView from './reduxView';
-import ComponentView from './componentView';
+import DropTarget from './dropTarget';
 
 @connect((store) => {
   return {
@@ -17,10 +17,10 @@ class View extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentItem: null,
-      currentItemID: 0,
+      componentName: null,
+      componentID: 0,
     };
-    this.AddedComponent = this.AddedComponent.bind(this);
+    this.handleDroppedComponent = this.handleDroppedComponent.bind(this);
   }
 
   componentWillMount() {
@@ -31,11 +31,11 @@ class View extends React.Component {
     this.props.dispatch(clearCode());
   }
 
-  AddedComponent(droppedInItem) {
-    var newCount = this.state.currentItemID + 1;
+  handleDroppedComponent(droppedInItem) {
+    var newCount = this.state.componentID + 1;
     this.setState({
-      currentItem: droppedInItem,
-      currentItemID: newCount,
+      componentName: droppedInItem,
+      componentID: newCount,
     });
   }
 
@@ -48,14 +48,14 @@ class View extends React.Component {
         <button onClick={this.clearCodeClick.bind(this)}>clear code</button>
 
         <div className="row">
-          <div className="col s4"><ComponentView added={this.AddedComponent.bind(this)}/></div>
-          <div className="col s4"><ComponentView added={this.AddedComponent.bind(this)}/></div>
-          <div className="col s4"><ComponentView added={this.AddedComponent.bind(this)}/></div>
+          <div className="col s4"><DropTarget handleDrop={this.handleDroppedComponent.bind(this)}/></div>
+          <div className="col s4"><DropTarget handleDrop={this.handleDroppedComponent.bind(this)}/></div>
+          <div className="col s4"><DropTarget handleDrop={this.handleDroppedComponent.bind(this)}/></div>
         </div>
 
-        <ComponentView added={this.AddedComponent.bind(this)}/>
-        <ReduxView newComponentName={this.state.currentItem} newComponentID={this.state.currentItemID}/>
-        <ComponentView added={this.AddedComponent.bind(this)}/>
+        <DropTarget handleDrop={this.handleDroppedComponent.bind(this)}/>
+        <ReduxView componentName={this.state.componentName} componentID={this.state.componentID}/>
+        <DropTarget handleDrop={this.handleDroppedComponent.bind(this)}/>
 
       </article>
     );
