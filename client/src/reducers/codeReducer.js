@@ -1,5 +1,4 @@
 import React from 'react';
-import ComponentView from '../components/View/componentView';
 
 export default function reducer(state = {
   code: [],

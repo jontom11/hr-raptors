@@ -14,10 +14,10 @@ class View extends React.Component {
   }
 
   AddedComponent(droppedInItem) {
-    var newCount = this.state.currentItemID+1;
+    var newCount = this.state.currentItemID + 1;
     this.setState({
       currentItem:droppedInItem,
-      currentItemID: newCount
+      currentItemID: newCount,
     });
   }
 

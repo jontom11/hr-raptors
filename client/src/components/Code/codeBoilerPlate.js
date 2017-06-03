@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
 let beautify_html = require('js-beautify').html;
-let beautify = require('js-beautify');
 
 const CodeBoilerPlate = (props) => {
 

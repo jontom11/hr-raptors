@@ -7,7 +7,7 @@ import dragItems from '../dragItems.js'
 
 const styles = {
   bottomUp: {
-    marginBottom: '-4%',
+    marginBottom: '-2%',
   },
 };
 

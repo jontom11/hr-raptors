@@ -1,28 +1,16 @@
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
 
 import { connect } from "react-redux"
 import { fetchCode } from "../../actions/codeActions"
-//
 
-var HtmlToReactParser = require('html-to-react').Parser;
-
-let beautify_html = require('js-beautify').html;
-let beautify = require('js-beautify');
+import CodeBoilerPlate from './CodeBoilerPlate'
 
 @connect((store) => {
   return {
     code: store.code.code,
   };
 })
-
 class Code extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     componentsCode: []
-  //   };
-  // }
 
   fetchCode() {
     this.props.dispatch(fetchCode());
@@ -30,11 +18,11 @@ class Code extends React.Component {
 
   render() {
 
-    const { view, code } = this.props;
+    const { code } = this.props;
 
-    const mappedCode = view.map((code, index) =>
+    const mappedCode = code.map((code, index) =>
       <div key={index} className="codepart">
-        {code.code}
+        {code.text}
       </div>
     );
 
