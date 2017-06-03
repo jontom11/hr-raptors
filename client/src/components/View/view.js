@@ -10,7 +10,6 @@ import DropTarget from './dropTarget';
   return {
     user: store.user.user,
     userFetched: store.user.fetched,
-    code: store.code.code,
   };
 })
 class View extends React.Component {

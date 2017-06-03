@@ -22,7 +22,6 @@ class reduxView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('NEXT_PROPS', nextProps.componentState.dropTarget)
     if (nextProps.componentState.componentID !== this.props.componentState.componentID) {
       nextProps.componentState.dropTop ? this.props.dispatch(addCodeTop(nextProps.componentState.componentID, dragItems[nextProps.componentState.componentName], nextProps.componentState.isDropped, nextProps.componentState.dropTarget)) :
       this.props.dispatch(addCode(nextProps.componentState.componentID, dragItems[nextProps.componentState.componentName], nextProps.componentState.isDropped, nextProps.componentState.dropTarget));

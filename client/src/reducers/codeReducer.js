@@ -24,7 +24,7 @@ export default function reducer(state = {
     return Object.assign({}, state, {components: [action.payload].concat(state.components)});
   }
   case 'CLEAR_CODE': {
-    return Object.assign({}, state, {code: [] });
+    return Object.assign({}, state, {components: [] });
   }
   }
 
