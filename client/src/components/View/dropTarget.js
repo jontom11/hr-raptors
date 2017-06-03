@@ -18,14 +18,15 @@ let collect = function(connect, monitor) {
 };
 
 class ComponentView extends React.Component {
-  renderOverlay(color) {
+  renderOverlay(color, height) {
     return (
       <div>
        <div style={{
-         height: '25px',
+         height: '20px',
          width: '100%',
          borderRadius: '5px',
          backgroundColor: color,
+         border: '2px dotted #87CEFA',
        }} />
        </div>
     );
