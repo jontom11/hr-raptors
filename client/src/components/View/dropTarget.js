@@ -5,7 +5,7 @@ import { ItemTypes } from './constants';
 const squareTarget = {
   drop(props, monitor) {
     const item = monitor.getItem();
-    props.added(item.component);
+    props.handleDrop(item.component);
     return item;
   }
 };
@@ -18,16 +18,15 @@ let collect = function(connect, monitor) {
 };
 
 class ComponentView extends React.Component {
-  renderOverlay(color) {
+  renderOverlay(color, height) {
     return (
       <div>
        <div style={{
-         marginTop: '27px',
-         height: '25px',
+         height: '20px',
          width: '100%',
          borderRadius: '5px',
          backgroundColor: color,
-         text: "DROP HERE",
+         border: '2px dotted #87CEFA',
        }} />
        </div>
     );
