@@ -46,7 +46,8 @@ class Nav extends React.Component {
 
   saveButtonClick() {
     console.log('CLICKED SAVE BUTTON');
-    // console.log('document:', codeBoilerPlate().props.children.props.children) 
+    // To Do: save codeBoilerPlate render data only. Currently saves the page that is loaded. 
+    // console.log('document:', codeBoilerPlate().props.children.props.children)
     // console.log('document:', document.getElementsByTagName("code")[0].innerText);
     // download(codeBoilerPlate().props.children.props.children, "Material-GUI.html", "text/html"); // does not eval props.code
     download(document.getElementsByTagName('code')[0].innerText, 'Material-GUI.html', 'text/html');

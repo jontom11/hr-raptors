@@ -22,7 +22,7 @@ const CodeBoilerPlate = (props) => {
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
         </head>
         <body>
-          <h1>HELLO WORLD</h1>
+          <h1>Enjoy your HTML Webpage</h1>
           {props.code}
         </body>
         </html>
