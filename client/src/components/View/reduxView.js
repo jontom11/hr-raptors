@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addCode, addCodeTop, addToTail, addToHead } from '../../actions/codeActions';
+import { addToTail, addToHead } from '../../actions/codeActions';
 import dragItems from '../dragItems';
 import linkers from './linkedList';
 import _ from 'lodash';
@@ -54,30 +54,12 @@ class reduxView extends React.Component {
         ));
       }
 
-      /* ADDING TO VIEW */
-      if (nextProps.componentState.dropTop) {
-        this.props.dispatch(addCodeTop(
-          nextProps.componentState.componentID,
-          dragItems[nextProps.componentState.componentName],
-          nextProps.componentState.isDropped,
-          nextProps.componentState.dropTarget
-        ));
-      } else {
-        this.props.dispatch(addCode(
-          nextProps.componentState.componentID,
-          dragItems[nextProps.componentState.componentName],
-          nextProps.componentState.isDropped,
-          nextProps.componentState.dropTarget
-        ));
-      }
-
-
-
     }
   }
 
   render() {
-    const { componentsLinkedList, head, tail } = this.props;
+    const { components, componentsLinkedList, head, tail } = this.props;
+
     var linkedListArray = [];
 
     var componentNode = head || tail;
@@ -86,11 +68,11 @@ class reduxView extends React.Component {
       componentNode = componentsLinkedList[componentNode.next];
     }
 
-    const mappedCode = _.map(linkedListArray, (code, key) => <li key={key}>{code}</li>);
+    const linkedListMap = _.map(linkedListArray, (code, key) => <li key={key}>{code}</li>);
 
     return (
       <div style={styles.bottomUp}>
-        <ul>{mappedCode}</ul>
+        <ul>{linkedListMap}</ul>
       </div>
     );
   }
