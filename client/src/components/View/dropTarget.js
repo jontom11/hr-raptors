@@ -22,6 +22,7 @@ class ComponentView extends React.Component {
     return (
       <div>
        <div style={{
+         margin: '3%',
          height: '20px',
          width: '100%',
          borderRadius: '5px',
