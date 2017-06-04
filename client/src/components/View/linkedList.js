@@ -4,6 +4,7 @@ exports.addToTail = (linkedList, component, isDropped, item, head, tail) => {
   if (tail === null) {
     linkedList[item] = exports.ListNode(component, item, null, null, isDropped);
     tail = linkedList[item];
+    head = linkedList[item];
   } else if (head === null) {
     linkedList[item] = exports.ListNode(component, item, null, tail.key, isDropped);
     linkedList[tail.key].next = linkedList[item].key;
@@ -23,6 +24,7 @@ exports.addToHead = (linkedList, component, isDropped, item, head, tail) => {
   if (head === null) {
     linkedList[item] = exports.ListNode(component, item, null, null, isDropped);
     head = linkedList[item];
+    tail = linkedList[item];
   } else if (tail === null) {
     linkedList[item] = exports.ListNode(component, item, head.key, null, isDropped);
     linkedList[head.key].prev = linkedList[item].key;

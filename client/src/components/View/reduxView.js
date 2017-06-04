@@ -58,16 +58,16 @@ class reduxView extends React.Component {
   }
 
   render() {
-    const { components, componentsLinkedList, head, tail } = this.props;
+    const { components, componentsLinkedList, head } = this.props;
 
     var linkedListArray = [];
 
-    var componentNode = head || tail;
+    var componentNode = head;
     while(componentNode) {
       linkedListArray.push(componentNode.component);
       componentNode = componentsLinkedList[componentNode.next];
     }
-
+    console.log('array', linkedListArray);
     const linkedListMap = _.map(linkedListArray, (code, key) => <li key={key}>{code}</li>);
 
     return (
