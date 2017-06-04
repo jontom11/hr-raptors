@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addCode, addCodeTop } from '../../actions/codeActions';
-import dragItems from '../dragItems.js';
-
+import { addCode, addCodeTop, addToTail } from '../../actions/codeActions';
+import dragItems from '../dragItems';
+import linkers from './linkedList';
 
 const styles = {
   bottomUp: {
@@ -13,6 +13,10 @@ const styles = {
 @connect((store) => {
   return {
     components: store.code.components,
+    componentsLinkedList: store.code.componentsLinkedList,
+    item: store.code.item,
+    head: store.code.head,
+    tail: store.code.tail,
   };
 })
 class reduxView extends React.Component {
@@ -23,8 +27,47 @@ class reduxView extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.componentState.componentID !== this.props.componentState.componentID) {
-      nextProps.componentState.dropTop ? this.props.dispatch(addCodeTop(nextProps.componentState.componentID, dragItems[nextProps.componentState.componentName], nextProps.componentState.isDropped, nextProps.componentState.dropTarget)) :
-      this.props.dispatch(addCode(nextProps.componentState.componentID, dragItems[nextProps.componentState.componentName], nextProps.componentState.isDropped, nextProps.componentState.dropTarget));
+
+      /* ADDING TO LINKED LIST */
+      if (nextProps.componentState.dropTop) {
+        this.props.dispatch(addCodeTop(
+          nextProps.componentState.componentID,
+          dragItems[nextProps.componentState.componentName],
+          nextProps.componentState.isDropped,
+          nextProps.componentState.dropTarget
+        ));
+      } else {
+        this.props.dispatch(addToTail(
+          linkers.addToTail(
+            this.props.componentsLinkedList,
+            dragItems[nextProps.componentState.componentName],
+            nextProps.componentState.isDropped,
+            this.props.item,
+            this.props.head,
+            this.props.tail,
+          )
+        ));
+      }
+
+      /* ADDING TO VIEW */
+      if (nextProps.componentState.dropTop) {
+        this.props.dispatch(addCodeTop(
+          nextProps.componentState.componentID,
+          dragItems[nextProps.componentState.componentName],
+          nextProps.componentState.isDropped,
+          nextProps.componentState.dropTarget
+        ));
+      } else {
+        this.props.dispatch(addCode(
+          nextProps.componentState.componentID,
+          dragItems[nextProps.componentState.componentName],
+          nextProps.componentState.isDropped,
+          nextProps.componentState.dropTarget
+        ));
+      }
+
+
+
     }
   }
 

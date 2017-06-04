@@ -37,6 +37,12 @@ module.exports = {
       },
     };
   },
+  addToTail: (linkedData) => {
+    return  {
+      type: 'ADD_TO_TAIL',
+      payload: { linkedData },
+    };
+  },
   clearCode: () => {
     return {
       type: 'CLEAR_CODE',
