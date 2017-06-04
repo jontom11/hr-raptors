@@ -1,8 +1,11 @@
 import React from 'react';
 import Navbar from 'react-sidebar';
-
 import NavTitlePanel from './navTitlePanel';
 import SidebarContent from './sidebarContent';
+import download from 'downloadjs';
+import codeBoilerPlate from '../Code/codeBoilerPlate';
+
+
 
 const styles = {
   contentHeaderMenuLink: {
@@ -31,6 +34,7 @@ class Nav extends React.Component {
     };
 
     this.menuButtonClick = this.menuButtonClick.bind(this);
+    this.saveButtonClick = this.saveButtonClick.bind(this);
   }
 
   menuButtonClick(ev) {
@@ -40,9 +44,17 @@ class Nav extends React.Component {
     });
   }
 
+  saveButtonClick() {
+    console.log('CLICKED SAVE BUTTON');
+    // console.log('document:', codeBoilerPlate().props.children.props.children) 
+    // console.log('document:', document.getElementsByTagName("code")[0].innerText);
+    // download(codeBoilerPlate().props.children.props.children, "Material-GUI.html", "text/html"); // does not eval props.code
+    download(document.getElementsByTagName('code')[0].innerText, 'Material-GUI.html', 'text/html');
+    
+  }
+
   render() {
     const sidebar = <SidebarContent />;
-
     const contentHeader = (
       <div className="nav-wrapper">
         <div className="left">
@@ -50,7 +62,8 @@ class Nav extends React.Component {
         <a onClick={this.menuButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-bars" aria-hidden="true" /></a> :
           <a onClick={this.menuButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-times" aria-hidden="true" /></a>}
         <a onClick={this.props.toggleView} style={styles.contentHeaderMenuLink}><i className="fa fa-code" aria-hidden="true" /></a>
-        </div>
+        <a onClick={this.saveButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-download" aria-hidden="true" /></a>
+        </div>           
       </div>);
 
     const sidebarProps = {
