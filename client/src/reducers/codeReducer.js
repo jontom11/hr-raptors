@@ -27,6 +27,16 @@ export default function reducer(state = {
   case 'ADD_CODE_TOP': {
     return Object.assign({}, state, {components: [action.payload].concat(state.components)});
   }
+  case 'ADD_TO_HEAD': {
+    return Object.assign(
+      {},
+      state,
+      {componentsLinkedList: action.payload.linkedData.linkedList},
+      {head: action.payload.linkedData.head},
+      {tail: action.payload.linkedData.tail},
+      {item: action.payload.linkedData.item},
+    );
+  }
   case 'ADD_TO_TAIL': {
     return Object.assign(
       {},
@@ -35,7 +45,7 @@ export default function reducer(state = {
       {head: action.payload.linkedData.head},
       {tail: action.payload.linkedData.tail},
       {item: action.payload.linkedData.item},
-      );
+    );
   }
   case 'CLEAR_CODE': {
     return Object.assign({}, state, {components: [] });

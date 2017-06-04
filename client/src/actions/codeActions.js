@@ -37,6 +37,12 @@ module.exports = {
       },
     };
   },
+  addToHead: (linkedData) => {
+    return  {
+      type: 'ADD_TO_HEAD',
+      payload: { linkedData },
+    };
+  },
   addToTail: (linkedData) => {
     return  {
       type: 'ADD_TO_TAIL',

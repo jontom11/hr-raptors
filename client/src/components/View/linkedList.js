@@ -5,12 +5,12 @@ exports.addToTail = (linkedList, component, isDropped, item, head, tail) => {
     linkedList[item] = exports.ListNode(component, item, null, null, isDropped);
     tail = linkedList[item];
   } else if (head === null) {
-    linkedList[item] = exports.ListNode(component, item, null, tail.key);
+    linkedList[item] = exports.ListNode(component, item, null, tail.key, isDropped);
     linkedList[tail.key].next = linkedList[item].key;
     head = tail;
     tail = linkedList[item];
   } else {
-    linkedList[item] = exports.ListNode(component, item, null, tail.key);
+    linkedList[item] = exports.ListNode(component, item, null, tail.key, isDropped);
     linkedList[tail.key].next = linkedList[item].key;
     tail = linkedList[item];
   }
@@ -18,23 +18,23 @@ exports.addToTail = (linkedList, component, isDropped, item, head, tail) => {
   return {linkedList, head, tail, item};
 };
 
-exports.addToHead = (component, linkedList) => {
+exports.addToHead = (linkedList, component, isDropped, item, head, tail) => {
   linkedList = Object.assign({}, linkedList);
   if (head === null) {
-    linkedList[item] = exports.ListNode(component, item, null, null);
+    linkedList[item] = exports.ListNode(component, item, null, null, isDropped);
     head = linkedList[item];
   } else if (tail === null) {
-    linkedList[item] = exports.ListNode(component, item, head.key, null);
+    linkedList[item] = exports.ListNode(component, item, head.key, null, isDropped);
     linkedList[head.key].prev = linkedList[item].key;
     tail = head;
     head = linkedList[item];
   } else {
-    linkedList[item] = exports.ListNode(component, item, head.key, null);
+    linkedList[item] = exports.ListNode(component, item, head.key, null, isDropped);
     linkedList[head.key].prev = linkedList[item].key;
     head = linkedList[item];
   }
   item++;
-  return linkedList;
+  return {linkedList, head, tail, item};
 };
 
 exports.removeHead = (linkedList) => {

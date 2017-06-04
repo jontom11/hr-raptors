@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addCode, addCodeTop, addToTail } from '../../actions/codeActions';
+import { addCode, addCodeTop, addToTail, addToHead } from '../../actions/codeActions';
 import dragItems from '../dragItems';
 import linkers from './linkedList';
 
@@ -30,11 +30,15 @@ class reduxView extends React.Component {
 
       /* ADDING TO LINKED LIST */
       if (nextProps.componentState.dropTop) {
-        this.props.dispatch(addCodeTop(
-          nextProps.componentState.componentID,
-          dragItems[nextProps.componentState.componentName],
-          nextProps.componentState.isDropped,
-          nextProps.componentState.dropTarget
+        this.props.dispatch(addToHead(
+          linkers.addToHead(
+            this.props.componentsLinkedList,
+            dragItems[nextProps.componentState.componentName],
+            nextProps.componentState.isDropped,
+            this.props.item,
+            this.props.head,
+            this.props.tail,
+          )
         ));
       } else {
         this.props.dispatch(addToTail(
