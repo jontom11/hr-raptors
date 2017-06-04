@@ -25,7 +25,7 @@ const CodeBoilerPlate = (props) => {
           {props.code}
         </body>
         </html>
-      ),{'wrap-attributes':'force'})}
+      ), {'wrap-attributes': 'force'})}
       </div>
   </code>
   );
