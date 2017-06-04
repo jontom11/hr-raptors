@@ -17,7 +17,6 @@ const CodeBoilerPlate = (props) => {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="author" content="Alexi Taylor" />
           <meta name="description" content="Boilerplate" />
-
         </head>
         <body>
           {props.code}

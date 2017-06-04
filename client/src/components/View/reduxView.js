@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { addCode, addCodeTop, addToTail, addToHead } from '../../actions/codeActions';
 import dragItems from '../dragItems';
 import linkers from './linkedList';
+import _ from 'lodash';
 
 const styles = {
   bottomUp: {
@@ -76,8 +77,16 @@ class reduxView extends React.Component {
   }
 
   render() {
-    const { components } = this.props;
-    const mappedCode = components.map((code, key) => <li key={key}>{code.componentCode}</li>);
+    const { componentsLinkedList, head, tail } = this.props;
+    var linkedListArray = [];
+
+    var componentNode = head || tail;
+    while(componentNode) {
+      linkedListArray.push(componentNode.component);
+      componentNode = componentsLinkedList[componentNode.next];
+    }
+
+    const mappedCode = _.map(linkedListArray, (code, key) => <li key={key}>{code}</li>);
 
     return (
       <div style={styles.bottomUp}>
