@@ -48,7 +48,7 @@ export default function reducer(state = {
     );
   }
   case 'CLEAR_CODE': {
-    return Object.assign({}, state, {components: [] });
+    return Object.assign({}, state, {componentsLinkedList: {} });
   }
   }
 
