@@ -16,6 +16,7 @@ const styles = {
   return {
     components: store.code.components,
     componentsLinkedList: store.code.componentsLinkedList,
+    tree: store.code.tree,
     item: store.code.item,
     head: store.code.head,
     tail: store.code.tail,
@@ -29,26 +30,26 @@ class reduxView extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.componentState.componentID !== this.props.componentState.componentID) {
-      console.log('helloooo');
 
-      var tree = new Tree(
-        dragItems[nextProps.componentState.componentName],
-        nextProps.componentState.dropTarget
-      );
-      tree.add(
-        dragItems[nextProps.componentState.componentName],
-        nextProps.componentState.dropTarget,
-        dragItems[nextProps.componentState.componentName],
-        tree.traverseBF
-      );
+      console.log('hellloooo', this.props.tree);
 
-     // tree.add('three', 'two', tree.traverseBF);
-      this.props.dispatch(updateTree(tree));
-      console.log('TREEEEE', tree);
+      if (Object.keys(this.props.tree).length === 0) {
+        var tree = new Tree(
+          dragItems[nextProps.componentState.componentName],
+          nextProps.componentState.dropTarget
+        );
+        this.props.dispatch(updateTree(tree));
+      } else {
+        var tree = this.props.tree;
+        tree.add(
+          dragItems[nextProps.componentState.componentName],
+          nextProps.componentState.dropTarget,
+          dragItems[nextProps.componentState.componentName],
+          tree.traverseBF
+        );
+        this.props.dispatch(updateTree(tree));
+      }
 
-      // If nothing in tree, create new tree
-      // else be able to add components
-      // need to know location of where item is being dropped
 
       /* ADDING TO LINKED LIST */
       if (nextProps.componentState.dropTop) {
@@ -74,12 +75,11 @@ class reduxView extends React.Component {
           )
         ));
       }
-
     }
   }
 
   render() {
-    const { components, componentsLinkedList, head } = this.props;
+    const { components, componentsLinkedList, head, tree } = this.props;
 
     var linkedListArray = [];
 
