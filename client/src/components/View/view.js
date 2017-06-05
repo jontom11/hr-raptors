@@ -59,8 +59,6 @@ class View extends React.Component {
 
     return (
       <article className="center-content">
-        <h1>{user.name} <small>{user.age}</small></h1>
-        <button onClick={this.clearCodeClick.bind(this)}>clear code</button>
 
         <DropTarget handleDrop={this.handleDroppedComponentTop.bind(this)}/>
         <ReduxView componentState={this.state} />
