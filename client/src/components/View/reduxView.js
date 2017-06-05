@@ -81,6 +81,16 @@ class reduxView extends React.Component {
   render() {
     const { components, componentsLinkedList, head, tree } = this.props;
 
+    var treeArray = [];
+
+    if (Object.keys(this.props.tree).length > 0) {
+      tree.traverseBF(function (node) {
+        treeArray.push([node.component, node.dropComponent]);
+      });
+    }
+
+    const treeMap = _.map(treeArray, (code, index) => <div key={index}><div>{code[0]}</div> <div>{code[1]}</div></div>);
+
     var linkedListArray = [];
 
     var componentNode = head;
@@ -93,7 +103,7 @@ class reduxView extends React.Component {
 
     return (
       <div style={styles.bottomUp}>
-        <ul>{linkedListMap}</ul>
+        <ul>{treeMap}</ul>
       </div>
     );
   }
