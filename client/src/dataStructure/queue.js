@@ -1,7 +1,7 @@
 // _newestIndex represents a ticket from a customer ticketing system.
 // _oldestIndex represents a ticket from an employee ticketing system.
 
-exports.Queue = function() {
+var Queue = function() {
   this._oldestIndex = 1;
   this._newestIndex = 1;
   this._storage = {};
@@ -29,3 +29,6 @@ Queue.prototype.dequeue = function() {
     return deletedData;
   }
 };
+
+
+module.exports = Queue;

@@ -1,6 +1,5 @@
 exports.addToTail = (linkedList, component, isDropped, item, head, tail) => {
   linkedList = Object.assign({}, linkedList);
-  console.log(linkedList);
   if (tail === null) {
     linkedList[item] = exports.ListNode(component, item, null, null, isDropped);
     tail = linkedList[item];

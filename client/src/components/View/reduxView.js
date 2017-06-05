@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { addToTail, addToHead } from '../../actions/codeActions';
 import dragItems from '../dragItems';
 import linkers from '../../dataStructure/linkedList';
+import Tree from '../../dataStructure/tree';
 import _ from 'lodash';
 
 const styles = {
@@ -28,6 +29,14 @@ class reduxView extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.componentState.componentID !== this.props.componentState.componentID) {
+      console.log('helloooo');
+
+      var tree = new Tree('one');
+      tree.add('two', 'one', tree.traverseBF);
+      tree.add('three', 'two', tree.traverseBF);
+      console.log(tree);
+      tree.remove('three', 'two', tree.traverseBF);
+      console.log('TREEEEE', tree);
 
       /* ADDING TO LINKED LIST */
       if (nextProps.componentState.dropTop) {
