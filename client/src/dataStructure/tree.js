@@ -1,13 +1,17 @@
 import Queue from './queue';
+import shortid from 'shortid';
 
-var Node = function(data) {
-  this.data = data;
+var Node = function(component, dropComponent) {
+  this.component = component;
+  this.dropComponent = dropComponent;
+  this.ID = shortid.generate();
   this.parent = null;
+  this.parentID = null;
   this.children = [];
 };
 
-var Tree = function(data) {
-  var node = new Node(data);
+var Tree = function(component, dropComponent) {
+  var node = new Node(component, dropComponent);
   this._root = node;
 };
 
@@ -46,11 +50,11 @@ Tree.prototype.contains = function(callback, traversal) {
   traversal.call(this, callback);
 };
 
-Tree.prototype.add = function(data, toData, traversal) {
-  var child = new Node(data),
+Tree.prototype.add = function(component, dropComponent, toData, traversal) {
+  var child = new Node(component, dropComponent),
     parent = null,
     callback = function(node) {
-      if (node.data === toData) {
+      if (node.component === toData) {
         parent = node;
       }
     };
@@ -65,14 +69,14 @@ Tree.prototype.add = function(data, toData, traversal) {
   }
 };
 
-Tree.prototype.remove = function(data, fromData, traversal) {
+Tree.prototype.remove = function(component, fromData, traversal) {
   var tree = this,
     parent = null,
     childToRemove = null,
     index;
 
   var callback = function(node) {
-    if (node.data === fromData) {
+    if (node.component === fromData) {
       parent = node;
     }
   };
@@ -80,7 +84,7 @@ Tree.prototype.remove = function(data, fromData, traversal) {
   this.contains(callback, traversal);
 
   if (parent) {
-    index = findIndex(parent.children, data);
+    index = findIndex(parent.children, component);
 
     if (index === undefined) {
       throw new Error('Node to remove does not exist.');
@@ -94,17 +98,16 @@ Tree.prototype.remove = function(data, fromData, traversal) {
   return childToRemove;
 };
 
-var findIndex = function(arr, data) {
+var findIndex = function(arr, component) {
   var index;
 
   for (var i = 0; i < arr.length; i++) {
-    if (arr[i].data === data) {
+    if (arr[i].component === component) {
       index = i;
     }
   }
 
   return index;
 };
-
 
 module.exports = Tree;

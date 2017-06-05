@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addToTail, addToHead } from '../../actions/codeActions';
+import { addToTail, addToHead, updateTree } from '../../actions/codeActions';
 import dragItems from '../dragItems';
 import linkers from '../../dataStructure/linkedList';
 import Tree from '../../dataStructure/tree';
@@ -31,12 +31,24 @@ class reduxView extends React.Component {
     if (nextProps.componentState.componentID !== this.props.componentState.componentID) {
       console.log('helloooo');
 
-      var tree = new Tree('one');
-      tree.add('two', 'one', tree.traverseBF);
-      tree.add('three', 'two', tree.traverseBF);
-      console.log(tree);
-      tree.remove('three', 'two', tree.traverseBF);
+      var tree = new Tree(
+        dragItems[nextProps.componentState.componentName],
+        nextProps.componentState.dropTarget
+      );
+      tree.add(
+        dragItems[nextProps.componentState.componentName],
+        nextProps.componentState.dropTarget,
+        dragItems[nextProps.componentState.componentName],
+        tree.traverseBF
+      );
+
+     // tree.add('three', 'two', tree.traverseBF);
+      this.props.dispatch(updateTree(tree));
       console.log('TREEEEE', tree);
+
+      // If nothing in tree, create new tree
+      // else be able to add components
+      // need to know location of where item is being dropped
 
       /* ADDING TO LINKED LIST */
       if (nextProps.componentState.dropTop) {
