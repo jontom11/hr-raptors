@@ -36,7 +36,7 @@ class Code extends React.Component {
       componentNode = componentsLinkedList[componentNode.next];
     }
 
-    const linkedListMap = _.map(linkedListArray, (code, key) => <li key={key}>{code}</li>);
+    const linkedListMap = _.map(linkedListArray, (code, key) => <div key={key}>{code}</div>);
 
     return (
        <article className="center-content code-view">
