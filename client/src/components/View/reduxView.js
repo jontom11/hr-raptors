@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { addToTail, addToHead } from '../../actions/codeActions';
 import dragItems from '../dragItems';
-import linkers from './linkedList';
+import linkers from '../../dataStructure/linkedList';
 import _ from 'lodash';
 
 const styles = {
