@@ -6,7 +6,7 @@ let Items = (props) => {
   let itemCollection = [];
   
   props.items.forEach((component) => {
-      itemCollection.push(<Item item={component} />);
+    itemCollection.push(<Item item={component} />);
   });
 
   return (
