@@ -59,10 +59,8 @@ class View extends React.Component {
 
     return (
       <article className="center-content">
-
-        <DropTarget handleDrop={this.handleDroppedComponentTop.bind(this)}/>
-        <ReduxView componentState={this.state} />
         <DropTarget handleDrop={this.handleDroppedComponent.bind(this)}/>
+        <ReduxView componentState={this.state} />
 
       </article>
     );

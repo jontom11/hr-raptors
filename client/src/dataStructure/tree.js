@@ -69,6 +69,14 @@ Tree.prototype.add = function(component, dropComponent, toData, traversal) {
   }
 };
 
+Tree.prototype.pushToHead = function(component, dropComponent, oldTree) {
+  var newTree  = new Tree(component, dropComponent);
+  oldTree._root.parent = newTree.component;
+  oldTree._root.parentID = newTree.ID;
+  newTree._root.children.push(oldTree._root);
+  return newTree;
+};
+
 Tree.prototype.remove = function(component, fromData, traversal) {
   var tree = this,
     parent = null,

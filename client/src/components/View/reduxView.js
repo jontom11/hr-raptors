@@ -28,6 +28,15 @@ class reduxView extends React.Component {
     this.state = {};
   }
 
+  handleDroppedComponent(droppedInItem) {
+    var newCount = this.state.componentID + 1;
+    this.setState({
+      componentName: droppedInItem,
+      componentID: newCount,
+      dropTop: false,
+    });
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.componentState.componentID !== this.props.componentState.componentID) {
 
@@ -41,12 +50,17 @@ class reduxView extends React.Component {
         this.props.dispatch(updateTree(tree));
       } else {
         var tree = this.props.tree;
-        tree.add(
+        tree = tree.pushToHead(
           dragItems[nextProps.componentState.componentName],
           nextProps.componentState.dropTarget,
-          dragItems[nextProps.componentState.componentName],
-          tree.traverseBF
+          tree
         );
+        // tree.add(
+        //   dragItems[nextProps.componentState.componentName],
+        //   nextProps.componentState.dropTarget,
+        //   dragItems[nextProps.componentState.componentName],
+        //   tree.traverseBF
+        // );
         this.props.dispatch(updateTree(tree));
       }
 
@@ -84,6 +98,7 @@ class reduxView extends React.Component {
     var treeArray = [];
 
     if (Object.keys(this.props.tree).length > 0) {
+      console.log('treeeeeeeeeeeee', tree)
       tree.traverseBF(function (node) {
         treeArray.push([node.component, node.dropComponent]);
       });
