@@ -30,6 +30,24 @@ Tree.prototype.traverseDF = function(callback) {
 };
 
 // traverses a tree with  breadth-first search
+Tree.prototype.traverseBFF = function(callback) {
+  var queue = new Queue();
+
+  (function recurse(node, queue) {
+    queue.enqueue(node);
+    _.forEach(node.children, (child) => {
+
+      if (child.children && child.children.length > 1) {
+        recurse(child, queue);
+      } else {
+        queue.enqueue(child);
+      }
+    });
+  })(this._root, queue);
+  return queue._storage;
+};
+
+// traverses a tree with  breadth-first search
 Tree.prototype.traverseBF = function(callback) {
   var queue = new Queue();
 

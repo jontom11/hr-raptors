@@ -103,11 +103,16 @@ class reduxView extends React.Component {
     var treeArray = [];
 
     if (Object.keys(this.props.tree).length > 0) {
-      tree.traverseBF(function (node) {
+      var treeObject = tree.traverseBFF(function (node) {
         treeArray.push([node.component, node.dropComponent, node.ID]);
       });
     }
 
+    _.forEach(treeObject, (node) => {
+      treeArray.push([node.component, node.dropComponent, node.ID]);
+    });
+
+      console.log(treeArray);
     const treeMap = _.map(treeArray, (code, index) => (
       <div key={index}>
         <div>{code[0]}</div>
