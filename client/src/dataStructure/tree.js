@@ -63,7 +63,7 @@ Tree.prototype.add = function(component, dropComponent, toID, traversal) {
   this.contains(callback, traversal);
 
   if (parent) {
-    parent.children.push(child);
+    parent.children.unshift(child);
     child.parent = parent;
 
   } else {

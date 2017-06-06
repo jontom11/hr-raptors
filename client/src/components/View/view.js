@@ -73,9 +73,7 @@ class View extends React.Component {
 
     return (
       <article className="center-content">
-        <div className="col s12" id={shortid.generate()}>
-          <DropTarget handleDrop={this.handleDroppedComponent.bind(this)} context={this} />
-        </div>
+          <DropTarget handleDrop={this.handleDroppedComponent.bind(this)} context={this} id="head" />
         <ReduxView componentState={this.state} handleDrop={this.handleDroppedComponent.bind(this)} handleChange={this.handleDropChange.bind(this)} />
 
       </article>

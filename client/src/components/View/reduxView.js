@@ -44,14 +44,13 @@ class reduxView extends React.Component {
   componentWillReceiveProps(nextProps) {
     console.log('neeeexxxtttprrooopps', nextProps.componentState.ID);
     if (nextProps.componentState.componentID !== this.props.componentState.componentID) {
-
       if (Object.keys(this.props.tree).length === 0) {
         var tree = new Tree(
           dragItems[nextProps.componentState.componentName],
           this.state.dropTarget
         );
         this.props.dispatch(updateTree(tree));
-      } else if (nextProps.componentState.ID === 'undefined') {
+      } else if (nextProps.componentState.ID === 'head') {
         var tree = this.props.tree;
         tree = tree.pushToHead(
           dragItems[nextProps.componentState.componentName],
