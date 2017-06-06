@@ -8,6 +8,7 @@ import CodeBoilerPlate from './codeBoilerPlate'
 @connect((store) => {
   return {
     components: store.code.components,
+    tree: store.code.tree,
     componentsLinkedList: store.code.componentsLinkedList,
     head: store.code.head,
   };
@@ -20,28 +21,22 @@ class Code extends React.Component {
 
   render() {
 
-    const { components, componentsLinkedList, head } = this.props;
+    const { tree } = this.props;
 
-    const mappedCode = components.map((code, index) =>
-      <div key={index} className="codepart">
-        {code.componentCode}
-      </div>
-    );
+    var treeArray = [];
 
-    var linkedListArray = [];
-
-    var componentNode = head;
-    while(componentNode) {
-      linkedListArray.push(componentNode.component);
-      componentNode = componentsLinkedList[componentNode.next];
+    if (Object.keys(this.props.tree).length > 0) {
+      tree.traverseBF(function (node) {
+        treeArray.push([node.component, node.dropComponent]);
+      });
     }
 
-    const linkedListMap = _.map(linkedListArray, (code, key) => <div key={key}>{code}</div>);
+    const treeMap = _.map(treeArray, (code, index) => <div key={index}>{code[0]}</div>);
 
     return (
        <article className="center-content code-view">
         <div className="code-view display-linebreak" >
-          <CodeBoilerPlate code={linkedListMap} />
+          <CodeBoilerPlate code={treeMap} />
         </div>
       </article>
     )

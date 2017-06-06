@@ -55,4 +55,10 @@ module.exports = {
       payload: {},
     };
   },
+  updateTree: (tree) => {
+    return {
+      type: 'UPDATE_TREE',
+      payload: { tree },
+    };
+  },
 };
