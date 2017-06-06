@@ -5,6 +5,7 @@ import { clearCode } from "../../actions/codeActions"
 
 import ReduxView from './reduxView';
 import DropTarget from './dropTarget';
+import shortid from 'shortid';
 
 @connect((store) => {
   return {
@@ -17,6 +18,7 @@ class View extends React.Component {
     super(props);
     this.state = {
       componentName: null,
+      ID: null,
       componentID: 0,
       dropTarget: (
         <div className="col s12">
@@ -26,6 +28,7 @@ class View extends React.Component {
       dropTop: false,
     };
     this.handleDroppedComponent = this.handleDroppedComponent.bind(this);
+    this.handleDropChange = this.handleDropChange.bind(this);
   }
 
   componentWillMount() {
@@ -36,12 +39,13 @@ class View extends React.Component {
     this.props.dispatch(clearCode());
   }
 
-  handleDroppedComponent(droppedInItem) {
+  handleDroppedComponent(droppedInItem, ID) {
     var newCount = this.state.componentID + 1;
     this.setState({
       componentName: droppedInItem,
       componentID: newCount,
       dropTop: false,
+      ID: ID,
     });
   }
 
@@ -54,15 +58,23 @@ class View extends React.Component {
     });
   }
 
+  handleDropChange(droppedInItem, ID) {
+    var newCount = this.state.componentID + 1;
+    this.setState({
+      componentName: droppedInItem,
+      componentID: newCount,
+      dropTop: true,
+      ID: ID,
+    });
+  }
+
   render() {
     const { user } = this.props;
 
     return (
       <article className="center-content">
-
-        <DropTarget handleDrop={this.handleDroppedComponentTop.bind(this)}/>
-        <ReduxView componentState={this.state} />
-        <DropTarget handleDrop={this.handleDroppedComponent.bind(this)}/>
+          <DropTarget handleDrop={this.handleDroppedComponent.bind(this)} context={this} id="head" />
+        <ReduxView componentState={this.state} handleDrop={this.handleDroppedComponent.bind(this)} handleChange={this.handleDropChange.bind(this)} />
 
       </article>
     );

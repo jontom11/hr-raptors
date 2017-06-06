@@ -9,6 +9,7 @@ export default function reducer(state = {
   fetching: false,
   fetched: false,
   error: null,
+  tree: {},
 }, action) {
 
   switch (action.type) {
@@ -49,6 +50,9 @@ export default function reducer(state = {
   }
   case 'CLEAR_CODE': {
     return Object.assign({}, state, {componentsLinkedList: {} });
+  }
+  case 'UPDATE_TREE': {
+    return Object.assign({}, state, { tree: action.payload.tree });
   }
   }
 
