@@ -26,6 +26,7 @@ class View extends React.Component {
       dropTop: false,
     };
     this.handleDroppedComponent = this.handleDroppedComponent.bind(this);
+    this.handleDropChange = this.handleDropChange.bind(this);
   }
 
   componentWillMount() {
@@ -54,13 +55,22 @@ class View extends React.Component {
     });
   }
 
+  handleDropChange(droppedInItem) {
+    var newCount = this.state.componentID + 1;
+    this.setState({
+      componentName: droppedInItem,
+      componentID: newCount,
+      dropTop: true,
+    });
+  }
+
   render() {
     const { user } = this.props;
 
     return (
       <article className="center-content">
         <DropTarget handleDrop={this.handleDroppedComponent.bind(this)}/>
-        <ReduxView componentState={this.state} handleDrop={this.handleDroppedComponent.bind(this)} />
+        <ReduxView componentState={this.state} handleDrop={this.handleDroppedComponent.bind(this)} handleChange={this.handleDropChange.bind(this)} />
 
       </article>
     );

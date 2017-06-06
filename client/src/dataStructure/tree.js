@@ -50,11 +50,11 @@ Tree.prototype.contains = function(callback, traversal) {
   traversal.call(this, callback);
 };
 
-Tree.prototype.add = function(component, dropComponent, toData, traversal) {
+Tree.prototype.add = function(component, dropComponent, toID, traversal) {
   var child = new Node(component, dropComponent),
     parent = null,
     callback = function(node) {
-      if (node.component === toData) {
+      if (node.component === toID) {
         parent = node;
       }
     };
@@ -77,14 +77,14 @@ Tree.prototype.pushToHead = function(component, dropComponent, oldTree) {
   return newTree;
 };
 
-Tree.prototype.remove = function(component, fromData, traversal) {
+Tree.prototype.remove = function(component, fromID, traversal) {
   var tree = this,
     parent = null,
     childToRemove = null,
     index;
 
   var callback = function(node) {
-    if (node.component === fromData) {
+    if (node.component === fromID) {
       parent = node;
     }
   };
