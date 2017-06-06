@@ -29,7 +29,7 @@ class reduxView extends React.Component {
     this.state = {
       dropTarget: (
         <div className="col s12">
-          <DropTarget handleDrop={this.handleDroppedComponent.bind(this)} />
+          <DropTarget handleDrop={this.handleDroppedComponent.bind(this)}  nodeID={this} />
         </div>)
     };
     this.handleDroppedComponent = this.handleDroppedComponent.bind(this);
