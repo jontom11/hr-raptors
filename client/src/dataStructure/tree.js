@@ -1,3 +1,4 @@
+import React from 'react';
 import Queue from './queue';
 import shortid from 'shortid';
 
@@ -54,7 +55,7 @@ Tree.prototype.add = function(component, dropComponent, toID, traversal) {
   var child = new Node(component, dropComponent),
     parent = null,
     callback = function(node) {
-      if (node.component === toID) {
+      if (node.ID === toID) {
         parent = node;
       }
     };
@@ -64,6 +65,7 @@ Tree.prototype.add = function(component, dropComponent, toID, traversal) {
   if (parent) {
     parent.children.push(child);
     child.parent = parent;
+
   } else {
     throw new Error('Cannot add node to a non-existent parent.');
   }

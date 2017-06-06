@@ -5,8 +5,7 @@ import { ItemTypes } from './constants';
 const squareTarget = {
   drop(props, monitor) {
     const item = monitor.getItem();
-    console.log('PRRROOOOOPPPS', props);
-    props.handleDrop(item.component);
+    props.handleDrop(item.component, props.id);
     return item;
   }
 };

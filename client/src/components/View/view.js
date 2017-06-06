@@ -5,6 +5,7 @@ import { clearCode } from "../../actions/codeActions"
 
 import ReduxView from './reduxView';
 import DropTarget from './dropTarget';
+import shortid from 'shortid';
 
 @connect((store) => {
   return {
@@ -17,6 +18,7 @@ class View extends React.Component {
     super(props);
     this.state = {
       componentName: null,
+      ID: null,
       componentID: 0,
       dropTarget: (
         <div className="col s12">
@@ -37,12 +39,13 @@ class View extends React.Component {
     this.props.dispatch(clearCode());
   }
 
-  handleDroppedComponent(droppedInItem) {
+  handleDroppedComponent(droppedInItem, ID) {
     var newCount = this.state.componentID + 1;
     this.setState({
       componentName: droppedInItem,
       componentID: newCount,
       dropTop: false,
+      ID: ID,
     });
   }
 
@@ -55,12 +58,13 @@ class View extends React.Component {
     });
   }
 
-  handleDropChange(droppedInItem) {
+  handleDropChange(droppedInItem, ID) {
     var newCount = this.state.componentID + 1;
     this.setState({
       componentName: droppedInItem,
       componentID: newCount,
       dropTop: true,
+      ID: ID,
     });
   }
 
@@ -69,7 +73,9 @@ class View extends React.Component {
 
     return (
       <article className="center-content">
-        <DropTarget handleDrop={this.handleDroppedComponent.bind(this)}/>
+        <div className="col s12" id={shortid.generate()}>
+          <DropTarget handleDrop={this.handleDroppedComponent.bind(this)} context={this} />
+        </div>
         <ReduxView componentState={this.state} handleDrop={this.handleDroppedComponent.bind(this)} handleChange={this.handleDropChange.bind(this)} />
 
       </article>
