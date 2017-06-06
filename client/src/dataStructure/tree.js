@@ -36,11 +36,12 @@ Tree.prototype.traverseBFF = function(callback) {
   (function recurse(node, queue) {
     queue.enqueue(node);
     _.forEach(node.children, (child) => {
+      queue.enqueue(child);
+      if (child.children && child.children.length >= 1) {
+        _.forEach(child.children, subchild => {
+          recurse(subchild, queue);
+        });
 
-      if (child.children && child.children.length > 1) {
-        recurse(child, queue);
-      } else {
-        queue.enqueue(child);
       }
     });
   })(this._root, queue);
