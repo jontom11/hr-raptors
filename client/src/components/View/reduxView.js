@@ -40,8 +40,6 @@ class reduxView extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.componentState.componentID !== this.props.componentState.componentID) {
 
-      console.log('hellloooo', this.props.tree);
-
       if (Object.keys(this.props.tree).length === 0) {
         var tree = new Tree(
           dragItems[nextProps.componentState.componentName],
@@ -98,7 +96,6 @@ class reduxView extends React.Component {
     var treeArray = [];
 
     if (Object.keys(this.props.tree).length > 0) {
-      console.log('treeeeeeeeeeeee', tree)
       tree.traverseBF(function (node) {
         treeArray.push([node.component, node.dropComponent]);
       });

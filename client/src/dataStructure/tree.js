@@ -71,8 +71,8 @@ Tree.prototype.add = function(component, dropComponent, toData, traversal) {
 
 Tree.prototype.pushToHead = function(component, dropComponent, oldTree) {
   var newTree  = new Tree(component, dropComponent);
-  oldTree._root.parent = newTree.component;
-  oldTree._root.parentID = newTree.ID;
+  oldTree._root.parent = component;
+  oldTree._root.parentID = newTree._root.ID;
   newTree._root.children.push(oldTree._root);
   return newTree;
 };
