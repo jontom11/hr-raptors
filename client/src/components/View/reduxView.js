@@ -5,6 +5,7 @@ import dragItems from '../dragItems';
 import linkers from '../../dataStructure/linkedList';
 import Tree from '../../dataStructure/tree';
 import _ from 'lodash';
+import DropTarget from './dropTarget';
 
 const styles = {
   bottomUp: {
@@ -25,7 +26,13 @@ const styles = {
 class reduxView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      dropTarget: (
+        <div className="col s12">
+          <DropTarget handleDroppedComponent={this.handleDroppedComponent.bind(this)} />
+        </div>)
+    };
+    this.handleDroppedComponent = this.handleDroppedComponent.bind(this);
   }
 
   handleDroppedComponent(droppedInItem) {
@@ -43,14 +50,14 @@ class reduxView extends React.Component {
       if (Object.keys(this.props.tree).length === 0) {
         var tree = new Tree(
           dragItems[nextProps.componentState.componentName],
-          nextProps.componentState.dropTarget
+          this.state.dropTarget
         );
         this.props.dispatch(updateTree(tree));
       } else {
         var tree = this.props.tree;
         tree = tree.pushToHead(
           dragItems[nextProps.componentState.componentName],
-          nextProps.componentState.dropTarget,
+          this.state.dropTarget,
           tree
         );
         // tree.add(
@@ -115,7 +122,7 @@ class reduxView extends React.Component {
 
     return (
       <div style={styles.bottomUp}>
-        <ul>{treeMap}</ul>
+        <div>{treeMap}</div>
       </div>
     );
   }

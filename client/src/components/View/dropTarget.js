@@ -5,6 +5,7 @@ import { ItemTypes } from './constants';
 const squareTarget = {
   drop(props, monitor) {
     const item = monitor.getItem();
+    console.log('PRRROOOOOPPPS', props);
     props.handleDrop(item.component);
     return item;
   }
@@ -22,6 +23,7 @@ class ComponentView extends React.Component {
     return (
       <div>
        <div style={{
+         margin: '2%',
          height: '20px',
          width: '100%',
          borderRadius: '5px',
