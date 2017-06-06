@@ -36,7 +36,7 @@ Tree.prototype.traverseBF = function(callback) {
 
   var currentTree = queue.dequeue();
 
-  while(currentTree){
+  while (currentTree) {
     for (var i = 0, length = currentTree.children.length; i < length; i++) {
       queue.enqueue(currentTree.children[i]);
     }
@@ -70,7 +70,7 @@ Tree.prototype.add = function(component, dropComponent, toData, traversal) {
 };
 
 Tree.prototype.pushToHead = function(component, dropComponent, oldTree) {
-  var newTree  = new Tree(component, dropComponent);
+  var newTree = new Tree(component, dropComponent);
   oldTree._root.parent = component;
   oldTree._root.parentID = newTree._root.ID;
   newTree._root.children.push(oldTree._root);
