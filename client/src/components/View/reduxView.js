@@ -29,19 +29,14 @@ class reduxView extends React.Component {
     this.state = {
       dropTarget: (
         <div className="col s12">
-          <DropTarget handleDroppedComponent={this.handleDroppedComponent.bind(this)} />
+          <DropTarget handleDrop={this.handleDroppedComponent.bind(this)} />
         </div>)
     };
     this.handleDroppedComponent = this.handleDroppedComponent.bind(this);
   }
 
   handleDroppedComponent(droppedInItem) {
-    var newCount = this.state.componentID + 1;
-    this.setState({
-      componentName: droppedInItem,
-      componentID: newCount,
-      dropTop: false,
-    });
+    this.props.handleChange(droppedInItem);
   }
 
   componentWillReceiveProps(nextProps) {
