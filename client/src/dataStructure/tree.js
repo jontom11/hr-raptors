@@ -1,6 +1,7 @@
 import React from 'react';
 import Queue from './queue';
 import shortid from 'shortid';
+import _ from 'lodash';
 
 var Node = function(component, dropComponent) {
   this.component = component;
@@ -29,8 +30,8 @@ Tree.prototype.traverseDF = function(callback) {
 
 };
 
-// traverses a tree with  breadth-first search
-Tree.prototype.traverseBFF = function(callback) {
+// traverses a tree with for rendering
+Tree.prototype.traverseRendering = function() {
   var queue = new Queue();
 
   (function recurse(node, queue) {
@@ -45,6 +46,7 @@ Tree.prototype.traverseBFF = function(callback) {
       }
     });
   })(this._root, queue);
+
   return queue._storage;
 };
 

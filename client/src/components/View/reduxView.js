@@ -42,7 +42,7 @@ class reduxView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('neeeexxxtttprrooopps', nextProps.componentState.ID);
+
     if (nextProps.componentState.componentID !== this.props.componentState.componentID) {
       if (Object.keys(this.props.tree).length === 0) {
         var tree = new Tree(
@@ -103,16 +103,13 @@ class reduxView extends React.Component {
     var treeArray = [];
 
     if (Object.keys(this.props.tree).length > 0) {
-      var treeObject = tree.traverseBFF(function (node) {
-        treeArray.push([node.component, node.dropComponent, node.ID]);
-      });
+      var treeObject = tree.traverseRendering();
     }
 
     _.forEach(treeObject, (node) => {
       treeArray.push([node.component, node.dropComponent, node.ID]);
     });
 
-      console.log(treeArray);
     const treeMap = _.map(treeArray, (code, index) => (
       <div key={index}>
         <div>{code[0]}</div>
