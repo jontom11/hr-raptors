@@ -1,5 +1,7 @@
+import React from 'react';
 import Queue from './queue';
 import shortid from 'shortid';
+import _ from 'lodash';
 
 var Node = function(component, dropComponent) {
   this.component = component;
@@ -28,6 +30,26 @@ Tree.prototype.traverseDF = function(callback) {
 
 };
 
+// traverses a tree with for rendering
+Tree.prototype.traverseRendering = function() {
+  var queue = new Queue();
+
+  (function recurse(node, queue) {
+    queue.enqueue(node);
+    _.forEach(node.children, (child) => {
+      queue.enqueue(child);
+      if (child.children && child.children.length >= 1) {
+        _.forEach(child.children, subchild => {
+          recurse(subchild, queue);
+        });
+
+      }
+    });
+  })(this._root, queue);
+
+  return queue._storage;
+};
+
 // traverses a tree with  breadth-first search
 Tree.prototype.traverseBF = function(callback) {
   var queue = new Queue();
@@ -54,7 +76,7 @@ Tree.prototype.add = function(component, dropComponent, toID, traversal) {
   var child = new Node(component, dropComponent),
     parent = null,
     callback = function(node) {
-      if (node.component === toID) {
+      if (node.ID === toID) {
         parent = node;
       }
     };
@@ -62,8 +84,9 @@ Tree.prototype.add = function(component, dropComponent, toID, traversal) {
   this.contains(callback, traversal);
 
   if (parent) {
-    parent.children.push(child);
+    parent.children.unshift(child);
     child.parent = parent;
+
   } else {
     throw new Error('Cannot add node to a non-existent parent.');
   }
