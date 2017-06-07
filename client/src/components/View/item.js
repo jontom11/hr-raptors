@@ -25,7 +25,7 @@ class Item extends Component {
   render() {
     const { connectDragSource, isDragging, component } = this.props;
     return connectDragSource(
-      <div style={{
+      <div onClick={() => console.log('Clicked')}  style={{
         opacity: isDragging ? 0.5 : 1,
         cursor: 'move',
       }}>

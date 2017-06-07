@@ -7,6 +7,7 @@ import Tree from '../../dataStructure/tree';
 import _ from 'lodash';
 import DropTarget from './dropTarget';
 import shortid from 'shortid';
+import Items from './items'
 
 const styles = {
   bottomUp: {
@@ -120,7 +121,7 @@ class reduxView extends React.Component {
 
     return (
       <div style={styles.bottomUp}>
-        <div>{treeMap}</div>
+        <Items items={treeMap}/>
       </div>
     );
   }

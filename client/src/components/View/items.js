@@ -5,8 +5,8 @@ import Item from './item';
 let Items = (props) => {
   let itemCollection = [];
   
-  props.items.forEach((component) => {
-    itemCollection.push(<Item item={component} />);
+  props.items.forEach((component, index) => {
+    itemCollection.push(<Item item={component} key={index} />);
   });
 
   return (
