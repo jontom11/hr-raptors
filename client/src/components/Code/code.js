@@ -26,12 +26,14 @@ class Code extends React.Component {
     var treeArray = [];
 
     if (Object.keys(this.props.tree).length > 0) {
-      tree.traverseBF(function (node) {
-        treeArray.push([node.component, node.dropComponent]);
-      });
+      var treeObject = tree.traverseRendering();
     }
 
-    const treeMap = _.map(treeArray, (code, index) => <div key={index}>{code[0]}</div>);
+    _.forEach(treeObject, (node) => {
+      treeArray.push(node.component);
+    });
+
+    const treeMap = _.map(treeArray, (code, index) => <div key={index}>{code}</div>);
 
     return (
        <article className="center-content code-view">
