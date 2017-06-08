@@ -1,4 +1,5 @@
 import axios from 'axios';
+import CircularJSON from 'circular-json';
 
 module.exports = {
   fetchCode: () => {
@@ -65,9 +66,11 @@ module.exports = {
     return function(dispatch) {
       dispatch({type: 'SAVE_TREE'});
 
-      axios.get('http://127.0.0.1:3000/postgres/tree')
+      var serialized = CircularJSON.stringify(tree);
+      console.log('SERIALIZED TREE?? ', serialized);
+
+      axios.post('http://127.0.0.1:3000/postgres/tree', {codeTree: serialized})
         .then((response) => {
-          console.log('GOT DATA?!', response.data);
           dispatch({type: 'SAVE_TREE_FULFILLED', payload: response.data});
         })
         .catch((err) => {
