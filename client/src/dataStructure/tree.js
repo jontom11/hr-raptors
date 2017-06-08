@@ -92,11 +92,11 @@ Tree.prototype.add = function(component, dropComponent, toID, traversal) {
   }
 };
 
-Tree.prototype.pushToHead = function(component, dropComponent, oldTree) {
+Tree.prototype.pushToHead = function(component, dropComponent) {
   var newTree = new Tree(component, dropComponent);
-  oldTree._root.parent = component;
-  oldTree._root.parentID = newTree._root.ID;
-  newTree._root.children.push(oldTree._root);
+  this._root.parent = component;
+  this._root.parentID = newTree._root.ID;
+  newTree._root.children.push(this._root);
   return newTree;
 };
 
