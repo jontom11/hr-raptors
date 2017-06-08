@@ -27,4 +27,13 @@ router.route('/users')
   res.status(200).send({name: 'Alexi', age: 22});
 });
 
+
+router.route('/tree')
+  .get((req, res) => {
+    // save to postgres
+    console.log('=> in the correct route: /save');
+    // console.log(`Saving tree: ${req.data}`);
+    res.status(200).send('saved tree');
+  });
+
 module.exports = router;
