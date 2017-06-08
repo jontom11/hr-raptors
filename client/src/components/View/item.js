@@ -13,7 +13,8 @@ const collect = function(connect, monitor) {
 
 const componentSource = {
   beginDrag(props) {
-    return {component:props.component};
+    console.log(props);
+    return {component:props.item};
   }
 };
 class Item extends Component {
@@ -25,7 +26,7 @@ class Item extends Component {
   render() {
     const { connectDragSource, isDragging, component } = this.props;
     return connectDragSource(
-      <div onClick={() => console.log('Clicked')}  style={{
+      <div onClick={() => this.props.toggleoptionview()}  style={{
         opacity: isDragging ? 0.5 : 1,
         cursor: 'move',
       }}>

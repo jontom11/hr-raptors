@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from 'react-sidebar';
 import NavTitlePanel from './navTitlePanel';
 import SidebarContent from './sidebarContent';
+import OptionBarContent from './optionBarContent'
 import download from 'downloadjs';
 import { saveTree } from "../../actions/codeActions"
 import { connect } from "react-redux"
@@ -84,16 +85,30 @@ class Nav extends React.Component {
         sidebar: Object.assign({}, styles.sidebar, {position: 'fixed'})
       },
     };
-
-    return (
-
+    {if (this.props.showingOptionView){
+      return (
       <Navbar {...sidebarProps}>
         <NavTitlePanel title={contentHeader} />
         <div style={styles.content}>
           {this.props.view}
         </div>
+        <div className ="nav-wrapper">
+        <div className='right sidebar' >
+       <OptionBarContent/>
+        </div>
+        </div>
       </Navbar>
     );
+    } else {
+      return(
+        <Navbar {...sidebarProps}>
+        <NavTitlePanel title={contentHeader} />
+        <div style={styles.content}>
+          {this.props.view}
+        </div>
+      </Navbar>
+    );}
+    }
   }
 }
 

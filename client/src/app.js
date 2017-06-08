@@ -25,8 +25,10 @@ class App extends React.Component {
     super(props);
     this.state = {
       viewState: true,
+      viewingOptions: false
     };
     this.toggleView = this.toggleView.bind(this);
+    this.toggleOptionView = this.toggleOptionView.bind(this);
   }
 
   toggleView() {
@@ -36,11 +38,17 @@ class App extends React.Component {
     });
   }
 
+  toggleOptionView(){
+    this.setState({
+      viewingOptions: !this.state.viewingOptions
+    });
+  }
+
 
   render() {
-    let main = <View />;
+    let main = <View toggleOptionView={this.toggleOptionView}/>;
     if (this.state.viewState) {
-      main = <View />;
+      main = <View toggleOptionView={this.toggleOptionView} />;
     } else {
       main = <Code />;
     }
@@ -51,7 +59,7 @@ class App extends React.Component {
           <div>
             <h3 draggable="true">HELLO</h3>
           </div>
-          <Nav view={main} toggleView={this.toggleView} />
+          <Nav view={main} toggleView={this.toggleView} showingOptionView={this.state.viewingOptions} />
         </div>
       </MuiThemeProvider>
       </Provider>
