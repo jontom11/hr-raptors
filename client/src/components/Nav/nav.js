@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from 'react-sidebar';
 import NavTitlePanel from './navTitlePanel';
 import SidebarContent from './sidebarContent';
+import OptionBarContent from './optionBarContent'
 import download from 'downloadjs';
 import codeBoilerPlate from '../Code/codeBoilerPlate';
 
@@ -88,11 +89,13 @@ class Nav extends React.Component {
         <div style={styles.content}>
           {this.props.view}
         </div>
-        <div className='right'>
-        HIII
+        <div className ="nav-wrapper">
+        <div className='right sidebar' >
+       <OptionBarContent/>
+        </div>
         </div>
       </Navbar>
-    )
+    );
     } else {
       return(
         <Navbar {...sidebarProps}>
@@ -101,9 +104,9 @@ class Nav extends React.Component {
           {this.props.view}
         </div>
       </Navbar>
-    )};
+    );}
+    }
   }
- }
 }
 
 export default Nav;
