@@ -61,4 +61,23 @@ module.exports = {
       payload: { tree },
     };
   },
+  saveTree: (tree) => {
+    // console.log(tree);
+    // return {
+    //   type: 'SAVE_TREE',
+    //   payload: { tree },
+    // };
+    return function(dispatch) {
+      dispatch({type: 'SAVE_TREE'});
+
+      axios.get('http://127.0.0.1:3000/postgres/tree')
+        .then((response) => {
+          console.log('GOT DATA?!', response.data);
+          dispatch({type: 'SAVE_TREE_FULFILLED', payload: response.data});
+        })
+        .catch((err) => {
+          dispatch({type: 'SAVE_TREE_REJECTED', payload: err});
+        });
+    };
+  },
 };

@@ -10,6 +10,8 @@ export default function reducer(state = {
   fetched: false,
   error: null,
   tree: {},
+  saving: false,
+  saved: false,
 }, action) {
 
   switch (action.type) {
@@ -53,6 +55,15 @@ export default function reducer(state = {
   }
   case 'UPDATE_TREE': {
     return Object.assign({}, state, { tree: action.payload.tree });
+  }
+  case 'SAVE_TREE': {
+    return Object.assign({}, state, {saving: true});
+  }
+  case 'SAVE_TREE_REJECTED': {
+    return Object.assign({}, state, {saving: false, error: action.payload});
+  }
+  case 'SAVE_TREE_FULFILLED': {
+    return Object.assign({}, state, {saving: false, saved: true});
   }
   }
 
