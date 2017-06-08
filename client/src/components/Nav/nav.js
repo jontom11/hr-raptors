@@ -81,17 +81,29 @@ class Nav extends React.Component {
         sidebar: Object.assign({}, styles.sidebar, {position: 'fixed'})
       },
     };
-
-    return (
-
+    {if (this.props.showingOptionView){
+      return (
       <Navbar {...sidebarProps}>
         <NavTitlePanel title={contentHeader} />
         <div style={styles.content}>
           {this.props.view}
         </div>
+        <div className='right'>
+        HIII
+        </div>
       </Navbar>
-    );
+    )
+    } else {
+      return(
+        <Navbar {...sidebarProps}>
+        <NavTitlePanel title={contentHeader} />
+        <div style={styles.content}>
+          {this.props.view}
+        </div>
+      </Navbar>
+    )};
   }
+ }
 }
 
 export default Nav;

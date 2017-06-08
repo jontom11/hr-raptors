@@ -121,7 +121,7 @@ class reduxView extends React.Component {
 
     return (
       <div style={styles.bottomUp}>
-        <Items items={treeMap}/>
+        <Items items={treeMap} toggleOptionView={this.props.toggleOptionView}/>
       </div>
     );
   }

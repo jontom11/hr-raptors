@@ -26,6 +26,7 @@ class View extends React.Component {
         </div>),
       isDropped: false,
       dropTop: false,
+      showingOptionsView: false
     };
     this.handleDroppedComponent = this.handleDroppedComponent.bind(this);
     this.handleDropChange = this.handleDropChange.bind(this);
@@ -74,7 +75,7 @@ class View extends React.Component {
     return (
       <article className="center-content">
           <DropTarget handleDrop={this.handleDroppedComponent.bind(this)} context={this} id="head" />
-        <ReduxView componentState={this.state} handleDrop={this.handleDroppedComponent.bind(this)} handleChange={this.handleDropChange.bind(this)} />
+        <ReduxView componentState={this.state} handleDrop={this.handleDroppedComponent.bind(this)} handleChange={this.handleDropChange.bind(this)} toggleOptionView={this.props.toggleOptionView} />
 
       </article>
     );
