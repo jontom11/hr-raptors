@@ -3,9 +3,8 @@ import Navbar from 'react-sidebar';
 import NavTitlePanel from './navTitlePanel';
 import SidebarContent from './sidebarContent';
 import download from 'downloadjs';
-import codeBoilerPlate from '../Code/codeBoilerPlate';
-
-
+import { saveTree } from "../../actions/codeActions"
+import { connect } from "react-redux"
 
 const styles = {
   contentHeaderMenuLink: {
@@ -17,6 +16,13 @@ const styles = {
     padding: '2.5vh',
   },
 };
+
+@connect((store) => {
+  return {
+    tree: store.code.tree,
+    treeSaved: store.code.saved,
+  };
+})
 
 class Nav extends React.Component {
   constructor(props) {
@@ -46,13 +52,11 @@ class Nav extends React.Component {
   }
 
   saveButtonClick() {
-    console.log('CLICKED SAVE BUTTON');
-    console.log(codeBoilerPlate);
-    // To Do: save codeBoilerPlate render data only. Currently saves the page that is loaded.
-    // console.log('document:', codeBoilerPlate().props.children.props.children)
-    // console.log('document:', document.getElementsByTagName("code")[0].innerText);
-    // download(codeBoilerPlate().props.children.props.children, "Material-GUI.html", "text/html"); // does not eval props.code
-    // download(document.getElementsByTagName('code')[0].innerText, 'Material-GUI.html', 'text/html');
+    console.log('TREE***********************************');
+    console.log(this.props.tree);
+    console.log('tree saved? ', this.props.treeSaved);
+    console.log('saving to db.....');
+    this.props.dispatch(saveTree(this.props.tree));
   }
 
   logoutButtonClick() {
