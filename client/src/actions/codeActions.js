@@ -62,11 +62,6 @@ module.exports = {
     };
   },
   saveTree: (tree) => {
-    // console.log(tree);
-    // return {
-    //   type: 'SAVE_TREE',
-    //   payload: { tree },
-    // };
     return function(dispatch) {
       dispatch({type: 'SAVE_TREE'});
 

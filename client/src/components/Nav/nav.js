@@ -41,7 +41,6 @@ class Nav extends React.Component {
 
     this.menuButtonClick = this.menuButtonClick.bind(this);
     this.saveButtonClick = this.saveButtonClick.bind(this);
-    this.logoutButtonClick = this.logoutButtonClick.bind(this);
   }
 
   menuButtonClick(ev) {
@@ -52,15 +51,9 @@ class Nav extends React.Component {
   }
 
   saveButtonClick() {
-    console.log('TREE***********************************');
-    console.log(this.props.tree);
-    console.log('tree saved? ', this.props.treeSaved);
-    console.log('saving to db.....');
+    console.log('saving tree to db.....');
     this.props.dispatch(saveTree(this.props.tree));
-  }
-
-  logoutButtonClick() {
-    console.log('user is logging out!');
+    download(document.getElementsByTagName('code')[0].innerText, 'Material-GUI.html', 'text/html');
   }
 
   render() {
@@ -73,7 +66,7 @@ class Nav extends React.Component {
             <a onClick={this.menuButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-times" aria-hidden="true" /></a>}
           <a onClick={this.props.toggleView} style={styles.contentHeaderMenuLink}><i className="fa fa-code" aria-hidden="true" /></a>
           <a onClick={this.saveButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-download" aria-hidden="true" /></a>
-          <a onClick={this.logoutButtonClick} href={"/login"} style={styles.contentHeaderMenuLink}><i className="fa fa-sign-out" aria-hidden="true" /></a>
+          <a href={"/login"} style={styles.contentHeaderMenuLink}><i className="fa fa-sign-out" aria-hidden="true" /></a>
         </div>
       </div>);
 
