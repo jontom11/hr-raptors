@@ -28,12 +28,4 @@ router.route('/users')
 });
 
 
-router.route('/tree')
-  .get((req, res) => {
-    // save to postgres
-    console.log('=> in the correct route: /save');
-    // console.log(`Saving tree: ${req.data}`);
-    res.status(200).send('saved tree');
-  });
-
 module.exports = router;

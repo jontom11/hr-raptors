@@ -40,5 +40,6 @@ app.use(function(req, res, next) {
 app.use('/', routes.auth);
 app.use('/api', routes.api);
 app.use('/api/profiles', routes.profiles);
+app.use('/postgres', routes.postgres);
 
 module.exports = app;
