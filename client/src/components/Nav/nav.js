@@ -58,6 +58,10 @@ class Nav extends React.Component {
     download(document.getElementsByTagName('code')[0].innerText, 'Material-GUI.html', 'text/html');
   }
 
+  logoutButtonClick() {
+    console.log('user is logging out!');
+  }
+
   render() {
     const sidebar = <SidebarContent />;
     const contentHeader = (
