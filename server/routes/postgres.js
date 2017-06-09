@@ -16,15 +16,15 @@ router.route('/tree')
     pg.connect(connectionString,(err,client,done) => {
       if (err) { 
         done();
-        console.log('error on get Data',err)
+        console.log('error on get Data',err);
         return res.status(500).json({success: false, fatal: err}); 
       } else {
         client.query("`INSERT INTO postest1 values (2, ${req.body})`");
         const query = client.query('SELECT * FROM test1 where id=1');
-          query.on('row', (row) => { 
-            results.push(row); 
-            console.log('rowwwwwwww', row);
-          });
+        query.on('row', (row) => { 
+          results.push(row); 
+          console.log('rowwwwwwww', row);
+        });
         console.log('SUCKSESSS!', query);
         res.status(200).send(req.body);  // Need to promisify to get data from query
       }
