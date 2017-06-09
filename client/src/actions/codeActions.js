@@ -69,7 +69,7 @@ module.exports = {
       dispatch({type: 'SAVE_TREE'});
       axios.post('http://127.0.0.1:3000/postgres/tree', { codeTree: tree })
         .then((response) => {
-          console.log('RESPONSE DATA STRINGIFIED:', JSON.stringify(response.data[0]));
+          console.log('RESPONSE DATA STRINGIFIED:', response.data[0]);
           console.log('RESPONSE DATA RAW:', response.data);
           dispatch({type: 'SAVE_TREE_FULFILLED', payload: response.data});
         })
@@ -81,17 +81,3 @@ module.exports = {
   },
 };
 
-
-// ["{\"_root\":
-  // {\"component\":
-  //   {\"type\":
-  //     \"a\",\"key\":null,
-  //     \"ref\":null,
-  //     \"props\":{\"className\":\"waves-effect waves-light btn-large\",\"children\":\"Button\"},
-  //       \"_owner\":null,
-  //       \"_store\":{}},
-  //       \"ID\":\"BJcRtaDG-\",
-  //       \"parent\":null,
-  //       \"parentID\":null,
-  //       \"children\":[]}
-  //     }"]
