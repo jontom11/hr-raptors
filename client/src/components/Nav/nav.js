@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from 'react-sidebar';
 import NavTitlePanel from './navTitlePanel';
 import SidebarContent from './sidebarContent';
-import OptionBarContent from './optionBarContent'
+import OptionBarContent from './optionBarContent';
 import download from 'downloadjs';
 import { saveProject } from "../../actions/codeActions"
 import { loadProjects } from "../../actions/codeActions"

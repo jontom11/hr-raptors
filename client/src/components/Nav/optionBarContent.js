@@ -37,6 +37,7 @@ const OptionbarContent = (props) => {
   return (
     <div>
     <MaterialTitlePanel title="Options" style={style} />
+    <button type='button'>Delete me</button>
       <div style={styles.content}>
         <h3 href="#" style={styles.OptionBarLink}></h3>
       </div>
