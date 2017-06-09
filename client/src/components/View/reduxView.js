@@ -58,7 +58,6 @@ class reduxView extends React.Component {
         this.props.dispatch(updateTree(tree));
       } else {
         var tree = this.props.tree;
-        console.log('id', nextProps.componentState.ID);
         tree.add(
           dragItems[nextProps.componentState.componentName],
           nextProps.componentState.ID,
