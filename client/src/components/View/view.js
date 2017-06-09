@@ -2,14 +2,17 @@ import React from 'react';
 import { connect } from "react-redux"
 import { fetchUser } from "../../actions/userActions"
 import { clearCode } from "../../actions/codeActions"
+import _ from 'lodash';
 
 import ReduxView from './reduxView';
 import DropTarget from './dropTarget';
+import Items from './items'
 
 @connect((store) => {
   return {
     user: store.user.user,
     userFetched: store.user.fetched,
+    tree: store.code.tree,
   };
 })
 class View extends React.Component {
@@ -47,7 +50,7 @@ class View extends React.Component {
 
   render() {
     const { tree } = this.props;
-
+    console.log('TREEEEEE', tree);
     return (
       <article className="center-content">
           <DropTarget

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateTree } from '../../actions/codeActions';
-import dragItems from '../dragItems';
+import dragItems from '../../dragItems';
 import Tree from '../../dataStructure/tree';
 import _ from 'lodash';
 import DropTarget from './dropTarget';
@@ -85,7 +85,12 @@ class reduxView extends React.Component {
       <div key={index}>
         <div>{code.component}</div>
         <div className="col s12" id={code.ID}>
-          <DropTarget handleDrop={this.handleDroppedComponent.bind(this)} toID={code.ID} oldTree={tree} />
+          <DropTarget
+            handleDrop={this.handleDroppedComponent.bind(this)}
+            toID={code.ID}
+            oldTree={tree}
+            dispatch={this.props.dispatch}
+          />
         </div>
       </div>));
 

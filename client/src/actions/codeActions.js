@@ -1,4 +1,6 @@
 import axios from 'axios';
+import Tree from '../dataStructure/tree';
+import dragItems from '../dragItems';
 
 module.exports = {
   fetchCode: () => {
@@ -23,18 +25,18 @@ module.exports = {
   },
   updateTreeNew: (componentName, toID, oldTree) => {
     return function(dispatch) {
-
-      if (Object.keys(oldTree).length === 0) {
+      console.log(Object.keys(oldTree).length <= 0);
+      if (Object.keys(oldTree).length <= 0) {
         var tree = new Tree(
           dragItems[componentName]
         );
-        dispatch({ type: 'UPDATE_TREE', payload: tree });
+        dispatch({ type: 'UPDATE_TREE', payload: { tree } });
       } else if (toID === 'head') {
         var tree = oldTree;
         tree = tree.pushToHead(
           dragItems[componentName]
         );
-        dispatch({ type: 'UPDATE_TREE', payload: tree });
+        dispatch({ type: 'UPDATE_TREE', payload: { tree } });
       } else {
         var tree = oldTree;
         tree.add(
@@ -42,7 +44,7 @@ module.exports = {
           toID,
           tree.traverseBF
         );
-        dispatch({ type: 'UPDATE_TREE', payload: tree });
+        dispatch({ type: 'UPDATE_TREE', payload: { tree } });
       }
 
     };
