@@ -50,15 +50,6 @@ class View extends React.Component {
     });
   }
 
-  handleDroppedComponentTop(droppedInItem) {
-    var newCount = this.state.componentID + 1;
-    this.setState({
-      componentName: droppedInItem,
-      componentID: newCount,
-      dropTop: true,
-    });
-  }
-
   handleDropChange(droppedInItem, ID) {
     var newCount = this.state.componentID + 1;
     this.setState({

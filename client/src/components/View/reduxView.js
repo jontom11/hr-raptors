@@ -65,8 +65,8 @@ class reduxView extends React.Component {
         );
         this.props.dispatch(updateTree(tree));
       }
-
     }
+
   }
 
   render() {

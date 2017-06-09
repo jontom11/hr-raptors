@@ -15,40 +15,6 @@ module.exports = {
       });
     };
   },
-  addCode: (id, componentCode, isDropped, dropTarget) => {
-    return {
-      type: 'ADD_CODE',
-      payload: {
-        id,
-        componentCode,
-        isDropped,
-        dropTarget,
-      },
-    };
-  },
-  addCodeTop: (id, componentCode, isDropped, dropTarget) => {
-    return {
-      type: 'ADD_CODE_TOP',
-      payload: {
-        id,
-        componentCode,
-        isDropped,
-        dropTarget,
-      },
-    };
-  },
-  addToHead: (linkedData) => {
-    return  {
-      type: 'ADD_TO_HEAD',
-      payload: { linkedData },
-    };
-  },
-  addToTail: (linkedData) => {
-    return  {
-      type: 'ADD_TO_TAIL',
-      payload: { linkedData },
-    };
-  },
   clearCode: () => {
     return {
       type: 'CLEAR_CODE',
