@@ -67,6 +67,9 @@ Development envronment: `grunt pgcreatedb:default`
 
 Other environments, specify like so: `NODE_ENV=test grunt pgcreatedb:default`
 
+<img height="500" src='./public/materialgui.gif' />
+
+
 ### Run Migrations & Data Seeds
 
 In terminal, from the root directory:
