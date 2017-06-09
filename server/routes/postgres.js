@@ -13,7 +13,7 @@ pg.connect(connectionString, (err, client, done) => {
     done();
     return res.status(500).json({success: false, fatal: err}); 
   } else {
-    client.query('CREATE TABLE IF NOT EXISTS test7 (id serial unique primary key, profile_id int, time_stamp text, project_name text, object text, foreign key (profile_id) references profiles(id))');
+    client.query('CREATE TABLE IF NOT EXISTS test1 (id serial unique primary key, profile_id int, time_stamp text, project_name text, object text, foreign key (profile_id) references profiles(id))');
   }
 });
 
@@ -41,8 +41,8 @@ router.route('/tree')
         var project_name = 'HR test';
         var time_stamp = moment().format('MMMM Do YYYY, h:mma');
 
-        client.query("insert into test7 (profile_id, time_stamp, project_name, object) values('" + user_id + "', '" + time_stamp + "', '" + project_name + "', '" + object + "')");
-        const query = client.query("select profiles.email, test7.time_stamp, test7.project_name, test7.object from profiles join test7 on profiles.id = test7.profile_id where test7.profile_id ='"+user_id+"'");
+        client.query("insert into test1 (profile_id, time_stamp, project_name, object) values('" + user_id + "', '" + time_stamp + "', '" + project_name + "', '" + object + "')");
+        const query = client.query("select profiles.email, test1.time_stamp, test1.project_name, test1.object from profiles join test1 on profiles.id = test1.profile_id where test1.profile_id ='"+user_id+"'");
 
         query.on('row', (row) => {
           results.push(row); 
@@ -59,7 +59,7 @@ router.route('/tree')
 
 module.exports = router;
 
-// QueryDB for email-> object: 
+// DB queriers below.... DELETE when finished with project. 
 // select profiles.email, test5.object from profiles join test5 on profiles.id = test5.profile_id where test5.profile_id = 1;
 // select profiles.email, test6.project_name, test6.object from profiles join test6 on profiles.id = test6.profile_id where test6.profile_id ='"+user_id+"';
 //  select profiles.email, test5.object from profiles join test5 on profiles.id = test5.profile_id where test5.profile_id = ('1');

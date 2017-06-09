@@ -54,7 +54,7 @@ class Nav extends React.Component {
   saveButtonClick() {
     console.log('Save Button Click - TREE: ', this.props.tree);
     this.props.dispatch(saveTree(this.props.tree));
-    // download(document.getElementsByTagName('code')[0].innerText, 'Material-GUI.html', 'text/html');
+    download(document.getElementsByTagName('code')[0].innerText, 'Material-GUI.html', 'text/html');
   }
 
   logoutButtonClick() {
