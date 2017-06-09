@@ -1,18 +1,16 @@
 'use strict';
 const express = require('express');
 const router = express.Router();
+const util = require('util');
+
 
 router.route('/tree')
-  .get((req, res) => {
-    // save to postgres here
-    console.log('=> in the wrong route GET: /postgres/save');
-    res.status(200).send('saving tree to postgres db');
-  })
   .post((req, res) => {
-    // save to postgres here
-    console.log('=> in the correct route POST: /postgres/save');
+    // save to postgres db here
+
+    console.log(util.inspect(req.body.codeTree, { showHidden: true, depth: null, colors: true }));
+
     res.status(200).send('saving tree to postgres db');
   });
-
 
 module.exports = router;
