@@ -6,7 +6,6 @@ import _ from 'lodash';
 var Node = function(component) {
   this.component = component;
   this.ID = shortid.generate();
-  this.parent = null;
   this.parentID = null;
   this.children = [];
 };
@@ -16,7 +15,10 @@ var Tree = function(component) {
   this._root = node;
 };
 
-// traverses a tree with depth-first search
+
+/*=========================================
+ // traverses a tree with depth-first search
+ ==========================================*/
 Tree.prototype.traverseDF = function(callback) {
 
   // Immediately invoking function, recursing
@@ -29,7 +31,10 @@ Tree.prototype.traverseDF = function(callback) {
 
 };
 
-// traverses a tree with for rendering
+
+/*=========================================
+  traverses a tree for rendering
+ ==========================================*/
 Tree.prototype.traverseRendering = function() {
   var queue = new Queue();
 
@@ -49,7 +54,9 @@ Tree.prototype.traverseRendering = function() {
   return queue._storage;
 };
 
-// traverses a tree with  breadth-first search
+/*=========================================
+ traverses a tree with breadth-first search
+ ==========================================*/
 Tree.prototype.traverseBF = function(callback) {
   var queue = new Queue();
 
@@ -67,10 +74,17 @@ Tree.prototype.traverseBF = function(callback) {
   }
 };
 
+/*=================
+Contains
+ =================*/
 Tree.prototype.contains = function(callback, traversal) {
   traversal.call(this, callback);
 };
 
+
+/*=================
+ADD
+ =================*/
 Tree.prototype.add = function(component, toID, traversal) {
   var child = new Node(component),
     parent = null,
@@ -84,21 +98,26 @@ Tree.prototype.add = function(component, toID, traversal) {
 
   if (parent) {
     parent.children.unshift(child);
-    child.parent = parent;
+    child.parentID = toID;
 
   } else {
     throw new Error('Cannot add node to a non-existent parent.');
   }
 };
 
+/*=================
+ PUSH TO HEAD
+ =================*/
 Tree.prototype.pushToHead = function(component) {
   var newTree = new Tree(component);
-  this._root.parent = component;
   this._root.parentID = newTree._root.ID;
   newTree._root.children.push(this._root);
   return newTree;
 };
 
+/*=================
+ REMOVE
+ =================*/
 Tree.prototype.remove = function(component, fromID, traversal) {
   var tree = this,
     parent = null,
@@ -128,6 +147,9 @@ Tree.prototype.remove = function(component, fromID, traversal) {
   return childToRemove;
 };
 
+/*=================
+ FIND INDEX
+ =================*/
 var findIndex = function(arr, component) {
   var index;
 

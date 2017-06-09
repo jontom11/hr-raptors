@@ -53,12 +53,12 @@ class reduxView extends React.Component {
       } else if (nextProps.componentState.ID === 'head') {
         var tree = this.props.tree;
         tree = tree.pushToHead(
-          dragItems[nextProps.componentState.componentName],
-          tree
+          dragItems[nextProps.componentState.componentName]
         );
         this.props.dispatch(updateTree(tree));
       } else {
         var tree = this.props.tree;
+        console.log('id', nextProps.componentState.ID);
         tree.add(
           dragItems[nextProps.componentState.componentName],
           nextProps.componentState.ID,
@@ -67,31 +67,6 @@ class reduxView extends React.Component {
         this.props.dispatch(updateTree(tree));
       }
 
-
-      /* ADDING TO LINKED LIST */
-      if (nextProps.componentState.dropTop) {
-        this.props.dispatch(addToHead(
-          linkers.addToHead(
-            this.props.componentsLinkedList,
-            dragItems[nextProps.componentState.componentName],
-            nextProps.componentState.isDropped,
-            this.props.item,
-            this.props.head,
-            this.props.tail,
-          )
-        ));
-      } else {
-        this.props.dispatch(addToTail(
-          linkers.addToTail(
-            this.props.componentsLinkedList,
-            dragItems[nextProps.componentState.componentName],
-            nextProps.componentState.isDropped,
-            this.props.item,
-            this.props.head,
-            this.props.tail,
-          )
-        ));
-      }
     }
   }
 
