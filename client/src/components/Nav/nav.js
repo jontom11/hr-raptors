@@ -7,6 +7,10 @@ import download from 'downloadjs';
 import { saveProject } from "../../actions/codeActions"
 import { loadProjects } from "../../actions/codeActions"
 import { connect } from "react-redux"
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
+import View from '../View/view';
+import Code from '../Code/code';
 
 const styles = {
   contentHeaderMenuLink: {
@@ -73,7 +77,8 @@ class Nav extends React.Component {
           {!this.state.docked ?
             <a onClick={this.menuButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-bars" aria-hidden="true" /></a> :
             <a onClick={this.menuButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-times" aria-hidden="true" /></a>}
-          <a onClick={this.props.toggleView} style={styles.contentHeaderMenuLink}><i className="fa fa-code" aria-hidden="true" /></a>
+          <Link to="/"><a style={styles.contentHeaderMenuLink}><i className="fa fa-desktop" aria-hidden="true" /></a></Link>
+          <Link to="/code"><a style={styles.contentHeaderMenuLink}><i className="fa fa-code" aria-hidden="true" /></a></Link>
           <a onClick={this.saveButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-download" aria-hidden="true" /></a>
           <a onClick={this.loadButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-user" aria-hidden="true"/></a>
           <a href={"/login"} style={styles.contentHeaderMenuLink}><i className="fa fa-sign-out" aria-hidden="true" /></a>
@@ -96,26 +101,32 @@ class Nav extends React.Component {
     };
     {if (this.props.showingOptionView){
       return (
-      <Navbar {...sidebarProps}>
-        <NavTitlePanel title={contentHeader} />
-        <div style={styles.content}>
-          {this.props.view}
-        </div>
-        <div className ="nav-wrapper">
-        <div className='right sidebar' >
-       <OptionBarContent/>
-        </div>
-        </div>
-      </Navbar>
+        <Router>
+          <Navbar {...sidebarProps}>
+            <NavTitlePanel title={contentHeader} />
+            <div style={styles.content}>
+              <Route exact path="/" component={View}/>
+              <Route path="/code" component={Code}/>
+            </div>
+            <div className ="nav-wrapper">
+            <div className='right sidebar' >
+           <OptionBarContent/>
+            </div>
+            </div>
+          </Navbar>
+        </Router>
     );
     } else {
       return(
-        <Navbar {...sidebarProps}>
-        <NavTitlePanel title={contentHeader} />
-        <div style={styles.content}>
-          {this.props.view}
-        </div>
-      </Navbar>
+        <Router>
+          <Navbar {...sidebarProps}>
+            <NavTitlePanel title={contentHeader} />
+            <div style={styles.content}>
+              <Route exact path="/" component={View}/>
+              <Route path="/code" component={Code}/>
+            </div>
+          </Navbar>
+        </Router>
     );}
     }
   }
