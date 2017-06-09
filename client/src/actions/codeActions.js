@@ -21,6 +21,32 @@ module.exports = {
       payload: {},
     };
   },
+  updateTreeNew: () => {
+    return function(dispatch) {
+      if (nextProps.componentState.componentID !== this.props.componentState.componentID) {
+        if (Object.keys(this.props.tree).length === 0) {
+          var tree = new Tree(
+            dragItems[nextProps.componentState.componentName]
+          );
+          dispatch(updateTree(tree));
+        } else if (nextProps.componentState.ID === 'head') {
+          var tree = this.props.tree;
+          tree = tree.pushToHead(
+            dragItems[nextProps.componentState.componentName]
+          );
+          dispatch(updateTree(tree));
+        } else {
+          var tree = this.props.tree;
+          tree.add(
+            dragItems[nextProps.componentState.componentName],
+            nextProps.componentState.ID,
+            tree.traverseBF
+          );
+          dispatch(updateTree(tree));
+        }
+      }
+    };
+  },
   updateTree: (tree) => {
     return {
       type: 'UPDATE_TREE',

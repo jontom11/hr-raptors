@@ -23,8 +23,6 @@ class View extends React.Component {
         <div className="col s12">
           <DropTarget handleDroppedComponent={this.handleDroppedComponent.bind(this)} />
         </div>),
-      isDropped: false,
-      dropTop: false,
       showingOptionsView: false
     };
     this.handleDroppedComponent = this.handleDroppedComponent.bind(this);
@@ -44,17 +42,6 @@ class View extends React.Component {
     this.setState({
       componentName: droppedInItem,
       componentID: newCount,
-      dropTop: false,
-      ID: ID,
-    });
-  }
-
-  handleDropChange(droppedInItem, ID) {
-    var newCount = this.state.componentID + 1;
-    this.setState({
-      componentName: droppedInItem,
-      componentID: newCount,
-      dropTop: true,
       ID: ID,
     });
   }
@@ -65,7 +52,7 @@ class View extends React.Component {
     return (
       <article className="center-content">
           <DropTarget handleDrop={this.handleDroppedComponent.bind(this)} context={this} id="head" />
-        <ReduxView componentState={this.state} handleDrop={this.handleDroppedComponent.bind(this)} handleChange={this.handleDropChange.bind(this)} toggleOptionView={this.props.toggleOptionView} />
+        <ReduxView componentState={this.state} handleDrop={this.handleDroppedComponent.bind(this)} toggleOptionView={this.props.toggleOptionView} />
 
       </article>
     );
