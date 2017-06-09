@@ -38,7 +38,7 @@ class reduxView extends React.Component {
   }
 
   handleDroppedComponent(droppedInItem, ID) {
-    this.props.handleChange(droppedInItem, ID);
+    this.props.handleDrop(droppedInItem, ID);
   }
 
   componentWillReceiveProps(nextProps) {

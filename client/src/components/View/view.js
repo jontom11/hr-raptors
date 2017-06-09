@@ -26,7 +26,6 @@ class View extends React.Component {
       showingOptionsView: false
     };
     this.handleDroppedComponent = this.handleDroppedComponent.bind(this);
-    this.handleDropChange = this.handleDropChange.bind(this);
   }
 
   componentWillMount() {
