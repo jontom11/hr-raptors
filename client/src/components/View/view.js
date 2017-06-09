@@ -5,7 +5,6 @@ import { clearCode } from "../../actions/codeActions"
 
 import ReduxView from './reduxView';
 import DropTarget from './dropTarget';
-import shortid from 'shortid';
 
 @connect((store) => {
   return {
@@ -61,7 +60,7 @@ class View extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { tree } = this.props;
 
     return (
       <article className="center-content">

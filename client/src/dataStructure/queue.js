@@ -1,5 +1,7 @@
-// _newestIndex represents a ticket from a customer ticketing system.
-// _oldestIndex represents a ticket from an employee ticketing system.
+/*======================================================================
+ // _newestIndex represents a ticket from a customer ticketing system.
+ // _oldestIndex represents a ticket from an employee ticketing system.
+====================================================================== */
 
 var Queue = function() {
   this._oldestIndex = 1;

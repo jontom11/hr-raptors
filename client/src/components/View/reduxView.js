@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addToTail, addToHead, updateTree } from '../../actions/codeActions';
+import { updateTree } from '../../actions/codeActions';
 import dragItems from '../dragItems';
-import linkers from '../../dataStructure/linkedList';
 import Tree from '../../dataStructure/tree';
 import _ from 'lodash';
 import DropTarget from './dropTarget';
@@ -70,7 +69,7 @@ class reduxView extends React.Component {
   }
 
   render() {
-    const { components, componentsLinkedList, head, tree } = this.props;
+    const { tree } = this.props;
 
     var treeArray = [];
 

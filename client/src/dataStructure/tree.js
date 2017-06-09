@@ -15,7 +15,6 @@ var Tree = function(component) {
   this._root = node;
 };
 
-
 /*=========================================
  // traverses a tree with depth-first search
  ==========================================*/
@@ -30,7 +29,6 @@ Tree.prototype.traverseDF = function(callback) {
   })(this._root);
 
 };
-
 
 /*=========================================
   traverses a tree for rendering
@@ -80,7 +78,6 @@ Contains
 Tree.prototype.contains = function(callback, traversal) {
   traversal.call(this, callback);
 };
-
 
 /*=================
 ADD
