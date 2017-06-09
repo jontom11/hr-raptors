@@ -177,7 +177,7 @@ module.exports = {
       <source src="movie.mp4" type="video/mp4" />
     </video>,
   h1:
-    'Header 1',
+    <h1>Header 1</h1>,
   h2:
     <h2>Header 2</h2>,
   h3:
