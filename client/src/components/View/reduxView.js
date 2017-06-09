@@ -78,14 +78,14 @@ class reduxView extends React.Component {
     }
 
     _.forEach(treeObject, (node) => {
-      treeArray.push([node.component, node.dropComponent, node.ID]);
+      treeArray.push(node);
     });
 
     const treeMap = _.map(treeArray, (code, index) => (
       <div key={index}>
-        <div>{code[0]}</div>
-        <div className="col s12" id={code[2]}>
-          <DropTarget handleDrop={this.handleDroppedComponent.bind(this)} id={code[2]} />
+        <div>{code.component}</div>
+        <div className="col s12" id={code.ID}>
+          <DropTarget handleDrop={this.handleDroppedComponent.bind(this)} id={code.ID} />
         </div>
       </div>));
 
