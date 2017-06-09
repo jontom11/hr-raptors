@@ -1,6 +1,4 @@
 import axios from 'axios';
-import CircularJSON from 'circular-json';
-import components from '../components/dragItems';
 
 module.exports = {
   fetchCode: () => {
@@ -63,17 +61,30 @@ module.exports = {
       payload: { tree },
     };
   },
-  saveTree: (tree) => {
+  saveProject: (tree) => {
     return function(dispatch) {
-      dispatch({type: 'SAVE_TREE'});
+      dispatch({type: 'SAVE_PROJECT'});
 
       axios.post('http://127.0.0.1:3000/postgres/tree', { codeTree: tree }
       )
         .then((response) => {
-          dispatch({type: 'SAVE_TREE_FULFILLED', payload: response.data});
+          dispatch({type: 'SAVE_PROJECT_FULFILLED', payload: response.data});
         })
         .catch((err) => {
-          dispatch({type: 'SAVE_TREE_REJECTED', payload: err});
+          dispatch({type: 'SAVE_PROJECT_REJECTED', payload: err});
+        });
+    };
+  },
+  loadProjects: (user) => {
+    return function(dispatch) {
+      dispatch({type: 'LOAD_PROJECTS'});
+      console.log(`calling loadProjects action with user: ${user}`)
+      axios.get('http://127.0.0.1:3000/postgres/tree')
+        .then((response) => {
+          dispatch({type: 'LOAD_PROJECTS_FULFILLED', payload: response.data});
+        })
+        .catch((err) => {
+          dispatch({type: 'LOAD_PROJECTS_REJECTED', payload: err});
         });
     };
   },

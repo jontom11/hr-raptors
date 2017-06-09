@@ -5,6 +5,7 @@ import SidebarContent from './sidebarContent';
 import OptionBarContent from './optionBarContent'
 import download from 'downloadjs';
 import { saveTree } from "../../actions/codeActions"
+import { loadProjects } from "../../actions/codeActions"
 import { connect } from "react-redux"
 
 const styles = {
@@ -21,7 +22,7 @@ const styles = {
 @connect((store) => {
   return {
     tree: store.code.tree,
-    treeSaved: store.code.saved,
+    userData: store.user.user,
   };
 })
 
@@ -42,6 +43,7 @@ class Nav extends React.Component {
 
     this.menuButtonClick = this.menuButtonClick.bind(this);
     this.saveButtonClick = this.saveButtonClick.bind(this);
+    this.loadButtonClick = this.loadButtonClick.bind(this);
   }
 
   menuButtonClick(ev) {
@@ -53,9 +55,15 @@ class Nav extends React.Component {
 
   saveButtonClick() {
     console.log('saving tree to db.....');
-    console.log('TREE: ', this.props.tree);
-    this.props.dispatch(saveTree(this.props.tree));
+    this.props.dispatch(saveProject(this.props.tree));
     download(document.getElementsByTagName('code')[0].innerText, 'Material-GUI.html', 'text/html');
+  }
+
+  loadButtonClick() {
+    console.log('current user is:');
+    console.log(this.props.userData);
+    console.log('loading projects.....');
+    this.props.dispatch(loadProjects(this.props.userData.name));
   }
 
   render() {
@@ -68,6 +76,7 @@ class Nav extends React.Component {
             <a onClick={this.menuButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-times" aria-hidden="true" /></a>}
           <a onClick={this.props.toggleView} style={styles.contentHeaderMenuLink}><i className="fa fa-code" aria-hidden="true" /></a>
           <a onClick={this.saveButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-download" aria-hidden="true" /></a>
+          <a onClick={this.loadButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-user" aria-hidden="true"/></a>
           <a href={"/login"} style={styles.contentHeaderMenuLink}><i className="fa fa-sign-out" aria-hidden="true" /></a>
         </div>
       </div>);
