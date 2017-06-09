@@ -21,30 +21,30 @@ module.exports = {
       payload: {},
     };
   },
-  updateTreeNew: () => {
+  updateTreeNew: (componentName, toID, oldTree) => {
     return function(dispatch) {
-      if (nextProps.componentState.componentID !== this.props.componentState.componentID) {
-        if (Object.keys(this.props.tree).length === 0) {
-          var tree = new Tree(
-            dragItems[nextProps.componentState.componentName]
-          );
-          dispatch(updateTree(tree));
-        } else if (nextProps.componentState.ID === 'head') {
-          var tree = this.props.tree;
-          tree = tree.pushToHead(
-            dragItems[nextProps.componentState.componentName]
-          );
-          dispatch(updateTree(tree));
-        } else {
-          var tree = this.props.tree;
-          tree.add(
-            dragItems[nextProps.componentState.componentName],
-            nextProps.componentState.ID,
-            tree.traverseBF
-          );
-          dispatch(updateTree(tree));
-        }
+
+      if (Object.keys(oldTree).length === 0) {
+        var tree = new Tree(
+          dragItems[componentName]
+        );
+        dispatch({ type: 'UPDATE_TREE', payload: tree });
+      } else if (toID === 'head') {
+        var tree = oldTree;
+        tree = tree.pushToHead(
+          dragItems[componentName]
+        );
+        dispatch({ type: 'UPDATE_TREE', payload: tree });
+      } else {
+        var tree = oldTree;
+        tree.add(
+          dragItems[componentName],
+          toID,
+          tree.traverseBF
+        );
+        dispatch({ type: 'UPDATE_TREE', payload: tree });
       }
+
     };
   },
   updateTree: (tree) => {

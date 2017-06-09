@@ -6,7 +6,8 @@ const squareTarget = {
   drop(props, monitor) {
     const item = monitor.getItem();
     console.log(item);
-    props.handleDrop(item.component, props.id);
+    props.handleDrop(item.component, props.toID);
+    // props.dispatch(updateTreeNew(item.component, props.toID, props.oldTree));
     console.log(item);
     return item;
   }

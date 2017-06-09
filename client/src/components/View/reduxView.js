@@ -85,7 +85,7 @@ class reduxView extends React.Component {
       <div key={index}>
         <div>{code.component}</div>
         <div className="col s12" id={code.ID}>
-          <DropTarget handleDrop={this.handleDroppedComponent.bind(this)} id={code.ID} />
+          <DropTarget handleDrop={this.handleDroppedComponent.bind(this)} toID={code.ID} oldTree={tree} />
         </div>
       </div>));
 
