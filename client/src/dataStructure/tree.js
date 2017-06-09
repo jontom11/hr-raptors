@@ -100,6 +100,7 @@ Tree.prototype.add = function(component, toID, traversal) {
     parent.children.unshift(child);
     child.parentID = toID;
 
+
   } else {
     throw new Error('Cannot add node to a non-existent parent.');
   }

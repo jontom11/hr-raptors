@@ -64,19 +64,34 @@ module.exports = {
     };
   },
   saveTree: (tree) => {
+    console.log('Dispatch Works here! Tree is equal:', tree);
     return function(dispatch) {
       dispatch({type: 'SAVE_TREE'});
-
-      // var postData = JSON.stringify( tree );      
-      // var postData = JSON.stringify( {1:1, 2:{3:{3:{4:4}}}} );      
-      // axios.post('http://127.0.0.1:3000/postgres/tree', tree )
       axios.post('http://127.0.0.1:3000/postgres/tree', { codeTree: tree })
         .then((response) => {
+          console.log('RESPONSE DATA STRINGIFIED:', JSON.stringify(response.data[0]));
+          console.log('RESPONSE DATA RAW:', response.data);
           dispatch({type: 'SAVE_TREE_FULFILLED', payload: response.data});
         })
         .catch((err) => {
+          // console.log('RESPONSE DATA:', JSON.stringify(response.data));
           dispatch({type: 'SAVE_TREE_REJECTED', payload: err});
         });
     };
   },
 };
+
+
+// ["{\"_root\":
+  // {\"component\":
+  //   {\"type\":
+  //     \"a\",\"key\":null,
+  //     \"ref\":null,
+  //     \"props\":{\"className\":\"waves-effect waves-light btn-large\",\"children\":\"Button\"},
+  //       \"_owner\":null,
+  //       \"_store\":{}},
+  //       \"ID\":\"BJcRtaDG-\",
+  //       \"parent\":null,
+  //       \"parentID\":null,
+  //       \"children\":[]}
+  //     }"]
