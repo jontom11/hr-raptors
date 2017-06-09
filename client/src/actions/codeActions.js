@@ -67,8 +67,10 @@ module.exports = {
     return function(dispatch) {
       dispatch({type: 'SAVE_TREE'});
 
-      axios.post('http://127.0.0.1:3000/postgres/tree', { codeTree: tree }
-      )
+      // var postData = JSON.stringify( tree );      
+      // var postData = JSON.stringify( {1:1, 2:{3:{3:{4:4}}}} );      
+      // axios.post('http://127.0.0.1:3000/postgres/tree', tree )
+      axios.post('http://127.0.0.1:3000/postgres/tree', { codeTree: tree })
         .then((response) => {
           dispatch({type: 'SAVE_TREE_FULFILLED', payload: response.data});
         })
