@@ -47,15 +47,13 @@ class reduxView extends React.Component {
     if (nextProps.componentState.componentID !== this.props.componentState.componentID) {
       if (Object.keys(this.props.tree).length === 0) {
         var tree = new Tree(
-          dragItems[nextProps.componentState.componentName],
-          this.state.dropTarget
+          dragItems[nextProps.componentState.componentName]
         );
         this.props.dispatch(updateTree(tree));
       } else if (nextProps.componentState.ID === 'head') {
         var tree = this.props.tree;
         tree = tree.pushToHead(
           dragItems[nextProps.componentState.componentName],
-          this.state.dropTarget,
           tree
         );
         this.props.dispatch(updateTree(tree));
@@ -63,7 +61,6 @@ class reduxView extends React.Component {
         var tree = this.props.tree;
         tree.add(
           dragItems[nextProps.componentState.componentName],
-          this.state.dropTarget,
           nextProps.componentState.ID,
           tree.traverseBF
         );
