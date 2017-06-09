@@ -55,8 +55,7 @@ router.route('/tree')
       }
     })
   });
-
-
+  
 module.exports = router;
 
 // DB queriers below.... DELETE when finished with project. 
