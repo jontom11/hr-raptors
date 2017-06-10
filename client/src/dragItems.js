@@ -89,43 +89,11 @@ module.exports = {
   container:
     <div className="container">
     </div>,
-  rowCol1:
-    <div className="row">
-      <div className="col s12">1</div>
-    </div>,
-  rowCol2:
-    <div className="row">
-      <div className="col s6">1</div>
-      <div className="col s6">2</div>
-    </div>,
-  rowCol3:
-    <div className="row">
-      <div className="col s4">1</div>
-      <div className="col s4">2</div>
-      <div className="col s4">3</div>
-    </div>,
-  rowCol4:
-    <div className="row">
-      <div className="col s3">1</div>
-      <div className="col s3">2</div>
-      <div className="col s3">3</div>
-      <div className="col s3">4</div>
-    </div>,
-  rowCol12:
-    <div className="row">
-      <div className="col s1">1</div>
-      <div className="col s1">2</div>
-      <div className="col s1">3</div>
-      <div className="col s1">4</div>
-      <div className="col s1">5</div>
-      <div className="col s1">6</div>
-      <div className="col s1">7</div>
-      <div className="col s1">8</div>
-      <div className="col s1">9</div>
-      <div className="col s1">10</div>
-      <div className="col s1">11</div>
-      <div className="col s1">12</div>
-    </div>,
+  rowCol1: 'col1',
+  rowCol2: 'col2',
+  rowCol3: 'col3',
+  rowCol4: 'col4',
+  rowCol12: 'col12',
   navbar:
     <nav>
       <div className="nav-wrapper">

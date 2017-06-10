@@ -3,15 +3,16 @@ import Queue from './queue';
 import shortid from 'shortid';
 import _ from 'lodash';
 
-var Node = function(component) {
+var Node = function(component, colComponentsArray) {
   this.component = component;
   this.ID = shortid.generate();
   this.parentID = null;
   this.children = [];
+  this.colComponents = colComponentsArray;
 };
 
-var Tree = function(component) {
-  var node = new Node(component);
+var Tree = function(component, colComponentsArray) {
+  var node = new Node(component, colComponentsArray);
   this._root = node;
 };
 
@@ -82,8 +83,8 @@ Tree.prototype.contains = function(callback, traversal) {
 /*=================
 ADD
  =================*/
-Tree.prototype.add = function(component, toID, traversal) {
-  var child = new Node(component),
+Tree.prototype.add = function(component, toID, traversal, colComponentsArray) {
+  var child = new Node(component, colComponentsArray),
     parent = null,
     callback = function(node) {
       if (node.ID === toID) {
@@ -104,8 +105,8 @@ Tree.prototype.add = function(component, toID, traversal) {
 /*=================
  PUSH TO HEAD
  =================*/
-Tree.prototype.pushToHead = function(component) {
-  var newTree = new Tree(component);
+Tree.prototype.pushToHead = function(component, colComponentsArray) {
+  var newTree = new Tree(component, colComponentsArray);
   this._root.parentID = newTree._root.ID;
   newTree._root.children.push(this._root);
   return newTree;

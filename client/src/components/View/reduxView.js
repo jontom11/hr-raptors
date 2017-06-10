@@ -42,25 +42,37 @@ class reduxView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    var componentName = nextProps.componentState.componentName;
+
+    if (_.startsWith(componentName, 'rowCol')) {
+      var colNum = componentName.slice(6, componentName.length);
+      var colComponentsObject = {};
+      for (var i = 0; i < colNum; i++) {
+        colComponentsObject['dnd' + i] = false;
+      }
+    }
 
     if (nextProps.componentState.componentID !== this.props.componentState.componentID) {
       if (Object.keys(this.props.tree).length === 0) {
         var tree = new Tree(
-          dragItems[nextProps.componentState.componentName]
+          dragItems[componentName],
+          colComponentsObject
         );
         this.props.dispatch(updateTree(tree));
       } else if (nextProps.componentState.ID === 'head') {
         var tree = this.props.tree;
         tree = tree.pushToHead(
-          dragItems[nextProps.componentState.componentName]
+          dragItems[componentName],
+          colComponentsObject
         );
         this.props.dispatch(updateTree(tree));
       } else {
         var tree = this.props.tree;
         tree.add(
-          dragItems[nextProps.componentState.componentName],
+          dragItems[componentName],
           nextProps.componentState.ID,
-          tree.traverseBF
+          tree.traverseBF,
+          colComponentsObject
         );
         this.props.dispatch(updateTree(tree));
       }
@@ -72,25 +84,55 @@ class reduxView extends React.Component {
     const { tree } = this.props;
 
     var treeArray = [];
+    var colsComponentArray = [];
+
+    // check colComponentsObject
+      // if false push DropTarget
 
     if (Object.keys(this.props.tree).length > 0) {
       var treeObject = tree.traverseRendering();
     }
+var colObject = {1: 12, 2: 6, 3: 4, 4: 3, 12: 1};
 
     _.forEach(treeObject, (node) => {
+      if (node.colComponents) {
+        var colNum = colObject[Object.keys(node.colComponents).length];
+        var colClass = `col s${colNum}`;
+
+          node.colComponents = _.map(node.colComponents, (col) => {
+          if (!col) {
+            return (
+              <div className={colClass}>
+              <DropTarget
+              handleDrop={this.handleDroppedComponent.bind(this)}
+              toID={node.ID}
+              oldTree={tree}
+              dispatch={this.props.dispatch} />
+              </div>)
+          }
+        });
+      }
       treeArray.push(node);
     });
 
     const treeMap = _.map(treeArray, (code, index) => (
       <div key={index}>
-        <div>{code.component}</div>
+        <div className="row">
+        { code.colComponents ?
+          code.colComponents :
+          <div>{code.component}</div>
+        }
+        </div>
         <div className="col s12" id={code.ID}>
-          <DropTarget
+          { code.colComponents ?
+            null :
+            <DropTarget
             handleDrop={this.handleDroppedComponent.bind(this)}
             toID={code.ID}
             oldTree={tree}
             dispatch={this.props.dispatch}
-          />
+            />
+          }
         </div>
       </div>));
 
