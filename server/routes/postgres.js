@@ -73,21 +73,7 @@ router.route('/tree')
         };
         setTimeout(()=> resSend(), 500); 
       }
-      // res.status(200).send('loading all saved trees for user from postgres db');
     });
-
-
-  //   console.log('HELERJHELRHELHRKEHJR#####################')
-  //   var user_id = 1;
-  //   const query = client.query("select profiles.email, test1.time_stamp, test1.project_name, test1.object from profiles join test1 on profiles.id = test1.profile_id where test1.profile_id ='"+user_id+"'");
-  //   query.on('row', (row) => {
-  //     results.push(row); 
-  //     console.log("resSend RESULTS:", row);        
-  //   });
-  //   var resSend = function() {
-  //     res.status(200).send(JSON.stringify(results));
-  //   };
-  
   });
   
 module.exports = router;
