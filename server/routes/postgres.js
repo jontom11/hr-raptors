@@ -46,7 +46,7 @@ router.route('/tree')
         var time_stamp = moment().format('MMMM Do YYYY, h:mma');
         client.query("insert into test1 (profile_id, time_stamp, project_name, object) values('" + user_id + "', '" + time_stamp + "', '" + project_name + "', '" + object + "')");
       }
-      res.status(200).send('saving tree for user to postgres db')
+      res.status(200).send('saving tree for user to postgres db');
     });
 
   
