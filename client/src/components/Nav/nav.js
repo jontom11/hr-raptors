@@ -4,7 +4,7 @@ import NavTitlePanel from './navTitlePanel';
 import SidebarContent from './sidebarContent';
 import OptionBarContent from './optionBarContent'
 import download from 'downloadjs';
-import { saveTree } from "../../actions/codeActions"
+import { saveProject } from "../../actions/codeActions"
 import { loadProjects } from "../../actions/codeActions"
 import { connect } from "react-redux"
 
@@ -60,8 +60,7 @@ class Nav extends React.Component {
   }
 
   loadButtonClick() {
-    console.log('current user is:');
-    console.log(this.props.userData);
+    console.log('current user is:\n', this.props.userData);
     console.log('loading projects.....');
     this.props.dispatch(loadProjects(this.props.userData.name));
   }
