@@ -21,7 +21,7 @@ router.route('/tree')
   .post((req, res) => {
     let results = [];
 
-    console.log('POSTGRES SAVING CODETREE DATA:', req.body.codeTree);
+    console.log('POSTGRES SAVING CODETREE DATA:', req.body.codeTree, 'USERNAME:', req.body.userData);
     // Connect to postgres 
     pg.connect(connectionString, (err, client, done) => {
 
@@ -40,10 +40,20 @@ router.route('/tree')
         var user_id = 1;  
         var project_name = 'HR test';
         var time_stamp = moment().format('MMMM Do YYYY, h:mma');
-
         client.query("insert into test1 (profile_id, time_stamp, project_name, object) values('" + user_id + "', '" + time_stamp + "', '" + project_name + "', '" + object + "')");
+      }
+    });
+  })
+  .get((req, res) => {
+    // get all tree data for user from postgres db here
+    pg.connect(connectionString, (err, client, done) => {
+      if (err) { 
+        done();
+        console.log('error on get Data', err);
+        return res.status(500).json({success: false, fatal: err}); 
+      } else {
+        // Must pull user_id from auth login
         const query = client.query("select profiles.email, test1.time_stamp, test1.project_name, test1.object from profiles join test1 on profiles.id = test1.profile_id where test1.profile_id ='"+user_id+"'");
-
         query.on('row', (row) => {
           results.push(row); 
           console.log("resSend RESULTS:", row);        
@@ -51,9 +61,11 @@ router.route('/tree')
         var resSend = function() {
           res.status(200).send(JSON.stringify(results));
         };
-        setTimeout(()=> resSend(), 500); // Need promise here
+        setTimeout(()=> resSend(), 500); 
       }
-    })
+      console.log('=> inside router .get/tree');
+      res.status(200).send('loading all saved trees for user from postgres db');
+    });
   });
   
 module.exports = router;

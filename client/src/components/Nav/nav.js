@@ -55,7 +55,7 @@ class Nav extends React.Component {
 
   saveButtonClick() {
     console.log('saving tree to db.....', this.props.tree);
-    this.props.dispatch(saveProject(this.props.tree));
+    this.props.dispatch(saveProject(this.props.tree, this.props.userData));
     download(document.getElementsByTagName('code')[0].innerText, 'Material-GUI.html', 'text/html');
   }
 
