@@ -3,16 +3,17 @@ import Queue from './queue';
 import shortid from 'shortid';
 import _ from 'lodash';
 
-var Node = function(component, rowObject) {
+var Node = function(component, rowObject, isRow) {
   this.component = component;
   this.ID = shortid.generate();
   this.parentID = null;
   this.children = [];
   this.rowObject = rowObject;
+  this.isRow = isRow;
 };
 
-var Tree = function(component, rowObject) {
-  var node = new Node(component, rowObject);
+var Tree = function(component, rowObject, isRow) {
+  var node = new Node(component, rowObject, isRow);
   this._root = node;
 };
 
@@ -83,8 +84,8 @@ Tree.prototype.contains = function(callback, traversal) {
 /*=================
 ADD
  =================*/
-Tree.prototype.add = function(component, toID, traversal, rowObject) {
-  var child = new Node(component, rowObject),
+Tree.prototype.add = function(component, toID, traversal, rowObject, isRow) {
+  var child = new Node(component, rowObject, isRow),
     parent = null,
     callback = function(node) {
       if (node.ID === toID) {
@@ -103,10 +104,30 @@ Tree.prototype.add = function(component, toID, traversal, rowObject) {
 };
 
 /*=================
+ UPDATE ROW OBJECT
+ =================*/
+Tree.prototype.updateRowObject = function(toID, traversal, rowObject) {
+  var parent = null,
+    callback = function(node) {
+      if (node.ID === toID) {
+        parent = node;
+      }
+    };
+
+  this.contains(callback, traversal);
+
+  if (parent) {
+    parent.rowObject = rowObject;
+  } else {
+    throw new Error('Cannot add node to a non-existent parent.');
+  }
+};
+
+/*=================
  PUSH TO HEAD
  =================*/
-Tree.prototype.pushToHead = function(component, rowObject) {
-  var newTree = new Tree(component, rowObject);
+Tree.prototype.pushToHead = function(component, rowObject, isRow) {
+  var newTree = new Tree(component, rowObject, isRow);
   this._root.parentID = newTree._root.ID;
   newTree._root.children.push(this._root);
   return newTree;

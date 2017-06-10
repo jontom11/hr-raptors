@@ -4,6 +4,7 @@ import { updateTree } from '../../actions/codeActions';
 import dragItems from '../../dragItems';
 import Tree from '../../dataStructure/tree';
 import _ from 'lodash';
+import createFragment from 'react-addons-create-fragment'; // ES6
 import DropTarget from './dropTarget';
 import shortid from 'shortid';
 import Items from './items'
@@ -44,25 +45,35 @@ class reduxView extends React.Component {
   componentWillReceiveProps(nextProps) {
     var componentName = nextProps.componentState.componentName;
     var uniqueID = nextProps.componentState.ID;
-    var rowObject = nextProps.componentState.rowObject || {};
+    var rowObject = {};
+    var isRow = false;
+    var isUpdateRowObject = false;
     // Checks if dropped component's name is a rowCol
     // if so populate rowObject with number of cols in order to render dnd targets
-    console.log('++++++++++++++++++++++++++++', uniqueID);
     if (_.startsWith(componentName, 'rowCol')) {
-      var colNum = componentName.slice(6, 7);
+      var colNum = componentName.slice(6);
+      isRow = true;
       for (var i = 0; i < colNum; i++) {
         rowObject['dnd' + i] = false;
       }
     } else if (_.startsWith(uniqueID, 'dnd')) {
+      console.log('=========', rowObject);
+      isRow = true;
       var dndToCompIndex = uniqueID[4];
-      uniqueID = uniqueID.slice(5);
-      console.log('-------------------------------', uniqueID);
-      // Need to get ROW length, but hard code it in for now
-      _.forEach(rowObject, (col, index) => {
-        if (dndToCompIndex === index[4]) {
-          rowObject['col' + index[4]] = dragItems[componentName];
-        }
-      });
+      uniqueID = uniqueID.slice(4);
+      // _.forEach(rowObject, (col, index) => {
+      //   if (dndToCompIndex === index[3]) {
+      //     rowObject['col' + index[3]] = dragItems[componentName];
+      //   }
+      // });
+
+      rowObject = {
+        col1: <a className="waves-effect waves-light btn-large">Button</a>,
+        col2: <a className="waves-effect waves-light btn-large">Button</a>,
+        col3: <a className="waves-effect waves-light btn-large">Button</a>,
+        col4: <a className="waves-effect waves-light btn-large">Button</a>,
+      };
+      isUpdateRowObject = true;
     }
     // Check if start of unique ID comes from dnd target
       // get dnd object unique ID in order to look up node position in the tree
@@ -73,13 +84,23 @@ class reduxView extends React.Component {
       if (Object.keys(this.props.tree).length === 0) {
         var tree = new Tree(
           dragItems[componentName],
-          rowObject
+          rowObject,
+          isRow
         );
         this.props.dispatch(updateTree(tree));
       } else if (uniqueID === 'head') {
         var tree = this.props.tree;
         tree = tree.pushToHead(
           dragItems[componentName],
+          rowObject,
+          isRow
+        );
+        this.props.dispatch(updateTree(tree));
+      } else if (isUpdateRowObject) {
+        var tree  = this.props.tree;
+        tree.updateRowObject(
+          uniqueID,
+          tree.traverseBF,
           rowObject
         );
         this.props.dispatch(updateTree(tree));
@@ -89,7 +110,8 @@ class reduxView extends React.Component {
           dragItems[componentName],
           uniqueID,
           tree.traverseBF,
-          rowObject
+          rowObject,
+          isRow
         );
         this.props.dispatch(updateTree(tree));
       }
@@ -108,68 +130,42 @@ class reduxView extends React.Component {
     }
 
 
-    // traverse tree
-      // check node has rowComponents
-        // var colNum = colObject[Object.keys(node.rowComponents).length];
-        // var colClass = `col s${colNum}`;
-
-        // iterate through rowComponents
-        // create a new unique ID for Drop Target component so key plus original unique ID
-        // if key, current position, starts with dnd then add Drop Component to rowComponents
-        //         return (
-        //           <div className={colClass} key={key}>
-        //             <DropTarget
-        //               handleDrop={this.handleDroppedComponent.bind(this)}
-        //               toID={newToID}
-        //               oldTree={tree}
-        //               dispatch={this.props.dispatch}
-    //                   rowObject={node.rowObject}/>
-        //           </div>)
-        // else do nothing because it has drop component saved in that position
-    // push node back to treeArray
-
-
     _.forEach(treeObject, (node) => {
       if (Object.keys(node.rowObject).length > 0) {
         var colNum = colObject[Object.keys(node.rowObject).length];
         var colClass = `col s${colNum}`;
+        var saveRowObject = node.rowObject;
         var newRowObject = _.map(node.rowObject, (col, index) => {
           if (_.startsWith(index, 'dnd')) {
             var newToID = index + node.ID;
-            console.log('============================', newToID);
            return (
             <div className={colClass} key={index}>
               <DropTarget
                 handleDrop={this.handleDroppedComponent.bind(this)}
                 toID={newToID}
                 oldTree={tree}
-                dispatch={this.props.dispatch}
-                rowObject={node.rowObject}
+                rowObject={saveRowObject}
               />
             </div>);
           } else {
-            return col;
+            return (
+              <div className={colClass} key={index}>
+                {col}
+              </div>
+            );
           }
         });
 
-
         node.rowObject = newRowObject;
 
-        // for(var i = 0; i < Object.keys(node.rowObject).length; i++) {
-        //   if (Object.keys(node.rowObject)[i] === newRowObject[Object.keys(newRowObject)[i]]) {
-        //
-        //   }
-        // }
       }
       treeArray.push(node);
     });
 
-
-
     const treeMap = _.map(treeArray, (node, index) => (
       <div key={index}>
         <div className="row">
-          { Object.keys(node.rowObject.length > 0) ?
+          { node.isRow ?
             node.rowObject :
             <div>{node.component}</div>
           }
@@ -179,7 +175,6 @@ class reduxView extends React.Component {
             handleDrop={this.handleDroppedComponent.bind(this)}
             toID={node.ID}
             oldTree={tree}
-            dispatch={this.props.dispatch}
             />
         </div>
       </div>));
