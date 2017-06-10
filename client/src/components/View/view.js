@@ -21,7 +21,7 @@ class View extends React.Component {
     this.state = {
       componentName: null,
       ID: null,
-      componentID: 0,
+      counter: 0,
       dropTarget: (
         <div className="col s12">
           <DropTarget handleDroppedComponent={this.handleDroppedComponent.bind(this)} />
@@ -40,10 +40,10 @@ class View extends React.Component {
   }
 
   handleDroppedComponent(droppedInItem, ID) {
-    var newCount = this.state.componentID + 1;
+    var newCount = this.state.counter + 1;
     this.setState({
       componentName: droppedInItem,
-      componentID: newCount,
+      counter: newCount,
       ID: ID,
     });
   }
