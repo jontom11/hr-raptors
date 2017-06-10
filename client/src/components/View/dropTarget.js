@@ -6,7 +6,7 @@ import { updateTreeNew } from '../../actions/codeActions';
 const squareTarget = {
   drop(props, monitor) {
     const item = monitor.getItem();
-    console.log(props.toID);
+    console.log('=============================================', props.toID);
     props.handleDrop(item.component, props.toID);
     // props.dispatch(updateTreeNew(item.component, props.toID, props.oldTree));
     return item;
