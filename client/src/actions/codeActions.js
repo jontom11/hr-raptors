@@ -61,12 +61,14 @@ module.exports = {
       payload: { tree },
     };
   },
-  saveProject: (tree) => {
+  saveProject: (tree, userData) => {
     return function(dispatch) {
       dispatch({type: 'SAVE_PROJECT'});
 
-      axios.post('http://127.0.0.1:3000/postgres/tree', { codeTree: tree }
-      )
+      // var postData = JSON.stringify( tree );      
+      // var postData = JSON.stringify( {1:1, 2:{3:{3:{4:4}}}} );      
+      // axios.post('http://127.0.0.1:3000/postgres/tree', tree )
+      axios.post('http://127.0.0.1:3000/postgres/tree', { codeTree: tree, userData: userData })
         .then((response) => {
           dispatch({type: 'SAVE_PROJECT_FULFILLED', payload: response.data});
         })
@@ -78,7 +80,7 @@ module.exports = {
   loadProjects: (user) => {
     return function(dispatch) {
       dispatch({type: 'LOAD_PROJECTS'});
-      console.log(`calling loadProjects action with user: ${user}`)
+      console.log(`calling loadProjects action with user: ${user}`);
       axios.get('http://127.0.0.1:3000/postgres/tree')
         .then((response) => {
           dispatch({type: 'LOAD_PROJECTS_FULFILLED', payload: response.data});
@@ -89,3 +91,4 @@ module.exports = {
     };
   },
 };
+

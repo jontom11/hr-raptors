@@ -4,3 +4,5 @@ client/src/components/View/reduxView.js
 client/src/components/Code/code.js
 client/src/components/View/view.js
 client/src/reducers/codeReducer.js
+client/src/components/Nav/nav.js
+
