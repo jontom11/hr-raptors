@@ -42,17 +42,21 @@ router.route('/tree')
         var time_stamp = moment().format('MMMM Do YYYY, h:mma');
         client.query("insert into test1 (profile_id, time_stamp, project_name, object) values('" + user_id + "', '" + time_stamp + "', '" + project_name + "', '" + object + "')");
       }
+      res.status(200).send('saving tree for user to postgres db');
     });
   })
   .get((req, res) => {
+    let results = [];
     // get all tree data for user from postgres db here
     pg.connect(connectionString, (err, client, done) => {
+
       if (err) { 
         done();
         console.log('error on get Data', err);
         return res.status(500).json({success: false, fatal: err}); 
       } else {
         // Must pull user_id from auth login
+        var user_id = 1;
         const query = client.query("select profiles.email, test1.time_stamp, test1.project_name, test1.object from profiles join test1 on profiles.id = test1.profile_id where test1.profile_id ='"+user_id+"'");
         query.on('row', (row) => {
           results.push(row); 
@@ -63,8 +67,7 @@ router.route('/tree')
         };
         setTimeout(()=> resSend(), 500); 
       }
-      console.log('=> inside router .get/tree');
-      res.status(200).send('loading all saved trees for user from postgres db');
+      // res.status(200).send('loading all saved trees for user from postgres db');
     });
   });
   
