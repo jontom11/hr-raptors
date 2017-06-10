@@ -22,6 +22,7 @@ router.route('/tree')
     let results = [];
 
     console.log('POSTGRES SAVING CODETREE DATA:', req.body.codeTree, 'USERNAME:', req.body.userData);
+
     // Connect to postgres 
     pg.connect(connectionString, (err, client, done) => {
 
@@ -40,6 +41,7 @@ router.route('/tree')
         var user_id = 1;  
         var project_name = 'HR test';
         var time_stamp = moment().format('MMMM Do YYYY, h:mma');
+
         client.query("insert into test1 (profile_id, time_stamp, project_name, object) values('" + user_id + "', '" + time_stamp + "', '" + project_name + "', '" + object + "')");
       }
       res.status(200).send('saving tree for user to postgres db');
