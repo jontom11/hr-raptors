@@ -1,6 +1,5 @@
 # Project specific
 .env
-./client/src/components/Nav/nav.js
 
 # OS X
 .DS_Store
