@@ -32,7 +32,7 @@ router.route('/tree')
       if (err) { 
         done();
         console.log('error on get Data', err);
-        res.status(500).json({success: false, fatal: err}); 
+        return res.status(500).json({success: false, fatal: err}); 
       } else {
 
         // Post and Query Postgres DB
