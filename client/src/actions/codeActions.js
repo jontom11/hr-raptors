@@ -68,7 +68,7 @@ module.exports = {
       // var postData = JSON.stringify( tree );      
       // var postData = JSON.stringify( {1:1, 2:{3:{3:{4:4}}}} );      
       // axios.post('http://127.0.0.1:3000/postgres/tree', tree )
-      axios.post('http://127.0.0.1:3000/postgres/tree', { codeTree: tree, userData: userData })
+      axios.post( '/postgres/tree', { codeTree: tree, userData: userData })
         .then((response) => {
           dispatch({type: 'SAVE_PROJECT_FULFILLED', payload: response.data});
         })
@@ -81,7 +81,7 @@ module.exports = {
     return function(dispatch) {
       dispatch({type: 'LOAD_PROJECTS'});
       console.log(`calling loadProjects action with user: ${user}`);
-      axios.get('http://127.0.0.1:3000/postgres/tree')
+      axios.get('/postgres/tree')
         .then((response) => {
           dispatch({type: 'LOAD_PROJECTS_FULFILLED', payload: response.data});
         })

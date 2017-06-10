@@ -2,8 +2,10 @@
 const express = require('express');
 const router = express.Router();
 const util = require('util');
-const connectionString = process.env.DATABASE_URL || 'postgres://wdzzprbikqsqfm:de2d1f773276f59d4876030b7552af1cc4f2faa152f5b7cefe51dcdc1e2e5fd1@ec2-23-23-227-188.compute-1.amazonaws.com:5432/de03334hmgvgu4';
 const pg = require('pg');
+const connectionString = process.env.DATABASE_URL;
+const client = new pg.Client(connectionString);
+client.connect();
 const Promise = require('bluebird');
 const moment = require('moment');
 
@@ -17,6 +19,7 @@ pg.connect(connectionString, (err, client, done) => {
   }
 });
 
+
 router.route('/tree')
   .post((req, res) => {
     let results = [];
@@ -29,7 +32,7 @@ router.route('/tree')
       if (err) { 
         done();
         console.log('error on get Data', err);
-        return res.status(500).json({success: false, fatal: err}); 
+        res.status(500).json({success: false, fatal: err}); 
       } else {
 
         // Post and Query Postgres DB
@@ -41,17 +44,18 @@ router.route('/tree')
         var user_id = 1;  
         var project_name = 'HR test';
         var time_stamp = moment().format('MMMM Do YYYY, h:mma');
-
         client.query("insert into test1 (profile_id, time_stamp, project_name, object) values('" + user_id + "', '" + time_stamp + "', '" + project_name + "', '" + object + "')");
       }
-      res.status(200).send('saving tree for user to postgres db');
+      res.status(200).send('saving tree for user to postgres db')
     });
+
+  
   })
   .get((req, res) => {
     let results = [];
     // get all tree data for user from postgres db here
-    pg.connect(connectionString, (err, client, done) => {
 
+    pg.connect(connectionString, (err, client, done) => {
       if (err) { 
         done();
         console.log('error on get Data', err);
@@ -71,6 +75,19 @@ router.route('/tree')
       }
       // res.status(200).send('loading all saved trees for user from postgres db');
     });
+
+
+  //   console.log('HELERJHELRHELHRKEHJR#####################')
+  //   var user_id = 1;
+  //   const query = client.query("select profiles.email, test1.time_stamp, test1.project_name, test1.object from profiles join test1 on profiles.id = test1.profile_id where test1.profile_id ='"+user_id+"'");
+  //   query.on('row', (row) => {
+  //     results.push(row); 
+  //     console.log("resSend RESULTS:", row);        
+  //   });
+  //   var resSend = function() {
+  //     res.status(200).send(JSON.stringify(results));
+  //   };
+  
   });
   
 module.exports = router;
