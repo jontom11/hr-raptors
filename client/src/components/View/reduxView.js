@@ -17,12 +17,9 @@ const styles = {
 
 @connect((store) => {
   return {
-    components: store.code.components,
-    componentsLinkedList: store.code.componentsLinkedList,
     tree: store.code.tree,
     item: store.code.item,
-    head: store.code.head,
-    tail: store.code.tail,
+    currentRowObject: store.code.currentRowObject,
   };
 })
 class reduxView extends React.Component {
@@ -33,19 +30,24 @@ class reduxView extends React.Component {
       dropTarget: (
         <div className="col s12" id={shortid.generate()}>
           <DropTarget handleDrop={this.handleDroppedComponent.bind(this)} context={this} />
-        </div>)
+        </div>),
+      rowObject: this.props.tree.rowObject,
     };
     this.handleDroppedComponent = this.handleDroppedComponent.bind(this);
   }
 
-  handleDroppedComponent(droppedInItem, ID) {
-    this.props.handleDrop(droppedInItem, ID);
+  handleDroppedComponent(droppedInItem, ID, rowObject) {
+    this.props.handleDrop(droppedInItem, ID, rowObject);
+  }
+
+  componentDidUpdate(){
+    console.log('=================TREEEEEEEEE', this.props.tree);
   }
 
   componentWillReceiveProps(nextProps) {
     var componentName = nextProps.componentState.componentName;
     var uniqueID = nextProps.componentState.ID;
-    var rowObject = {};
+    var rowObject = nextProps.componentState.rowObject || {};
     var isRow = false;
     var isUpdateRowObject = false;
     // Checks if dropped component's name is a rowCol
@@ -57,22 +59,35 @@ class reduxView extends React.Component {
         rowObject['dnd' + i] = false;
       }
     } else if (_.startsWith(uniqueID, 'dnd')) {
-      console.log('=========', rowObject);
       isRow = true;
-      var dndToCompIndex = uniqueID[4];
+      var dndToCompIndex = uniqueID[3];
       uniqueID = uniqueID.slice(4);
-      // _.forEach(rowObject, (col, index) => {
-      //   if (dndToCompIndex === index[3]) {
-      //     rowObject['col' + index[3]] = dragItems[componentName];
-      //   }
-      // });
+      // rowObject = {};
+      _.forEach(nextProps.componentState.rowObject, (col, index) => {
+        console.log('=========================================dndToCompIndex', dndToCompIndex);
+        console.log('=========================================index[3]', index[3]);
+        if (dndToCompIndex === index[3]) {
+          delete rowObject['dnd' + dndToCompIndex];
+          rowObject['col' + dndToCompIndex] = dragItems[componentName];
+        }
+      });
 
-      rowObject = {
-        col1: <a className="waves-effect waves-light btn-large">Button</a>,
-        col2: <a className="waves-effect waves-light btn-large">Button</a>,
-        col3: <a className="waves-effect waves-light btn-large">Button</a>,
-        col4: <a className="waves-effect waves-light btn-large">Button</a>,
-      };
+      // for (var i = 0; i < 2; i++) {
+      //   console.log('i', i);
+      //   console.log('dndToCompIndex2', typeof dndToCompIndex);
+      //   if (i == dndToCompIndex) {
+      //     rowObject['col' + i] = dragItems[componentName];
+      //   } else {
+      //     rowObject['dnd' + i] = false;
+      //   }
+      // }
+
+      // rowObject = {
+      //   col1: <a className="waves-effect waves-light btn-large">Button</a>,
+      //   col2: <a className="waves-effect waves-light btn-large">Button</a>,
+      //   col3: <a className="waves-effect waves-light btn-large">Button</a>,
+      //   col4: <a className="waves-effect waves-light btn-large">Button</a>,
+      // };
       isUpdateRowObject = true;
     }
     // Check if start of unique ID comes from dnd target
@@ -131,10 +146,13 @@ class reduxView extends React.Component {
 
 
     _.forEach(treeObject, (node) => {
+
       if (Object.keys(node.rowObject).length > 0) {
+
         var colNum = colObject[Object.keys(node.rowObject).length];
         var colClass = `col s${colNum}`;
         var saveRowObject = node.rowObject;
+
         var newRowObject = _.map(node.rowObject, (col, index) => {
           if (_.startsWith(index, 'dnd')) {
             var newToID = index + node.ID;
@@ -144,7 +162,7 @@ class reduxView extends React.Component {
                 handleDrop={this.handleDroppedComponent.bind(this)}
                 toID={newToID}
                 oldTree={tree}
-                rowObject={saveRowObject}
+                rowObject={node.rowObject}
               />
             </div>);
           } else {
@@ -155,11 +173,12 @@ class reduxView extends React.Component {
             );
           }
         });
-
         node.rowObject = newRowObject;
 
       }
+
       treeArray.push(node);
+
     });
 
     const treeMap = _.map(treeArray, (node, index) => (

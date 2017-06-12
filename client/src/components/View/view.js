@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux"
 import { fetchUser } from "../../actions/userActions"
-import { clearCode } from "../../actions/codeActions"
+import { clearCode, updateCurrentRowObject } from "../../actions/codeActions"
 import _ from 'lodash';
 
 import ReduxView from './reduxView';
@@ -27,6 +27,7 @@ class View extends React.Component {
           <DropTarget handleDroppedComponent={this.handleDroppedComponent.bind(this)} />
         </div>),
       showingOptionsView: false,
+      rowObject: {},
     };
     this.handleDroppedComponent = this.handleDroppedComponent.bind(this);
   }
@@ -39,19 +40,19 @@ class View extends React.Component {
     this.props.dispatch(clearCode());
   }
 
-  handleDroppedComponent(droppedInItem, ID) {
-
+  handleDroppedComponent(droppedInItem, ID, rowObject) {
+    // this.props.dispatch(updateCurrentRowObject(rowObject));
     var newCount = this.state.counter + 1;
     this.setState({
       componentName: droppedInItem,
       counter: newCount,
       ID: ID,
+      rowObject: rowObject,
     });
   }
 
   render() {
     const { tree } = this.props;
-    console.log('TREEEEEE', tree);
     return (
       <article className="center-content">
           <DropTarget
@@ -59,11 +60,13 @@ class View extends React.Component {
             oldTree={tree}
             dispatch={this.props.dispatch}
             toID="head"
+
           />
         <ReduxView
           componentState={this.state}
           handleDrop={this.handleDroppedComponent.bind(this)}
           toggleOptionView={this.props.toggleOptionView}
+
         />
 
       </article>
