@@ -86,14 +86,28 @@ class reduxView extends React.Component {
       }
     } else if (_.startsWith(uniqueID, 'dnd')) {
       isRow = true;
-      var dndToCompIndex = uniqueID[3];
+      var index = uniqueID[3];
+      var newKey = 'col' + index;
+      var dndToCompkey = uniqueID.slice(0, 4);
       uniqueID = uniqueID.slice(4);
+
+      linkers.replaceNode(
+        rowObject,
+        dragItems[componentName],
+        dndToCompkey,
+        rowObject.head,
+        rowObject.tail,
+        newKey
+      )
+
       _.forEach(nextProps.componentState.rowObject, (col, index) => {
         if (dndToCompIndex === index[3]) {
           delete rowObject['dnd' + dndToCompIndex];
           rowObject['col' + dndToCompIndex] = dragItems[componentName];
         }
       });
+
+
       isUpdateRowObject = true;
     }
 
@@ -190,7 +204,7 @@ class reduxView extends React.Component {
                   handleDrop={this.handleDroppedComponent.bind(this)}
                   toID={newToID}
                   oldTree={tree}
-                  rowObject={node.rowObject.linkedList}
+                  rowObject={node.rowObject}
                 />
               </div>);
             } else {

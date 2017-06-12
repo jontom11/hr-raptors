@@ -18,6 +18,40 @@ exports.addToTail = (linkedList, component, key, head, tail) => {
   return {linkedList, head, tail, key};
 };
 
+exports.replaceNode = (rowObject, component, key, head, tail, newKey) => {
+  var oldLinkedListNode = rowObject.linkedList[key];
+  rowObject.linkedList[newKey] = {
+    component: component,
+    key: newKey,
+    next: oldLinkedListNode.next,
+    prev: oldLinkedListNode.prev,
+  };
+
+  // Change next node's prev value
+  if (oldLinkedListNode.next !== null) {
+    rowObject.linkedList[oldLinkedListNode.next].prev = newKey;
+  }
+  // Change prev node's next value
+  if (oldLinkedListNode.prev !== null) {
+    rowObject.linkedList[oldLinkedListNode.prev].next = newKey;
+  }
+
+  // Change Head
+  if (rowObject.head.key === key) {
+    rowObject.head = rowObject.linkedList[newKey];
+  } else {
+    rowObject.head = rowObject.linkedList[rowObject.head.key];
+  }
+  // Change Tail
+  if (rowObject.tail.key === key) {
+    rowObject.tail = rowObject.linkedList[newKey];
+  } else {
+    rowObject.tail = rowObject.linkedList[rowObject.tail.key];
+  }
+
+  delete rowObject.linkedList[key];
+};
+
 exports.addToHead = (linkedList, component, key, head, tail) => {
   linkedList = Object.assign({}, linkedList);
   if (head === null) {
