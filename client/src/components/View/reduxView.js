@@ -51,26 +51,6 @@ class reduxView extends React.Component {
     };
     var isRow = false;
     var isUpdateRowObject = false;
-    // Checks if dropped component's name is a rowCol
-    // if so populate rowObject with number of cols in order to render dnd targets
-    // if (_.startsWith(componentName, 'rowCol')) {
-    //   var colNum = componentName.slice(6);
-    //   isRow = true;
-    //   for (var i = 0; i < colNum; i++) {
-    //     rowObject['dnd' + i] = false;
-    //   }
-    // } else if (_.startsWith(uniqueID, 'dnd')) {
-    //   isRow = true;
-    //   var dndToCompIndex = uniqueID[3];
-    //   uniqueID = uniqueID.slice(4);
-    //   _.forEach(nextProps.componentState.rowObject, (col, index) => {
-    //     if (dndToCompIndex === index[3]) {
-    //       delete rowObject['dnd' + dndToCompIndex];
-    //       rowObject['col' + dndToCompIndex] = dragItems[componentName];
-    //     }
-    //   });
-    //   isUpdateRowObject = true;
-    // }
 
     if (_.startsWith(componentName, 'rowCol')) {
       var colNum = componentName.slice(6);
@@ -100,15 +80,8 @@ class reduxView extends React.Component {
         newKey
       )
 
-      // _.forEach(nextProps.componentState.rowObject, (col, index) => {
-      //   if (dndToCompIndex === index[3]) {
-      //     delete rowObject['dnd' + dndToCompIndex];
-      //     rowObject['col' + dndToCompIndex] = dragItems[componentName];
-      //   }
-      // });
-
-
       isUpdateRowObject = true;
+
     }
 
     if (nextProps.componentState.counter !== this.props.componentState.counter) {
@@ -169,27 +142,6 @@ class reduxView extends React.Component {
         var colNum = colObject[Object.keys(node.rowObject.linkedList).length];
         var colClass = `col s${colNum}`;
         var saveRowObject = node.rowObject;
-
-        // var newRowObject = _.map(node.rowObject.linkedList, (col, index) => {
-        //   if (_.startsWith(index, 'dnd')) {
-        //     var newToID = index + node.ID;
-        //    return (
-        //     <div className={colClass} key={index}>
-        //       <DropTarget
-        //         handleDrop={this.handleDroppedComponent.bind(this)}
-        //         toID={newToID}
-        //         oldTree={tree}
-        //         rowObject={node.rowObject.linkedList}
-        //       />
-        //     </div>);
-        //   } else {
-        //     return (
-        //       <div className={colClass} key={index}>
-        //         {col}
-        //       </div>
-        //     );
-        //   }
-        // });
 
         var current = node.rowObject.linkedList[node.rowObject.head.key];
         node.rowObject.renderLinkedList = [];
