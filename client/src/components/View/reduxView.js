@@ -91,7 +91,7 @@ class reduxView extends React.Component {
       var dndToCompkey = uniqueID.slice(0, 4);
       uniqueID = uniqueID.slice(4);
 
-      linkers.replaceNode(
+      rowObject = linkers.replaceNode(
         rowObject,
         dragItems[componentName],
         dndToCompkey,
@@ -100,12 +100,12 @@ class reduxView extends React.Component {
         newKey
       )
 
-      _.forEach(nextProps.componentState.rowObject, (col, index) => {
-        if (dndToCompIndex === index[3]) {
-          delete rowObject['dnd' + dndToCompIndex];
-          rowObject['col' + dndToCompIndex] = dragItems[componentName];
-        }
-      });
+      // _.forEach(nextProps.componentState.rowObject, (col, index) => {
+      //   if (dndToCompIndex === index[3]) {
+      //     delete rowObject['dnd' + dndToCompIndex];
+      //     rowObject['col' + dndToCompIndex] = dragItems[componentName];
+      //   }
+      // });
 
 
       isUpdateRowObject = true;

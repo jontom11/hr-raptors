@@ -50,6 +50,8 @@ exports.replaceNode = (rowObject, component, key, head, tail, newKey) => {
   }
 
   delete rowObject.linkedList[key];
+
+  return rowObject;
 };
 
 exports.addToHead = (linkedList, component, key, head, tail) => {
