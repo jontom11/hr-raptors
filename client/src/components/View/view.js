@@ -1,12 +1,10 @@
 import React from 'react';
 import { connect } from "react-redux"
 import { fetchUser } from "../../actions/userActions"
-import { clearCode, updateCurrentRowObject } from "../../actions/codeActions"
-import _ from 'lodash';
+import { clearCode } from "../../actions/codeActions"
 
 import ReduxView from './reduxView';
 import DropTarget from './dropTarget';
-import Items from './items'
 
 @connect((store) => {
   return {
@@ -41,7 +39,6 @@ class View extends React.Component {
   }
 
   handleDroppedComponent(droppedInItem, ID, rowObject) {
-    // this.props.dispatch(updateCurrentRowObject(rowObject));
     var newCount = this.state.counter + 1;
     this.setState({
       componentName: droppedInItem,

@@ -84,11 +84,5 @@ module.exports = {
         });
     };
   },
-  updateCurrentRowObject: (currentRowObject) => {
-    return {
-      type: 'CURRENT_ROW_OBJECT',
-      payload: currentRowObject,
-    };
-  },
 };
 

@@ -4,7 +4,6 @@ import { updateTree } from '../../actions/codeActions';
 import dragItems from '../../dragItems';
 import Tree from '../../dataStructure/tree';
 import _ from 'lodash';
-import createFragment from 'react-addons-create-fragment'; // ES6
 import DropTarget from './dropTarget';
 import shortid from 'shortid';
 import Items from './items'
@@ -40,10 +39,6 @@ class reduxView extends React.Component {
     this.props.handleDrop(droppedInItem, ID, rowObject);
   }
 
-  componentDidUpdate(){
-    console.log('=================TREEEEEEEEE', this.props.tree);
-  }
-
   componentWillReceiveProps(nextProps) {
     var componentName = nextProps.componentState.componentName;
     var uniqueID = nextProps.componentState.ID;
@@ -62,38 +57,14 @@ class reduxView extends React.Component {
       isRow = true;
       var dndToCompIndex = uniqueID[3];
       uniqueID = uniqueID.slice(4);
-      // rowObject = {};
       _.forEach(nextProps.componentState.rowObject, (col, index) => {
-        console.log('=========================================dndToCompIndex', dndToCompIndex);
-        console.log('=========================================index[3]', index[3]);
         if (dndToCompIndex === index[3]) {
           delete rowObject['dnd' + dndToCompIndex];
           rowObject['col' + dndToCompIndex] = dragItems[componentName];
         }
       });
-
-      // for (var i = 0; i < 2; i++) {
-      //   console.log('i', i);
-      //   console.log('dndToCompIndex2', typeof dndToCompIndex);
-      //   if (i == dndToCompIndex) {
-      //     rowObject['col' + i] = dragItems[componentName];
-      //   } else {
-      //     rowObject['dnd' + i] = false;
-      //   }
-      // }
-
-      // rowObject = {
-      //   col1: <a className="waves-effect waves-light btn-large">Button</a>,
-      //   col2: <a className="waves-effect waves-light btn-large">Button</a>,
-      //   col3: <a className="waves-effect waves-light btn-large">Button</a>,
-      //   col4: <a className="waves-effect waves-light btn-large">Button</a>,
-      // };
       isUpdateRowObject = true;
     }
-    // Check if start of unique ID comes from dnd target
-      // get dnd object unique ID in order to look up node position in the tree
-      // get the col Index so we can replace that row index with dragged item
-        // iterate through
 
     if (nextProps.componentState.counter !== this.props.componentState.counter) {
       if (Object.keys(this.props.tree).length === 0) {

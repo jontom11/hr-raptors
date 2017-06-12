@@ -1,13 +1,11 @@
 import React from 'react';
 import { DropTarget } from 'react-dnd';
 import { ItemTypes } from './constants';
-import { updateTreeNew } from '../../actions/codeActions';
 
 const squareTarget = {
   drop(props, monitor) {
     const item = monitor.getItem();
     props.handleDrop(item.component, props.toID, props.rowObject);
-    // props.dispatch(updateTreeNew(item.component, props.toID, props.oldTree));
     return item;
   }
 };
