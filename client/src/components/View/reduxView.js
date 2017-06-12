@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { updateTree } from '../../actions/codeActions';
 import dragItems from '../../dragItems';
 import Tree from '../../dataStructure/tree';
+import linkers from '../../dataStructure/linkedList';
 import _ from 'lodash';
 import DropTarget from './dropTarget';
 import shortid from 'shortid';
@@ -42,16 +43,46 @@ class reduxView extends React.Component {
   componentWillReceiveProps(nextProps) {
     var componentName = nextProps.componentState.componentName;
     var uniqueID = nextProps.componentState.ID;
-    var rowObject = nextProps.componentState.rowObject || {};
+    var rowObject = nextProps.componentState.rowObject || {
+      linkedList: {},
+      head: null,
+      tail: null,
+      renderLinkedList: [],
+    };
     var isRow = false;
     var isUpdateRowObject = false;
     // Checks if dropped component's name is a rowCol
     // if so populate rowObject with number of cols in order to render dnd targets
+    // if (_.startsWith(componentName, 'rowCol')) {
+    //   var colNum = componentName.slice(6);
+    //   isRow = true;
+    //   for (var i = 0; i < colNum; i++) {
+    //     rowObject['dnd' + i] = false;
+    //   }
+    // } else if (_.startsWith(uniqueID, 'dnd')) {
+    //   isRow = true;
+    //   var dndToCompIndex = uniqueID[3];
+    //   uniqueID = uniqueID.slice(4);
+    //   _.forEach(nextProps.componentState.rowObject, (col, index) => {
+    //     if (dndToCompIndex === index[3]) {
+    //       delete rowObject['dnd' + dndToCompIndex];
+    //       rowObject['col' + dndToCompIndex] = dragItems[componentName];
+    //     }
+    //   });
+    //   isUpdateRowObject = true;
+    // }
+
     if (_.startsWith(componentName, 'rowCol')) {
       var colNum = componentName.slice(6);
       isRow = true;
       for (var i = 0; i < colNum; i++) {
-        rowObject['dnd' + i] = false;
+        var key = 'dnd' + i;
+        rowObject = linkers.addToTail(
+          rowObject.linkedList,
+          false,
+          key,
+          rowObject.head,
+          rowObject.tail);
       }
     } else if (_.startsWith(uniqueID, 'dnd')) {
       isRow = true;
@@ -110,6 +141,7 @@ class reduxView extends React.Component {
 
     var treeArray = [];
     var colObject = {1: 12, 2: 6, 3: 4, 4: 3, 12: 1};
+    var renderLinkedList = [];
 
     if (Object.keys(this.props.tree).length > 0) {
       var treeObject = tree.traverseRendering();
@@ -118,33 +150,59 @@ class reduxView extends React.Component {
 
     _.forEach(treeObject, (node) => {
 
-      if (Object.keys(node.rowObject).length > 0) {
+      if (node.isRow) {
 
-        var colNum = colObject[Object.keys(node.rowObject).length];
+        var colNum = colObject[Object.keys(node.rowObject.linkedList).length];
         var colClass = `col s${colNum}`;
         var saveRowObject = node.rowObject;
 
-        var newRowObject = _.map(node.rowObject, (col, index) => {
-          if (_.startsWith(index, 'dnd')) {
-            var newToID = index + node.ID;
-           return (
-            <div className={colClass} key={index}>
-              <DropTarget
-                handleDrop={this.handleDroppedComponent.bind(this)}
-                toID={newToID}
-                oldTree={tree}
-                rowObject={node.rowObject}
-              />
-            </div>);
-          } else {
-            return (
-              <div className={colClass} key={index}>
-                {col}
-              </div>
-            );
-          }
-        });
-        node.rowObject = newRowObject;
+        // var newRowObject = _.map(node.rowObject.linkedList, (col, index) => {
+        //   if (_.startsWith(index, 'dnd')) {
+        //     var newToID = index + node.ID;
+        //    return (
+        //     <div className={colClass} key={index}>
+        //       <DropTarget
+        //         handleDrop={this.handleDroppedComponent.bind(this)}
+        //         toID={newToID}
+        //         oldTree={tree}
+        //         rowObject={node.rowObject.linkedList}
+        //       />
+        //     </div>);
+        //   } else {
+        //     return (
+        //       <div className={colClass} key={index}>
+        //         {col}
+        //       </div>
+        //     );
+        //   }
+        // });
+
+        var current = node.rowObject.linkedList[node.rowObject.head.key];
+        node.rowObject.renderLinkedList = [];
+        while (current) { // while not null
+            console.log('currreeennt', current);
+
+            if (_.startsWith(current.key, 'dnd')) {
+              var newToID = current.key + node.ID;
+              node.rowObject.renderLinkedList.push(
+              <div className={colClass} key={current.key}>
+                <DropTarget
+                  handleDrop={this.handleDroppedComponent.bind(this)}
+                  toID={newToID}
+                  oldTree={tree}
+                  rowObject={node.rowObject.linkedList}
+                />
+              </div>);
+            } else {
+              node.rowObject.renderLinkedList.push(
+                <div className={colClass} key={current.key}>
+                  {current.component}
+                </div>
+              );
+            }
+
+            current = node.rowObject.linkedList[current.next];
+        }
 
       }
 
@@ -152,11 +210,13 @@ class reduxView extends React.Component {
 
     });
 
+    console.log('renderLinkedList', renderLinkedList);
+
     const treeMap = _.map(treeArray, (node, index) => (
       <div key={index}>
         <div className="row">
           { node.isRow ?
-            node.rowObject :
+            node.rowObject.renderLinkedList.map((col) => col) :
             <div>{node.component}</div>
           }
         </div>
