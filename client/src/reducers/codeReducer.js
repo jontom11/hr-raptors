@@ -46,6 +46,7 @@ export default function reducer(state = {
   case 'LOAD_PROJECTS_FULFILLED': {
     return Object.assign({}, state, {loading: false, loaded: true});
   }
+}
 
   return state;
 }
