@@ -27,6 +27,7 @@ const styles = {
   return {
     tree: store.code.tree,
     userData: store.user.user,
+    options: store.code.options
   };
 })
 
@@ -99,7 +100,7 @@ class Nav extends React.Component {
         sidebar: Object.assign({}, styles.sidebar, {position: 'fixed'})
       },
     };
-    {if (this.props.showingOptionView){
+    {if (this.props.options){
       return (
         <Router>
           <Navbar {...sidebarProps}>

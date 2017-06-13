@@ -58,5 +58,18 @@ module.exports = {
         });
     };
   },
+  showOptions: () => {
+    return {
+      type: 'OPTION_VIEW_OPENED',
+      payload: {},
+    };
+  },
+    notShowingOptions: () => {
+    return {
+      type: 'OPTION_VIEW_CLOSED',
+      payload: {},
+    };
+  },
+
 };
 

@@ -30,7 +30,6 @@ class App extends React.Component {
     };
     this.toggleView = this.toggleView.bind(this);
     this.toggleOptionView = this.toggleOptionView.bind(this);
-    this.deleteComponent = this.deleteComponent.bind(this);
   }
 
   toggleView() {
@@ -48,16 +47,13 @@ class App extends React.Component {
     console.log(component)
     console.log('Selected:' + component);
   }
-  deleteComponent(component){
-    console.log('YOU CLICKED DELETE' + component);
-    console.log(ReactDOM.findDOMNode(component).parentNode);
-  }
+
 
 
   render() {
-    let main = <View toggleOptionView={this.toggleOptionView} currentComponent={this.state.currentComponent}/>;
+    let main = <View toggleoptionview={this.toggleOptionView} currentComponent={this.state.currentComponent}/>;
     if (this.state.viewState) {
-      main = <View toggleOptionView={this.toggleOptionView} currentComponent={this.state.currentComponent}/>
+      main = <View toggleoptionview={this.toggleOptionView} currentComponent={this.state.currentComponent}/>
     } else {
       main = <Code />;
     }
