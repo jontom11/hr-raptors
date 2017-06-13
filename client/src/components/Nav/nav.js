@@ -16,6 +16,7 @@ import PopoverExampleSimple from './userProjectsList';
 
 import View from '../View/view';
 import Code from '../Code/code';
+import Projects from '../Projects/projectView';
 
 
 const styles = {
@@ -158,6 +159,7 @@ class Nav extends React.Component {
             <a onClick={this.menuButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-times" aria-hidden="true" /></a>}
           <Link to="/"><a style={styles.contentHeaderMenuLink}><i className="fa fa-desktop" aria-hidden="true" /></a></Link>
           <Link to="/code"><a style={styles.contentHeaderMenuLink}><i className="fa fa-code" aria-hidden="true" /></a></Link>
+<<<<<<< HEAD
           <a onTouchTap={this.handleOpen} style={styles.contentHeaderMenuLink}><i className="fa fa-download" aria-hidden="true" /></a>
 					<Dialog
 						title="Save Project"
@@ -189,7 +191,8 @@ class Nav extends React.Component {
 						</ul>
 						</div>
 					</Dialog>
-          <a onClick={this.loadButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-user" aria-hidden="true"/></a>
+          <a onClick={this.saveButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-download" aria-hidden="true" /></a>
+          <Link to="/projects"><a onClick={this.loadButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-user" aria-hidden="true"/></a></Link>
           <a href={"/login"} style={styles.contentHeaderMenuLink}><i className="fa fa-sign-out" aria-hidden="true" /></a>
         </div>
       </div>);
@@ -233,11 +236,7 @@ class Nav extends React.Component {
             <div style={styles.content}>
               <Route exact path="/" component={View}/>
               <Route path="/code" component={Code}/>
-              { this.state.projectSelectView ?
-                <div>
-                  < PopoverExampleSimple projects={this.state.userProjects}/>
-                </div> : null
-              }
+              <Route path="/projects" component={Projects}/>
             </div>
           </Navbar>
         </Router>
