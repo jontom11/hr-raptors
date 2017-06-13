@@ -2,7 +2,7 @@ import React from 'react';
 import Navbar from 'react-sidebar';
 import NavTitlePanel from './navTitlePanel';
 import SidebarContent from './sidebarContent';
-import OptionBarContent from './optionBarContent'
+import OptionBarContent from './optionBarContent';
 import download from 'downloadjs';
 import { saveProject } from "../../actions/codeActions"
 import { loadProjects } from "../../actions/codeActions"
@@ -28,6 +28,7 @@ const styles = {
   return {
     tree: store.code.tree,
     userData: store.user.user,
+    options: store.code.options
   };
 })
 
@@ -102,7 +103,7 @@ class Nav extends React.Component {
         sidebar: Object.assign({}, styles.sidebar, {position: 'fixed'})
       },
     };
-    {if (this.props.showingOptionView){
+    {if (this.props.options){
       return (
         <Router>
           <Navbar {...sidebarProps}>

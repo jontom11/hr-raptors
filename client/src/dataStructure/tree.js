@@ -136,21 +136,21 @@ Tree.prototype.pushToHead = function(component, rowObject, isRow) {
 /*=================
  REMOVE
  =================*/
-Tree.prototype.remove = function(component, fromID, traversal) {
+Tree.prototype.remove = function(component, parentID, traversal) {
   var tree = this,
     parent = null,
     childToRemove = null,
     index;
 
+
   var callback = function(node) {
-    if (node.component === fromID) {
+    if (node.ID === parentID) {
       parent = node;
     }
   };
-
   this.contains(callback, traversal);
-
   if (parent) {
+    console.log(parent.children);
     index = findIndex(parent.children, component);
 
     if (index === undefined) {
@@ -172,7 +172,8 @@ var findIndex = function(arr, component) {
   var index;
 
   for (var i = 0; i < arr.length; i++) {
-    if (arr[i].component === component) {
+    if (arr[i].ID === component.ID) {
+      console.log(true);
       index = i;
     }
   }

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { connect } from "react-redux"
 import { fetchUser } from "../../actions/userActions"
@@ -62,7 +63,7 @@ class View extends React.Component {
         <ReduxView
           componentState={this.state}
           handleDrop={this.handleDroppedComponent.bind(this)}
-          toggleOptionView={this.props.toggleOptionView}
+          toggleoptionview={this.props.toggleoptionview}
 
         />
 

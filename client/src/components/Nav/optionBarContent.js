@@ -3,9 +3,15 @@ import PropTypes from 'prop-types';
 import FlatButton from 'material-ui/FlatButton';
 import _ from 'lodash';
 
+import Tree from '../../dataStructure/tree';
 import MaterialTitlePanel from './navTitlePanel';
 import components from '../../dragItems';
 import SingleComponent from './component';
+import{ deleteComponent } from '../../actions/componentActions';
+import { connect } from 'react-redux';
+import{ notShowingOptions } from '../../actions/codeActions';
+
+
 
 const styles = {
   OptionBar: {
@@ -31,19 +37,37 @@ const styles = {
   },
 };
 
-const OptionbarContent = (props) => {
-  const style = props.style ? Object.assign({}, styles.OptionBar, props.style) : styles.OptionBar;
+@connect((store) => {
+  return {
+    component:store.component,
+    components: store.code.components,
+    componentsLinkedList: store.code.componentsLinkedList,
+    tree: store.code.tree,
+    options: store.code.options
+  };
+})
+class OptionbarContent extends React.Component{
+  constructor(props){
+    super(props);
+  this.state={};
+  }
+  render(){
+    if (Object.keys(this.props.tree).length > 0) {
+      var treeObject = this.props.tree.traverseRendering();
 
-  return (
-    <div>
-    <MaterialTitlePanel title="Options" style={style} />
-      <div style={styles.content}>
-        <h3 href="#" style={styles.OptionBarLink}></h3>
+    }
+  const style = this.props.style ? Object.assign({}, styles.OptionBar, props.style) : styles.OptionBar;
+    return (
+      <div>
+      <MaterialTitlePanel title="Options" style={style} />
+      <button type='button'onClick={(event) => {this.props.tree.remove(treeObject[(parseInt(this.props.component.component.component.props.item.key)+1).toString()],treeObject[this.props.component.component.component.props.item.key].ID,this.props.tree.traverseBF); this.props.dispatch(notShowingOptions())}}>Delete me</button>
+        <div style={styles.content}>
+          <h3 href="#" style={styles.OptionBarLink}></h3>
+        </div>
       </div>
-    </div>
-  );
-};
-
+    );
+  }
+}
 OptionbarContent.propTypes = {
   style: PropTypes.object,
 };
