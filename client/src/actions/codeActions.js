@@ -29,7 +29,7 @@ module.exports = {
       payload: { tree },
     };
   },
-  saveProject: (tree, userData, projectName) => { //%%%%%%%%%%%%% Send username to HEre!
+  saveProject: (tree, userData, projectName) => {
     return function(dispatch) {
       dispatch({type: 'SAVE_PROJECT'});
       axios.post( '/postgres/tree', { codeTree: tree, userData: userData, projectName: projectName })
@@ -38,16 +38,17 @@ module.exports = {
         })
         .catch((err) => {
           dispatch({type: 'SAVE_PROJECT_REJECTED', payload: err});
+          alert('Oops!\nwe already have this project name in the database.\nPlease help us by selecting another name');
         });
     };
   },
   loadProjects: (user) => {
     return function(dispatch) {
       dispatch({type: 'LOAD_PROJECTS'});
-      console.log(`calling loadProjects action with user: ${user}`);
-      
+      console.log(`calling loadProjects action with user: ${user}`);      
       axios.get('/postgres/tree')
         .then((response) => {
+          // response.data is an object that contains username and db query
           dispatch({type: 'LOAD_PROJECTS_FULFILLED', payload: response.data});
         })
         .catch((err) => {

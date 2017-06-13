@@ -12,6 +12,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import View from '../View/view';
 import Code from '../Code/code';
 
+
 const styles = {
   contentHeaderMenuLink: {
     textDecoration: 'none',
@@ -57,7 +58,7 @@ class Nav extends React.Component {
     });
   }
 
-  saveButtonClick(projectTitle) {
+  saveButtonClick() {
     var projectName = prompt('Please enter project name');
     console.log('saving tree to db.....', this.props.tree);
     this.props.dispatch(saveProject(this.props.tree, this.props.userData, projectName));
