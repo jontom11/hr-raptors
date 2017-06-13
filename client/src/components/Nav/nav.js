@@ -83,13 +83,19 @@ class Nav extends React.Component {
   };
 
   handleCancel() {
-    this.setState({open: false});
+    this.setState({
+			open: false,
+			projectName: "",
+			projectDescription: ""
+		});
   };
 	
 	handleSubmit() {
-    this.setState({open: false});
-		this.props.dispatch(saveProject(this.props.tree, this.props.userData, this.state.projectName));
-    download(document.getElementsByTagName('code')[0].innerText, 'Material-GUI.html', 'text/html');
+		this.setState({
+			open: false,
+		});
+		this.props.dispatch(saveProject(this.props.tree, this.props.userData, this.state.projectName, this.state.projectDescription));
+    download(document.getElementsByTagName('code')[0].innerText, 'Material-GUI.html', 'text/html');		
   };
 	
 	handleChange(event) {
