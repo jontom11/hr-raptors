@@ -47,24 +47,46 @@ const styles = {
   };
 })
 class OptionbarContent extends React.Component{
-  constructor(props){
-    super(props);
-  this.state={};
+constructor(props){
+  super(props);
+this.state={};
+}
+  
+handleRemove() {
+  const uniqueID = this.props.component.component;
+  if (Object.keys(this.props.tree).length > 0) {
+    var treeObject = this.props.tree.traverseRendering();
   }
-  render(){
-    if (Object.keys(this.props.tree).length > 0) {
-      var treeObject = this.props.tree.traverseRendering();
-
+  var component;
+  var result = this.props.tree.contains(function(currentNode){
+    if (uniqueID === currentNode.ID) {
+      console.log('I FOUND THE ID YAAAAAY', currentNode.component)
+      component = currentNode.component;
+      return currentNode.component;
     }
+  }, this.props.tree.traverseDF);
+  console.log('result', component);
+  console.log('I AM HEREEEEEE', uniqueID);
+  this.props.tree.remove(
+    component,
+    this.props.component.component,
+    this.props.tree.traverseBF
+  ); 
+  this.props.dispatch(notShowingOptions())
+}  
+  
+render(){
+  
   const style = this.props.style ? Object.assign({}, styles.OptionBar, props.style) : styles.OptionBar;
-    return (
-      <div>
+  
+  return (
+    <div>
       <MaterialTitlePanel title="Options" style={style} />
-      <button type='button'onClick={(event) => {this.props.tree.remove(treeObject[(parseInt(this.props.component.component.component.props.item.key)+1).toString()],treeObject[this.props.component.component.component.props.item.key].ID,this.props.tree.traverseBF); this.props.dispatch(notShowingOptions())}}>Delete me</button>
-        <div style={styles.content}>
-          <h3 href="#" style={styles.OptionBarLink}></h3>
-        </div>
+      <button type='button'onClick={this.handleRemove.bind(this)}>Delete me</button>
+      <div style={styles.content}>
+        <h3 href="#" style={styles.OptionBarLink}></h3>
       </div>
+    </div>
     );
   }
 }

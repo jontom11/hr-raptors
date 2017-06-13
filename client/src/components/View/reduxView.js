@@ -176,7 +176,7 @@ class reduxView extends React.Component {
     });
 
     const treeMap = _.map(treeArray, (node, index) => (
-      <div key={index}>
+      <div key={index} className={node.ID}>
         <div className="row">
           { node.isRow ?
             node.rowObject.renderLinkedList.map((col) => col) :

@@ -136,27 +136,54 @@ Tree.prototype.pushToHead = function(component, rowObject, isRow) {
 /*=================
  REMOVE
  =================*/
-Tree.prototype.remove = function(component, parentID, traversal) {
+Tree.prototype.remove = function(component, nodeID, traversal) {
   var tree = this,
     parent = null,
     childToRemove = null,
-    index;
+    index,
+    currentNode = null,
+    savedChildren = null;
 
-
+  // Get current Node
   var callback = function(node) {
-    if (node.ID === parentID) {
-      parent = node;
+    if (node.ID === nodeID) {
+      currentNode = node;
     }
   };
   this.contains(callback, traversal);
+  
+  // Get parent Node
+  var callback = function(node) {
+    if (node.ID === currentNode.parentID) {
+      parent = node;
+    }
+  };
+  this.contains(callback, traversal); 
+  
+  // save the children
+  if (currentNode.children.length > 0) {
+    savedChildren = currentNode.children;
+  }
+  
+  // Change the children's parentID to their new parent
+  if (savedChildren) {
+    savedChildren.forEach((node) => {
+      node.parentID = parent.ID;
+    }); 
+  }
+  
   if (parent) {
-    console.log(parent.children);
-    index = findIndex(parent.children, component);
+    console.log('parent', parent);
+    index = findIndex(parent.children, currentNode.ID);
 
     if (index === undefined) {
       throw new Error('Node to remove does not exist.');
     } else {
       childToRemove = parent.children.splice(index, 1);
+      if (savedChildren) {
+       // add the children of deleted node to new parent
+        parent.children = savedChildren; 
+      }
     }
   } else {
     throw new Error('Parent does not exist.');
@@ -168,11 +195,11 @@ Tree.prototype.remove = function(component, parentID, traversal) {
 /*=================
  FIND INDEX
  =================*/
-var findIndex = function(arr, component) {
+var findIndex = function(arr, ID) {
   var index;
 
   for (var i = 0; i < arr.length; i++) {
-    if (arr[i].ID === component.ID) {
+    if (arr[i].ID === ID) {
       console.log(true);
       index = i;
     }
