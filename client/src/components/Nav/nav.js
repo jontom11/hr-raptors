@@ -12,6 +12,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import View from '../View/view';
 import Code from '../Code/code';
 
+
 const styles = {
   contentHeaderMenuLink: {
     textDecoration: 'none',
@@ -58,16 +59,18 @@ class Nav extends React.Component {
   }
 
   saveButtonClick() {
+    var projectName = prompt('Please enter project name');
     console.log('saving tree to db.....', this.props.tree);
-    this.props.dispatch(saveProject(this.props.tree, this.props.userData));
+    this.props.dispatch(saveProject(this.props.tree, this.props.userData, projectName));
     download(document.getElementsByTagName('code')[0].innerText, 'Material-GUI.html', 'text/html');
   }
 
   loadButtonClick() {
+    console.log('################# THIS.PROPS:', this.props)
     console.log('current user is:\n', this.props.userData);
     console.log('loading projects.....');
     this.props.dispatch(loadProjects(this.props.userData.name));
-  }
+  } 
 
   render() {
     const sidebar = <SidebarContent />;
