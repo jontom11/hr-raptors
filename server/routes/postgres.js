@@ -45,7 +45,7 @@ router.route('/tree')
           return teamRaptors;
         } else {
           cnn.client.query("insert into test1 (profile_id, time_stamp, project_name, object, description) values('" + user_id + "', '" + time_stamp + "', '" + project_name + "', '" + object + "', '" + description + "')");
-          res.status(200).send(JSON.stringify("HEllo"));
+          res.status(200).send(JSON.stringify(project_name));
         }
       })
       .catch(function(error) {

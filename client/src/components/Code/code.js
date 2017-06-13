@@ -55,14 +55,10 @@ class Code extends React.Component {
                 </div>
               );
             }
-
             current = node.rowObject.linkedList[current.next];
         }
-
       }
-
       treeArray.push(node);
-
     });
 
     const treeMap = _.map(treeArray, (node, index) => (
