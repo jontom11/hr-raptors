@@ -57,7 +57,7 @@ class Nav extends React.Component {
 			open: false,
 			errorText: "This field is required (minimum 3 char)",
 			projectName: "",
-			errorTextDescription: "This field is required (minimum 25 char)",
+			errorTextDescription: "This field is required (minimum 20 char)",
 			projectDescription: "",
     };
 
@@ -112,10 +112,10 @@ class Nav extends React.Component {
   }
 	
 	handleChangeDescription(event) {
-		if (event.target.value.length > 24) {
+		if (event.target.value.length > 19) {
 			this.setState({errorTextDescription: ""});	
 		} else {
-			this.setState({errorTextDescription: "This field is required (minimum 25 char)"});	
+			this.setState({errorTextDescription: "This field is required (minimum 20 char)"});	
 		} 
 		this.setState({
 			projectDescription: event.target.value,
