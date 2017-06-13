@@ -29,10 +29,10 @@ module.exports = {
       payload: { tree },
     };
   },
-  saveProject: (tree, userData, projectName) => {
+  saveProject: (tree, userData, projectName, projectDescription) => {
     return function(dispatch) {
       dispatch({type: 'SAVE_PROJECT'});
-      axios.post( '/postgres/tree', { codeTree: tree, userData: userData, projectName: projectName })
+      axios.post( '/postgres/tree', { codeTree: tree, userData: userData, projectName: projectName, projectDescription: projectDescription })
         .then((response) => {
           dispatch({type: 'SAVE_PROJECT_FULFILLED', payload: response.data});
         })
@@ -62,7 +62,7 @@ module.exports = {
       payload: {},
     };
   },
-    notShowingOptions: () => {
+  notShowingOptions: () => {
     return {
       type: 'OPTION_VIEW_CLOSED',
       payload: {},

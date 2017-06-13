@@ -31,7 +31,7 @@ router.route('/tree')
     var time_stamp = moment().format('MMMM Do YYYY, h:mma');
     var project_name = req.body.projectName;
     var object = JSON.stringify(req.body.codeTree);
-    var description = 'HARD CODED DESCRIPTION';
+    var description = req.body.projectDescription;
     
     pgb.connect(connectionString) 
       .then (function(connection) {

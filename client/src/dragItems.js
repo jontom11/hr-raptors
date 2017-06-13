@@ -86,13 +86,10 @@ module.exports = {
       </form>
     </div>,
   icon: <i className="material-icons">add</i>,
-  container:
-    <div className="container">
-    </div>,
-  rowCol1: 'col1',
   rowCol2: 'col2',
   rowCol3: 'col3',
   rowCol4: 'col4',
+  rowCol6: 'col6',
   rowCol12: 'col12',
   navbar:
     <nav>
