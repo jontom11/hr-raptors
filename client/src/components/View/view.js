@@ -51,6 +51,7 @@ class View extends React.Component {
 
   render() {
     const { tree } = this.props;
+		
     return (
       <article className="center-content">
           <DropTarget
