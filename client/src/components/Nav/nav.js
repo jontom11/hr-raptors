@@ -12,7 +12,6 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import PopoverExampleSimple from './userProjectsList';
 
 import View from '../View/view';
 import Code from '../Code/code';
@@ -28,11 +27,11 @@ const styles = {
   content: {
     padding: '2.5vh',
   },
-	center: {
-		margin: 'auto',
+  center: {
+    margin: 'auto',
     width: '50%',
     padding: '10px',
-	}
+  }
 }
 
 @connect((store) => {
@@ -56,20 +55,19 @@ class Nav extends React.Component {
       pullRight: false,
       touchHandleWidth: 20,
       dragToggleDistance: 30,
-			open: false,
-			errorText: "This field is required (minimum 3 char)",
-			projectName: "",
-			errorTextDescription: "This field is required (minimum 20 char)",
-			projectDescription: "",
+      open: false,
+      errorText: "This field is required (minimum 3 char)",
+      projectName: "",
+      errorTextDescription: "This field is required (minimum 20 char)",
+      projectDescription: "",
     };
 
     this.menuButtonClick = this.menuButtonClick.bind(this);
-    this.saveButtonClick = this.saveButtonClick.bind(this);
     this.loadButtonClick = this.loadButtonClick.bind(this);
-		this.handleOpen = this.handleOpen.bind(this);
-		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleCancel = this.handleCancel.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
 
   }
 
@@ -80,65 +78,61 @@ class Nav extends React.Component {
     });
   }
 
-	handleOpen() {
+  handleOpen() {
     this.setState({open: true});
   };
 
   handleCancel() {
     this.setState({
-			open: false,
-			projectName: "",
-			projectDescription: ""
-		});
+      open: false,
+      projectName: "",
+      projectDescription: ""
+    });
   };
 
-	handleSubmit() {
-		this.props.dispatch(saveProject(this.props.tree, this.props.userData, this.state.projectName, this.state.projectDescription));
+  handleSubmit() {
+    this.props.dispatch(saveProject(this.props.tree, this.props.userData, this.state.projectName, this.state.projectDescription));
     this.setState({
-			open: false,
+      open: false,
       projectName: "",
       projectDescription: "",
-		});
+    });
     download(document.getElementsByTagName('code')[0].innerText, 'Material-GUI.html', 'text/html');
   };
 
-	handleChange(event) {
-		if (event.target.value.length > 2) {
-			this.setState({errorText: ""});
-		} else {
-			this.setState({errorText: "This field is required (minimum 3 char)"});
-		}
-		this.setState({
-			projectName: event.target.value,
-		})
+  handleChange(event) {
+    if (event.target.value.length > 2) {
+      this.setState({errorText: ""});
+    } else {
+      this.setState({errorText: "This field is required (minimum 3 char)"});
+    }
+    this.setState({
+      projectName: event.target.value,
+    })
   }
 
-	handleChangeDescription(event) {
-		if (event.target.value.length > 19) {
-			this.setState({errorTextDescription: ""});
-		} else {
-			this.setState({errorTextDescription: "This field is required (minimum 20 char)"});
-		}
-		this.setState({
-			projectDescription: event.target.value,
-		})
-	}
-
-  saveButtonClick() {
-    var projectName = prompt('Please enter project name');
-    console.log('saving tree to db.....', this.props.tree);
-    this.props.dispatch(saveProject(this.props.tree, this.props.userData, projectName));
-    download(document.getElementsByTagName('code')[0].innerText, 'Material-GUI.html', 'text/html');
+  handleChangeDescription(event) {
+    if (event.target.value.length > 19) {
+      this.setState({errorTextDescription: ""});
+    } else {
+      this.setState({errorTextDescription: "This field is required (minimum 20 char)"});
+    }
+    this.setState({
+      projectDescription: event.target.value,
+    })
   }
 
   loadButtonClick() {
+    // console.log('################# THIS.PROPS:', this.props)
+    // console.log('current user is:\n', this.props.userData);
+    // console.log('loading projects.....');
     this.props.dispatch(loadProjects(this.props.userData.name));
   }
 
   render() {
     const sidebar = <SidebarContent />;
 
-		const actions = [
+    const actions = [
       <FlatButton
         label="Cancel"
         primary={true}
@@ -159,39 +153,37 @@ class Nav extends React.Component {
             <a onClick={this.menuButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-times" aria-hidden="true" /></a>}
           <Link to="/"><a style={styles.contentHeaderMenuLink}><i className="fa fa-desktop" aria-hidden="true" /></a></Link>
           <Link to="/code"><a style={styles.contentHeaderMenuLink}><i className="fa fa-code" aria-hidden="true" /></a></Link>
-<<<<<<< HEAD
           <a onTouchTap={this.handleOpen} style={styles.contentHeaderMenuLink}><i className="fa fa-download" aria-hidden="true" /></a>
-					<Dialog
-						title="Save Project"
-						actions={actions}
-						modal={true}
-						open={this.state.open}
-					>
-						<div className="center">
-						<ul>
-							<li>{this.state.projectName}</li>
-							<li>{this.state.projectDescription}</li>
-							<li>
-								<TextField
-								hintText="Project Name"
-								errorText={this.state.errorText}
-								floatingLabelText="Project Name"
-								onChange={this.handleChange}
-								/>
-							</li>
-							<li>
-								<TextField
-								hintText="Project Description"
-								errorText={this.state.errorTextDescription}
-								floatingLabelText="Project Description"
-								onChange={this.handleChangeDescription.bind(this)}
-								multiLine={true}
-								/>
-							</li>
-						</ul>
-						</div>
-					</Dialog>
-          <a onClick={this.saveButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-download" aria-hidden="true" /></a>
+          <Dialog
+            title="Save Project"
+            actions={actions}
+            modal={true}
+            open={this.state.open}
+          >
+            <div className="center">
+              <ul>
+                <li>{this.state.projectName}</li>
+                <li>{this.state.projectDescription}</li>
+                <li>
+                  <TextField
+                    hintText="Project Name"
+                    errorText={this.state.errorText}
+                    floatingLabelText="Project Name"
+                    onChange={this.handleChange}
+                  />
+                </li>
+                <li>
+                  <TextField
+                    hintText="Project Description"
+                    errorText={this.state.errorTextDescription}
+                    floatingLabelText="Project Description"
+                    onChange={this.handleChangeDescription.bind(this)}
+                    multiLine={true}
+                  />
+                </li>
+              </ul>
+            </div>
+          </Dialog>
           <Link to="/projects"><a onClick={this.loadButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-user" aria-hidden="true"/></a></Link>
           <a href={"/login"} style={styles.contentHeaderMenuLink}><i className="fa fa-sign-out" aria-hidden="true" /></a>
         </div>
@@ -221,13 +213,13 @@ class Nav extends React.Component {
               <Route path="/code" component={Code}/>
             </div>
             <div className ="nav-wrapper">
-            <div className='right sidebar' >
-           <OptionBarContent/>
-            </div>
+              <div className='right sidebar' >
+                <OptionBarContent/>
+              </div>
             </div>
           </Navbar>
         </Router>
-    );
+      );
     } else {
       return(
         <Router>
@@ -240,7 +232,7 @@ class Nav extends React.Component {
             </div>
           </Navbar>
         </Router>
-    );}
+      );}
     }
   }
 }
