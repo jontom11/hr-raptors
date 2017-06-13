@@ -12,6 +12,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import PopoverExampleSimple from './userProjectsList';
 
 import View from '../View/view';
 import Code from '../Code/code';
@@ -68,7 +69,7 @@ class Nav extends React.Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleCancel = this.handleCancel.bind(this);
-		
+
   }
 
   menuButtonClick(ev) {
@@ -77,7 +78,7 @@ class Nav extends React.Component {
       docked: !this.state.docked,
     });
   }
-	
+
 	handleOpen() {
     this.setState({open: true});
   };
@@ -89,34 +90,34 @@ class Nav extends React.Component {
 			projectDescription: ""
 		});
   };
-	
+
 	handleSubmit() {
 		this.props.dispatch(saveProject(this.props.tree, this.props.userData, this.state.projectName, this.state.projectDescription));
     this.setState({
 			open: false,
       projectName: "",
       projectDescription: "",
-		}); 
-    download(document.getElementsByTagName('code')[0].innerText, 'Material-GUI.html', 'text/html');		
+		});
+    download(document.getElementsByTagName('code')[0].innerText, 'Material-GUI.html', 'text/html');
   };
-	
+
 	handleChange(event) {
 		if (event.target.value.length > 2) {
-			this.setState({errorText: ""});	
+			this.setState({errorText: ""});
 		} else {
-			this.setState({errorText: "This field is required (minimum 3 char)"});	
-		} 
+			this.setState({errorText: "This field is required (minimum 3 char)"});
+		}
 		this.setState({
 			projectName: event.target.value,
 		})
   }
-	
+
 	handleChangeDescription(event) {
 		if (event.target.value.length > 19) {
-			this.setState({errorTextDescription: ""});	
+			this.setState({errorTextDescription: ""});
 		} else {
-			this.setState({errorTextDescription: "This field is required (minimum 20 char)"});	
-		} 
+			this.setState({errorTextDescription: "This field is required (minimum 20 char)"});
+		}
 		this.setState({
 			projectDescription: event.target.value,
 		})
@@ -134,11 +135,11 @@ class Nav extends React.Component {
     console.log('current user is:\n', this.props.userData);
     console.log('loading projects.....');
     this.props.dispatch(loadProjects(this.props.userData.name));
-  } 
+  }
 
   render() {
     const sidebar = <SidebarContent />;
-		
+
 		const actions = [
       <FlatButton
         label="Cancel"
@@ -151,7 +152,7 @@ class Nav extends React.Component {
         onTouchTap={this.handleSubmit}
       />,
     ];
-		
+
     const contentHeader = (
       <div className="nav-wrapper">
         <div className="left">
@@ -235,6 +236,7 @@ class Nav extends React.Component {
             <div style={styles.content}>
               <Route exact path="/" component={View}/>
               <Route path="/code" component={Code}/>
+              < PopoverExampleSimple />
             </div>
           </Navbar>
         </Router>
