@@ -10,7 +10,7 @@ export default function reducer(state = {
   saved: false,
   loading: false,
   loaded: false,
-  options: false
+  options: false,
   projects: [],
 }, action) {
 

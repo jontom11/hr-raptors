@@ -50,6 +50,7 @@ module.exports = {
         .then((response) => {
           // response.data is an object that contains username and db query
           dispatch({type: 'LOAD_PROJECTS_FULFILLED', payload: response.data});
+        })
         .catch((err) => {
           dispatch({type: 'LOAD_PROJECTS_REJECTED', payload: err});
         });
