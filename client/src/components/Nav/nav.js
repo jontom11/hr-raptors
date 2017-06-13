@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import CodeBoilerPlate from '../Code/codeBoilerPlate' // Added for saving Capability
 
 import NavTitlePanel from './navTitlePanel';
 import SidebarContent from './sidebarContent';
