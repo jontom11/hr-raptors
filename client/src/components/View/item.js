@@ -5,6 +5,7 @@ import { DragSource } from 'react-dnd';
 import{ selectComponent } from '../../actions/componentActions';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import DropTarget from './dropTarget.js';
 
 
 const collect = function(connect, monitor) {
@@ -23,7 +24,8 @@ const componentSource = {
 
 @connect((store) => {
   return {
-    componentValue: store.component.component
+    component: store.component,
+    itemCount: store.code.item
   };
 })
 class Item extends Component {

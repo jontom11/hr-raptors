@@ -3,11 +3,14 @@ import PropTypes from 'prop-types';
 import FlatButton from 'material-ui/FlatButton';
 import _ from 'lodash';
 
+import Tree from '../../dataStructure/tree';
 import MaterialTitlePanel from './navTitlePanel';
 import components from '../../dragItems';
 import SingleComponent from './component';
 import{ deleteComponent } from '../../actions/componentActions';
 import { connect } from 'react-redux';
+import{ clearCode } from '../../actions/codeActions';
+
 
 const styles = {
   OptionBar: {
@@ -35,8 +38,13 @@ const styles = {
 
 @connect((store) => {
   return {
+    component:store.component,
     components: store.code.components,
-    componentsLinkedList: store.code.componentsLinkedList
+    componentsLinkedList: store.code.componentsLinkedList,
+    tree: store.code.tree,
+    item: store.code.item,
+    head: store.code.head,
+    tail: store.code.tail,
   };
 })
 class OptionbarContent extends React.Component{
@@ -45,11 +53,18 @@ class OptionbarContent extends React.Component{
   this.state={};
   }
   render(){
+    console.log("Below is the tree *************************")
+    console.log(this.props.tree)
+      if (Object.keys(this.props.tree).length > 0) {
+      var treeObject = this.props.tree.traverseRendering();
+
+    }
+      const needs_decrement = (parseInt(this.props.component.component.component.props.item.key)-1);
   const style = this.props.style ? Object.assign({}, styles.OptionBar, props.style) : styles.OptionBar;
     return (
       <div>
       <MaterialTitlePanel title="Options" style={style} />
-      <button type='button'onClick={() => this.props.dispatch(deleteComponent(this))}>Delete me</button>
+      <button type='button'onClick={(event) => {this.props.tree.remove(treeObject[(parseInt(this.props.component.component.component.props.item.key)+1).toString()],treeObject[this.props.component.component.component.props.item.key].ID,this.props.tree.traverseBF); this.props.dispatch(clearCode());}}>Delete me</button>
         <div style={styles.content}>
           <h3 href="#" style={styles.OptionBarLink}></h3>
         </div>
