@@ -127,7 +127,7 @@ class reduxView extends React.Component {
     const { tree } = this.props;
 
     var treeArray = [];
-    var colObject = {1: 12, 2: 6, 3: 4, 4: 3, 12: 1};
+    var colObject = {1: 12, 2: 6, 3: 4, 4: 3, 6: 2, 12: 1};
     var renderLinkedList = [];
 
     if (Object.keys(this.props.tree).length > 0) {
