@@ -19,7 +19,7 @@ pg.connect(connectionString, (err, client, done) => {
     done();
     return res.status(500).json({success: false, fatal: err}); 
   } else {
-    client.query('CREATE TABLE IF NOT EXISTS test1 (id serial unique primary key, profile_id int, time_stamp text, project_name text, object text, foreign key (profile_id) references profiles(id))');
+    client.query('CREATE TABLE IF NOT EXISTS test1 (id serial unique primary key, profile_id int, time_stamp text, project_name text, object text, description text, foreign key (profile_id) references profiles(id))');
   }
 });
 
@@ -31,6 +31,7 @@ router.route('/tree')
     var time_stamp = moment().format('MMMM Do YYYY, h:mma');
     var project_name = req.body.projectName;
     var object = JSON.stringify(req.body.codeTree);
+    var description = 'HARD CODED DESCRIPTION';
     
     pgb.connect(connectionString) 
       .then (function(connection) {
@@ -43,7 +44,7 @@ router.route('/tree')
         if (uniqueName.rows.length > 0) {
           return teamRaptors;
         } else {
-          cnn.client.query("insert into test1 (profile_id, time_stamp, project_name, object) values('" + user_id + "', '" + time_stamp + "', '" + project_name + "', '" + object + "')");
+          cnn.client.query("insert into test1 (profile_id, time_stamp, project_name, object, description) values('" + user_id + "', '" + time_stamp + "', '" + project_name + "', '" + object + "', '" + description + "')");
           res.status(200).send(JSON.stringify("HEllo"));
         }
       })
@@ -58,7 +59,7 @@ router.route('/tree')
     var user_id = req.user.id;
     pgb.connect(connectionString)
       .then (function(connection) {
-        const query = connection.client.query("select profiles.email, test1.time_stamp, test1.project_name, test1.object from profiles join test1 on profiles.id = test1.profile_id where test1.profile_id ='" + user_id + "'");
+        const query = connection.client.query("select profiles.email, test1.time_stamp, test1.project_name, test1.object, test1.description from profiles join test1 on profiles.id = test1.profile_id where test1.profile_id ='" + user_id + "'");
         return query;
       })
       .then(function(query) {
