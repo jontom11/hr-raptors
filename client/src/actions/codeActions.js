@@ -23,32 +23,6 @@ module.exports = {
       payload: {},
     };
   },
-  updateTreeNew: (componentName, toID, oldTree) => {
-    return function(dispatch) {
-      console.log(Object.keys(oldTree).length <= 0);
-      if (Object.keys(oldTree).length <= 0) {
-        var tree = new Tree(
-          dragItems[componentName]
-        );
-        dispatch({ type: 'UPDATE_TREE', payload: { tree } });
-      } else if (toID === 'head') {
-        var tree = oldTree;
-        tree = tree.pushToHead(
-          dragItems[componentName]
-        );
-        dispatch({ type: 'UPDATE_TREE', payload: { tree } });
-      } else {
-        var tree = oldTree;
-        tree.add(
-          dragItems[componentName],
-          toID,
-          tree.traverseBF
-        );
-        dispatch({ type: 'UPDATE_TREE', payload: { tree } });
-      }
-
-    };
-  },
   updateTree: (tree) => {
     return {
       type: 'UPDATE_TREE',

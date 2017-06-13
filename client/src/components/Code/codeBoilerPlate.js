@@ -21,7 +21,7 @@ const CodeBoilerPlate = (props) => {
         </head>
         <body>
           <h1>Enjoy your HTML Webpage</h1>
-          {props.code}
+          {props.tree}
         </body>
         </html>
       ), {"wrap-attributes": "force"})}
