@@ -11,6 +11,7 @@ export default function reducer(state = {
   loading: false,
   loaded: false,
   options: false
+  projects: [],
 }, action) {
 
   switch (action.type) {
@@ -45,7 +46,7 @@ export default function reducer(state = {
     return Object.assign({}, state, {loading: false, error: action.payload});
   }
   case 'LOAD_PROJECTS_FULFILLED': {
-    return Object.assign({}, state, {loading: false, loaded: true});
+    return Object.assign({}, state, {loading: false, loaded: true, projects: action.payload });
   }
   case 'OPTION_VIEW_OPENED': {
     return Object.assign({}, state, {options: true});
