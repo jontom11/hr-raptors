@@ -6,6 +6,8 @@ import _ from 'lodash';
 import MaterialTitlePanel from './navTitlePanel';
 import components from '../../dragItems';
 import SingleComponent from './component';
+import{ deleteComponent } from '../../actions/componentActions';
+import { connect } from 'react-redux';
 
 const styles = {
   OptionBar: {
@@ -31,20 +33,30 @@ const styles = {
   },
 };
 
-const OptionbarContent = (props) => {
-  const style = props.style ? Object.assign({}, styles.OptionBar, props.style) : styles.OptionBar;
-
-  return (
-    <div>
-    <MaterialTitlePanel title="Options" style={style} />
-    <button type='button'>Delete me</button>
-      <div style={styles.content}>
-        <h3 href="#" style={styles.OptionBarLink}></h3>
+@connect((store) => {
+  return {
+    components: store.code.components,
+    componentsLinkedList: store.code.componentsLinkedList
+  };
+})
+class OptionbarContent extends React.Component{
+  constructor(props){
+    super(props);
+  this.state={};
+  }
+  render(){
+  const style = this.props.style ? Object.assign({}, styles.OptionBar, props.style) : styles.OptionBar;
+    return (
+      <div>
+      <MaterialTitlePanel title="Options" style={style} />
+      <button type='button'onClick={() => this.props.dispatch(deleteComponent(this))}>Delete me</button>
+        <div style={styles.content}>
+          <h3 href="#" style={styles.OptionBarLink}></h3>
+        </div>
       </div>
-    </div>
-  );
-};
-
+    );
+  }
+}
 OptionbarContent.propTypes = {
   style: PropTypes.object,
 };

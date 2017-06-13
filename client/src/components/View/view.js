@@ -52,6 +52,7 @@ class View extends React.Component {
     const { tree } = this.props;
     return (
       <article className="center-content">
+<<<<<<< 1acb6ce5b8bc9c0bd1dc0c42bd5baa2d49c373bc
           <DropTarget
             handleDrop={this.handleDroppedComponent.bind(this)}
             oldTree={tree}
@@ -65,6 +66,10 @@ class View extends React.Component {
           toggleOptionView={this.props.toggleOptionView}
 
         />
+=======
+          <DropTarget handleDrop={this.handleDroppedComponent.bind(this)} context={this} id="head" />
+        <ReduxView componentState={this.state} handleDrop={this.handleDroppedComponent.bind(this)} handleChange={this.handleDropChange.bind(this)} toggleOptionView={this.props.toggleOptionView}/>
+>>>>>>> Added Component Actions and Reducers
 
       </article>
     );

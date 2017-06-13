@@ -25,10 +25,12 @@ class App extends React.Component {
     super(props);
     this.state = {
       viewState: true,
-      viewingOptions: false
+      viewingOptions: false,
+      currentComponent: null
     };
     this.toggleView = this.toggleView.bind(this);
     this.toggleOptionView = this.toggleOptionView.bind(this);
+    this.deleteComponent = this.deleteComponent.bind(this);
   }
 
   toggleView() {
@@ -38,17 +40,24 @@ class App extends React.Component {
     });
   }
 
-  toggleOptionView(){
+  toggleOptionView(component){
     this.setState({
-      viewingOptions: !this.state.viewingOptions
-    });
+      viewingOptions: !this.state.viewingOptions,
+      currentComponent: component
+    })
+    console.log(component)
+    console.log('Selected:' + component);
+  }
+  deleteComponent(component){
+    console.log('YOU CLICKED DELETE' + component);
+    console.log(ReactDOM.findDOMNode(component).parentNode);
   }
 
 
   render() {
-    let main = <View toggleOptionView={this.toggleOptionView}/>;
+    let main = <View toggleOptionView={this.toggleOptionView} currentComponent={this.state.currentComponent}/>;
     if (this.state.viewState) {
-      main = <View toggleOptionView={this.toggleOptionView} />;
+      main = <View toggleOptionView={this.toggleOptionView} currentComponent={this.state.currentComponent}/>
     } else {
       main = <Code />;
     }
@@ -59,7 +68,7 @@ class App extends React.Component {
           <div>
             <h3 draggable="true">HELLO</h3>
           </div>
-          <Nav view={main} toggleView={this.toggleView} showingOptionView={this.state.viewingOptions} />
+          <Nav view={main} toggleView={this.toggleView} showingOptionView={this.state.viewingOptions} deleteComponent={this.deleteComponent} currentComponent={this.state.currentComponent} />
         </div>
       </MuiThemeProvider>
       </Provider>
