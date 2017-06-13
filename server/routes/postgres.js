@@ -35,22 +35,22 @@ router.route('/tree')
     pgb.connect(connectionString) 
       .then (function(connection) {
         cnn = connection;
-        var uniqueName = connection.client.query("select id from test1 where project_name = '" + project_name + "'")
+        var uniqueName = connection.client.query("select id from test1 where project_name = '" + project_name + "'");
         return uniqueName;
       })
       .then(function(uniqueName) {
         // check if name exists
-        if( uniqueName.rows.length > 0 ) {
+        if (uniqueName.rows.length > 0) {
           return teamRaptors;
-        } else  {
-          cnn.client.query("insert into test1 (profile_id, time_stamp, project_name, object) values('" + user_id + "', '" + time_stamp + "', '" + project_name + "', '" + object + "')");88
+        } else {
+          cnn.client.query("insert into test1 (profile_id, time_stamp, project_name, object) values('" + user_id + "', '" + time_stamp + "', '" + project_name + "', '" + object + "')");
           res.status(200).send(JSON.stringify("HEllo"));
         }
       })
       .catch(function(error) {
-        console.log('ERROR ON SERVER-SIDE POST REQUEST!', error)
+        console.log('ERROR ON SERVER-SIDE POST REQUEST!', error);
         res.status(500).json();
-      }) 
+      });
   })
 
   //  get request calls for user ID first, then inserts to DB
@@ -58,20 +58,20 @@ router.route('/tree')
     var user_id = req.user.id;
     pgb.connect(connectionString)
       .then (function(connection) {
-        const query = connection.client.query("select profiles.email, test1.time_stamp, test1.project_name, test1.object from profiles join test1 on profiles.id = test1.profile_id where test1.profile_id ='"+user_id+"'");
+        const query = connection.client.query("select profiles.email, test1.time_stamp, test1.project_name, test1.object from profiles join test1 on profiles.id = test1.profile_id where test1.profile_id ='" + user_id + "'");
         return query;
       })
       .then(function(query) {
-        var resData = {user_name: req.user.display, query_rows: query.rows}
+        var resData = {user_name: req.user.display, query_rows: query.rows};
         return resData;
       })
       .then(function(responseData) {
         res.status(200).send(JSON.stringify(responseData));            
       })
       .catch(function(error) {
-        console.log('ERROR ON SERVER-SIDE GET REQUEST!', error)
+        console.log('ERROR ON SERVER-SIDE GET REQUEST!', error);
         return res.status(500).json({success: false, fatal: err}); 
-      }) 
+      });
   });
 
 module.exports = router;
