@@ -146,7 +146,6 @@ class reduxView extends React.Component {
         var current = node.rowObject.linkedList[node.rowObject.head.key];
         node.rowObject.renderLinkedList = [];
         while (current) { // while not null
-            console.log('currreeennt', current);
 
             if (_.startsWith(current.key, 'dnd')) {
               var newToID = current.key + node.ID;
@@ -175,8 +174,6 @@ class reduxView extends React.Component {
       treeArray.push(node);
 
     });
-
-    console.log('renderLinkedList', renderLinkedList);
 
     const treeMap = _.map(treeArray, (node, index) => (
       <div key={index}>

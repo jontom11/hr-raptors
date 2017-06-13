@@ -23,22 +23,62 @@ class Code extends React.Component {
 
     const { tree } = this.props;
 
-    var treeArray = [];
+     var treeArray = [];
+    var colObject = {1: 12, 2: 6, 3: 4, 4: 3, 12: 1};
+    var renderLinkedList = [];
 
     if (Object.keys(this.props.tree).length > 0) {
       var treeObject = tree.traverseRendering();
     }
 
+
     _.forEach(treeObject, (node) => {
-      treeArray.push(node.component);
+
+      if (node.isRow) {
+
+        var colNum = colObject[Object.keys(node.rowObject.linkedList).length];
+        var colClass = `col s${colNum}`;
+        var saveRowObject = node.rowObject;
+
+        var current = node.rowObject.linkedList[node.rowObject.head.key];
+        node.rowObject.renderLinkedList = [];
+        while (current) { // while not null
+
+            if (_.startsWith(current.key, 'dnd')) {
+              var newToID = current.key + node.ID;
+              node.rowObject.renderLinkedList.push(
+              <div className={colClass} key={current.key}></div>);
+            } else {
+              node.rowObject.renderLinkedList.push(
+                <div className={colClass} key={current.key}>
+                  {current.component}
+                </div>
+              );
+            }
+
+            current = node.rowObject.linkedList[current.next];
+        }
+
+      }
+
+      treeArray.push(node);
+
     });
 
-    const treeMap = _.map(treeArray, (code, index) => <div key={index}>{code}</div>);
+    const treeMap = _.map(treeArray, (node, index) => (
+      <div key={index}>
+        <div className="row">
+          { node.isRow ?
+            node.rowObject.renderLinkedList.map((col) => col) :
+            <div>{node.component}</div>
+          }
+        </div>
+      </div>));
 
     return (
        <article className="center-content code-view">
         <div className="code-view display-linebreak" >
-          <CodeBoilerPlate code={treeMap} />
+          <CodeBoilerPlate tree={treeMap} />
         </div>
       </article>
     )
