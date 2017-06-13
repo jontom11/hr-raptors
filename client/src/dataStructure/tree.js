@@ -141,7 +141,8 @@ Tree.prototype.remove = function(component, nodeID, traversal) {
     parent = null,
     childToRemove = null,
     index,
-    currentNode = null;
+    currentNode = null,
+    savedChildren = null;
 
   // Get current Node
   var callback = function(node) {
@@ -159,6 +160,18 @@ Tree.prototype.remove = function(component, nodeID, traversal) {
   };
   this.contains(callback, traversal); 
   
+  // save the children
+  if (currentNode.children.length > 0) {
+    savedChildren = currentNode.children;
+  }
+  
+  // Change the children's parentID to their new parent
+  if (savedChildren) {
+    savedChildren.forEach((node) => {
+      node.parentID = parent.ID;
+    }); 
+  }
+  
   if (parent) {
     console.log('parent', parent);
     index = findIndex(parent.children, currentNode.ID);
@@ -167,6 +180,10 @@ Tree.prototype.remove = function(component, nodeID, traversal) {
       throw new Error('Node to remove does not exist.');
     } else {
       childToRemove = parent.children.splice(index, 1);
+      if (savedChildren) {
+       // add the children of deleted node to new parent
+        parent.children = savedChildren; 
+      }
     }
   } else {
     throw new Error('Parent does not exist.');
