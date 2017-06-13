@@ -4,7 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 import _ from 'lodash';
 
 import MaterialTitlePanel from './navTitlePanel';
-import components from '../dragItems';
+import components from '../../dragItems';
 import SingleComponent from './component';
 
 const styles = {

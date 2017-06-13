@@ -1,4 +1,6 @@
 import axios from 'axios';
+import Tree from '../dataStructure/tree';
+import dragItems from '../dragItems';
 
 module.exports = {
   fetchCode: () => {
@@ -15,44 +17,36 @@ module.exports = {
       });
     };
   },
-  addCode: (id, componentCode, isDropped, dropTarget) => {
-    return {
-      type: 'ADD_CODE',
-      payload: {
-        id,
-        componentCode,
-        isDropped,
-        dropTarget,
-      },
-    };
-  },
-  addCodeTop: (id, componentCode, isDropped, dropTarget) => {
-    return {
-      type: 'ADD_CODE_TOP',
-      payload: {
-        id,
-        componentCode,
-        isDropped,
-        dropTarget,
-      },
-    };
-  },
-  addToHead: (linkedData) => {
-    return  {
-      type: 'ADD_TO_HEAD',
-      payload: { linkedData },
-    };
-  },
-  addToTail: (linkedData) => {
-    return  {
-      type: 'ADD_TO_TAIL',
-      payload: { linkedData },
-    };
-  },
   clearCode: () => {
     return {
       type: 'CLEAR_CODE',
       payload: {},
+    };
+  },
+  updateTreeNew: (componentName, toID, oldTree) => {
+    return function(dispatch) {
+      console.log(Object.keys(oldTree).length <= 0);
+      if (Object.keys(oldTree).length <= 0) {
+        var tree = new Tree(
+          dragItems[componentName]
+        );
+        dispatch({ type: 'UPDATE_TREE', payload: { tree } });
+      } else if (toID === 'head') {
+        var tree = oldTree;
+        tree = tree.pushToHead(
+          dragItems[componentName]
+        );
+        dispatch({ type: 'UPDATE_TREE', payload: { tree } });
+      } else {
+        var tree = oldTree;
+        tree.add(
+          dragItems[componentName],
+          toID,
+          tree.traverseBF
+        );
+        dispatch({ type: 'UPDATE_TREE', payload: { tree } });
+      }
+
     };
   },
   updateTree: (tree) => {
@@ -65,8 +59,8 @@ module.exports = {
     return function(dispatch) {
       dispatch({type: 'SAVE_PROJECT'});
 
-      // var postData = JSON.stringify( tree );      
-      // var postData = JSON.stringify( {1:1, 2:{3:{3:{4:4}}}} );      
+      // var postData = JSON.stringify( tree );
+      // var postData = JSON.stringify( {1:1, 2:{3:{3:{4:4}}}} );
       // axios.post('http://127.0.0.1:3000/postgres/tree', tree )
       axios.post( '/postgres/tree', { codeTree: tree, userData: userData })
         .then((response) => {

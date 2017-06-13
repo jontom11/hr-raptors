@@ -5,12 +5,12 @@ import { clearCode } from "../../actions/codeActions"
 
 import ReduxView from './reduxView';
 import DropTarget from './dropTarget';
-import shortid from 'shortid';
 
 @connect((store) => {
   return {
     user: store.user.user,
     userFetched: store.user.fetched,
+    tree: store.code.tree,
   };
 })
 class View extends React.Component {
@@ -19,17 +19,15 @@ class View extends React.Component {
     this.state = {
       componentName: null,
       ID: null,
-      componentID: 0,
+      counter: 0,
       dropTarget: (
         <div className="col s12">
           <DropTarget handleDroppedComponent={this.handleDroppedComponent.bind(this)} />
         </div>),
-      isDropped: false,
-      dropTop: false,
-      showingOptionsView: false
+      showingOptionsView: false,
+      rowObject: {},
     };
     this.handleDroppedComponent = this.handleDroppedComponent.bind(this);
-    this.handleDropChange = this.handleDropChange.bind(this);
   }
 
   componentWillMount() {
@@ -40,42 +38,33 @@ class View extends React.Component {
     this.props.dispatch(clearCode());
   }
 
-  handleDroppedComponent(droppedInItem, ID) {
-    var newCount = this.state.componentID + 1;
+  handleDroppedComponent(droppedInItem, ID, rowObject) {
+    var newCount = this.state.counter + 1;
     this.setState({
       componentName: droppedInItem,
-      componentID: newCount,
-      dropTop: false,
+      counter: newCount,
       ID: ID,
-    });
-  }
-
-  handleDroppedComponentTop(droppedInItem) {
-    var newCount = this.state.componentID + 1;
-    this.setState({
-      componentName: droppedInItem,
-      componentID: newCount,
-      dropTop: true,
-    });
-  }
-
-  handleDropChange(droppedInItem, ID) {
-    var newCount = this.state.componentID + 1;
-    this.setState({
-      componentName: droppedInItem,
-      componentID: newCount,
-      dropTop: true,
-      ID: ID,
+      rowObject: rowObject,
     });
   }
 
   render() {
-    const { user } = this.props;
-
+    const { tree } = this.props;
     return (
       <article className="center-content">
-          <DropTarget handleDrop={this.handleDroppedComponent.bind(this)} context={this} id="head" />
-        <ReduxView componentState={this.state} handleDrop={this.handleDroppedComponent.bind(this)} handleChange={this.handleDropChange.bind(this)} toggleOptionView={this.props.toggleOptionView} />
+          <DropTarget
+            handleDrop={this.handleDroppedComponent.bind(this)}
+            oldTree={tree}
+            dispatch={this.props.dispatch}
+            toID="head"
+
+          />
+        <ReduxView
+          componentState={this.state}
+          handleDrop={this.handleDroppedComponent.bind(this)}
+          toggleOptionView={this.props.toggleOptionView}
+
+        />
 
       </article>
     );

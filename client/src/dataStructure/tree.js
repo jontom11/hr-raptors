@@ -3,18 +3,19 @@ import Queue from './queue';
 import shortid from 'shortid';
 import _ from 'lodash';
 
-var Node = function(component) {
+var Node = function(component, rowObject, isRow) {
   this.component = component;
   this.ID = shortid.generate();
   this.parentID = null;
   this.children = [];
+  this.rowObject = rowObject;
+  this.isRow = isRow;
 };
 
-var Tree = function(component) {
-  var node = new Node(component);
+var Tree = function(component, rowObject, isRow) {
+  var node = new Node(component, rowObject, isRow);
   this._root = node;
 };
-
 
 /*=========================================
  // traverses a tree with depth-first search
@@ -30,7 +31,6 @@ Tree.prototype.traverseDF = function(callback) {
   })(this._root);
 
 };
-
 
 /*=========================================
   traverses a tree for rendering
@@ -81,12 +81,11 @@ Tree.prototype.contains = function(callback, traversal) {
   traversal.call(this, callback);
 };
 
-
 /*=================
 ADD
  =================*/
-Tree.prototype.add = function(component, toID, traversal) {
-  var child = new Node(component),
+Tree.prototype.add = function(component, toID, traversal, rowObject, isRow) {
+  var child = new Node(component, rowObject, isRow),
     parent = null,
     callback = function(node) {
       if (node.ID === toID) {
@@ -105,10 +104,30 @@ Tree.prototype.add = function(component, toID, traversal) {
 };
 
 /*=================
+ UPDATE ROW OBJECT
+ =================*/
+Tree.prototype.updateRowObject = function(toID, traversal, rowObject) {
+  var parent = null,
+    callback = function(node) {
+      if (node.ID === toID) {
+        parent = node;
+      }
+    };
+
+  this.contains(callback, traversal);
+
+  if (parent) {
+    parent.rowObject = rowObject;
+  } else {
+    throw new Error('Cannot add node to a non-existent parent.');
+  }
+};
+
+/*=================
  PUSH TO HEAD
  =================*/
-Tree.prototype.pushToHead = function(component) {
-  var newTree = new Tree(component);
+Tree.prototype.pushToHead = function(component, rowObject, isRow) {
+  var newTree = new Tree(component, rowObject, isRow);
   this._root.parentID = newTree._root.ID;
   newTree._root.children.push(this._root);
   return newTree;

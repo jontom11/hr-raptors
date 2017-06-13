@@ -1,41 +1,77 @@
-exports.addToTail = (linkedList, component, isDropped, item, head, tail) => {
+exports.addToTail = (linkedList, component, key, head, tail) => {
   linkedList = Object.assign({}, linkedList);
   if (tail === null) {
-    linkedList[item] = exports.ListNode(component, item, null, null, isDropped);
-    tail = linkedList[item];
-    head = linkedList[item];
+    linkedList[key] = exports.ListNode(component, key, null, null);
+    tail = linkedList[key];
+    head = linkedList[key];
   } else if (head === null) {
-    linkedList[item] = exports.ListNode(component, item, null, tail.key, isDropped);
-    linkedList[tail.key].next = linkedList[item].key;
+    linkedList[key] = exports.ListNode(component, key, null, tail.key);
+    linkedList[tail.key].next = linkedList[key].key;
     head = tail;
-    tail = linkedList[item];
+    tail = linkedList[key];
   } else {
-    linkedList[item] = exports.ListNode(component, item, null, tail.key, isDropped);
-    linkedList[tail.key].next = linkedList[item].key;
-    tail = linkedList[item];
+    linkedList[key] = exports.ListNode(component, key, null, tail.key);
+    linkedList[tail.key].next = linkedList[key].key;
+    tail = linkedList[key];
   }
-  item++;
-  return {linkedList, head, tail, item};
+  key++;
+  return {linkedList, head, tail, key};
 };
 
-exports.addToHead = (linkedList, component, isDropped, item, head, tail) => {
+exports.replaceNode = (rowObject, component, key, head, tail, newKey) => {
+  var oldLinkedListNode = rowObject.linkedList[key];
+  rowObject.linkedList[newKey] = {
+    component: component,
+    key: newKey,
+    next: oldLinkedListNode.next,
+    prev: oldLinkedListNode.prev,
+  };
+
+  // Change next node's prev value
+  if (oldLinkedListNode.next !== null) {
+    rowObject.linkedList[oldLinkedListNode.next].prev = newKey;
+  }
+  // Change prev node's next value
+  if (oldLinkedListNode.prev !== null) {
+    rowObject.linkedList[oldLinkedListNode.prev].next = newKey;
+  }
+
+  // Change Head
+  if (rowObject.head.key === key) {
+    rowObject.head = rowObject.linkedList[newKey];
+  } else {
+    rowObject.head = rowObject.linkedList[rowObject.head.key];
+  }
+  // Change Tail
+  if (rowObject.tail.key === key) {
+    rowObject.tail = rowObject.linkedList[newKey];
+  } else {
+    rowObject.tail = rowObject.linkedList[rowObject.tail.key];
+  }
+
+  delete rowObject.linkedList[key];
+
+  return rowObject;
+};
+
+exports.addToHead = (linkedList, component, key, head, tail) => {
   linkedList = Object.assign({}, linkedList);
   if (head === null) {
-    linkedList[item] = exports.ListNode(component, item, null, null, isDropped);
-    head = linkedList[item];
-    tail = linkedList[item];
+    linkedList[key] = exports.ListNode(component, key, null, null);
+    head = linkedList[key];
+    tail = linkedList[key];
   } else if (tail === null) {
-    linkedList[item] = exports.ListNode(component, item, head.key, null, isDropped);
-    linkedList[head.key].prev = linkedList[item].key;
+    linkedList[key] = exports.ListNode(component, key, head.key, null);
+    linkedList[head.key].prev = linkedList[key].key;
     tail = head;
-    head = linkedList[item];
+    head = linkedList[key];
   } else {
-    linkedList[item] = exports.ListNode(component, item, head.key, null, isDropped);
-    linkedList[head.key].prev = linkedList[item].key;
-    head = linkedList[item];
+    linkedList[key] = exports.ListNode(component, key, head.key, null);
+    linkedList[head.key].prev = linkedList[key].key;
+    head = linkedList[key];
   }
-  item++;
-  return {linkedList, head, tail, item};
+  key++;
+  return {linkedList, head, tail, key};
 };
 
 exports.removeHead = (linkedList) => {
@@ -86,12 +122,11 @@ exports.contains = (target, linkedList) => {
   return false;
 },
 
-  exports.ListNode = (component, key, next, prev, isDrop) => {
+  exports.ListNode = (component, key, next, prev) => {
     var ListNode = {};
     ListNode.component = component;
     ListNode.next = next;
     ListNode.prev = prev;
     ListNode.key = key;
-    ListNode.isDrop = isDrop;
     return ListNode;
   };
