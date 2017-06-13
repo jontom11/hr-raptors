@@ -9,10 +9,6 @@ import components from '../../dragItems';
 import SingleComponent from './component';
 import{ deleteComponent } from '../../actions/componentActions';
 import { connect } from 'react-redux';
-import{ clearCode } from '../../actions/codeActions';
-import{ fetchCode } from '../../actions/codeActions';
-import{ showOptions } from '../../actions/codeActions';
-import{ updateTree } from '../../actions/codeActions';
 import{ notShowingOptions } from '../../actions/codeActions';
 
 
@@ -56,13 +52,10 @@ class OptionbarContent extends React.Component{
   this.state={};
   }
   render(){
-    console.log("Below is the tree *************************")
-    //console.log(this.props.tree)
-      if (Object.keys(this.props.tree).length > 0) {
-    var treeObject = this.props.tree.traverseRendering();
+    if (Object.keys(this.props.tree).length > 0) {
+      var treeObject = this.props.tree.traverseRendering();
 
     }
-      //const needs_decrement = (parseInt(this.props.component.component.component.props.item.key)-1);
   const style = this.props.style ? Object.assign({}, styles.OptionBar, props.style) : styles.OptionBar;
     return (
       <div>

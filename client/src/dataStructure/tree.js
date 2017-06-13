@@ -148,7 +148,6 @@ Tree.prototype.remove = function(component, parentID, traversal) {
       parent = node;
     }
   };
-  console.log("Parent");
   this.contains(callback, traversal);
   if (parent) {
     console.log(parent.children);
