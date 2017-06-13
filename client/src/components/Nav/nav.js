@@ -233,7 +233,11 @@ class Nav extends React.Component {
             <div style={styles.content}>
               <Route exact path="/" component={View}/>
               <Route path="/code" component={Code}/>
-              < PopoverExampleSimple projects={this.state.userProjects}/>
+              { this.state.projectSelectView ?
+                <div>
+                  < PopoverExampleSimple projects={this.state.userProjects}/>
+                </div> : null
+              }
             </div>
           </Navbar>
         </Router>
