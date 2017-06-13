@@ -2,6 +2,7 @@ import axios from 'axios';
 import Tree from '../dataStructure/tree';
 import dragItems from '../dragItems';
 
+
 module.exports = {
   fetchCode: () => {
     return function(dispatch) {
@@ -45,7 +46,6 @@ module.exports = {
   loadProjects: (user) => {
     return function(dispatch) {
       dispatch({type: 'LOAD_PROJECTS'});
-      console.log(`calling loadProjects action with user: ${user}`);      
       axios.get('/postgres/tree')
         .then((response) => {
           // response.data is an object that contains username and db query

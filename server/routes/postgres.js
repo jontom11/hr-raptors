@@ -17,7 +17,7 @@ var cnn;
 pg.connect(connectionString, (err, client, done) => {
   if (err) {
     done();
-    return res.status(500).json({success: false, fatal: err}); 
+    return res.status(500).json({success: false, fatal: err});
   } else {
     client.query('CREATE TABLE IF NOT EXISTS test1 (id serial unique primary key, profile_id int, time_stamp text, project_name text, object text, description text, foreign key (profile_id) references profiles(id))');
   }
@@ -26,14 +26,14 @@ pg.connect(connectionString, (err, client, done) => {
 router.route('/tree')
   .post(middleware.auth.verify, (req, res) => {
 
- // Post and Query Postgres DB
-    var user_id = req.user.id;  
+    // Post and Query Postgres DB
+    var user_id = req.user.id;
     var time_stamp = moment().format('MMMM Do YYYY, h:mma');
     var project_name = req.body.projectName;
     var object = JSON.stringify(req.body.codeTree);
     var description = req.body.projectDescription;
-    
-    pgb.connect(connectionString) 
+
+    pgb.connect(connectionString)
       .then (function(connection) {
         cnn = connection;
         var uniqueName = connection.client.query("select id from test1 where project_name = '" + project_name + "'");
@@ -67,17 +67,17 @@ router.route('/tree')
         return resData;
       })
       .then(function(responseData) {
-        res.status(200).send(JSON.stringify(responseData));            
+        res.status(200).send(JSON.stringify(responseData));
       })
       .catch(function(error) {
         console.log('ERROR ON SERVER-SIDE GET REQUEST!', error);
-        return res.status(500).json({success: false, fatal: err}); 
+        return res.status(500).json({success: false, fatal: err});
       });
   });
 
 module.exports = router;
 
-// DB queriers below.... DELETE when finished with project. 
+// DB queriers below.... DELETE when finished with project.
 // select profiles.email, test5.object from profiles join test5 on profiles.id = test5.profile_id where test5.profile_id = 1;
 // select profiles.email, test6.project_name, test6.object from profiles join test6 on profiles.id = test6.profile_id where test6.profile_id ='"+user_id+"';
 //  select profiles.email, test5.object from profiles join test5 on profiles.id = test5.profile_id where test5.profile_id = ('1');
