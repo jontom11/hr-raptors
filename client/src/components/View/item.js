@@ -34,11 +34,18 @@ class Item extends Component {
     super(props);
     this.state = {};
   }
+  
+  handleSelect(){
+    console.log('thiiiiiiiiisssssssss', this.props.item.props.className);
+    this.props.dispatch(showOptions()); 
+    this.props.dispatch(selectComponent(this.props.item.props.className));
+  }
 
   render() {
     const { connectDragSource, isDragging, component } = this.props;
+    
     return connectDragSource(
-      <div onClick={(event) => {this.props.dispatch(showOptions()); this.props.dispatch(selectComponent(this))}}  style={{
+      <div onClick={this.handleSelect.bind(this)}  style={{
         opacity: isDragging ? 0.5 : 1,
         cursor: 'move',
       }}>

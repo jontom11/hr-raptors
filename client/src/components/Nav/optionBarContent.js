@@ -53,12 +53,23 @@ this.state={};
 }
   
 handleRemove() {
+  const uniqueID = this.props.component.component;
   if (Object.keys(this.props.tree).length > 0) {
     var treeObject = this.props.tree.traverseRendering();
   }
+  var component;
+  var result = this.props.tree.contains(function(currentNode){
+    if (uniqueID === currentNode.ID) {
+      console.log('I FOUND THE ID YAAAAAY', currentNode.component)
+      component = currentNode.component;
+      return currentNode.component;
+    }
+  }, this.props.tree.traverseDF);
+  console.log('result', component);
+  console.log('I AM HEREEEEEE', uniqueID);
   this.props.tree.remove(
-    treeObject[(parseInt(this.props.component.component.component.props.item.key)+1).toString()],
-    treeObject[this.props.component.component.component.props.item.key].ID,
+    component,
+    this.props.component.component,
     this.props.tree.traverseBF
   ); 
   this.props.dispatch(notShowingOptions())
