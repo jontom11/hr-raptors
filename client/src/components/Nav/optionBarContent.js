@@ -47,24 +47,35 @@ const styles = {
   };
 })
 class OptionbarContent extends React.Component{
-  constructor(props){
-    super(props);
-  this.state={};
+constructor(props){
+  super(props);
+this.state={};
+}
+  
+handleRemove() {
+  if (Object.keys(this.props.tree).length > 0) {
+    var treeObject = this.props.tree.traverseRendering();
   }
-  render(){
-    if (Object.keys(this.props.tree).length > 0) {
-      var treeObject = this.props.tree.traverseRendering();
-
-    }
+  this.props.tree.remove(
+    treeObject[(parseInt(this.props.component.component.component.props.item.key)+1).toString()],
+    treeObject[this.props.component.component.component.props.item.key].ID,
+    this.props.tree.traverseBF
+  ); 
+  this.props.dispatch(notShowingOptions())
+}  
+  
+render(){
+  
   const style = this.props.style ? Object.assign({}, styles.OptionBar, props.style) : styles.OptionBar;
-    return (
-      <div>
+  
+  return (
+    <div>
       <MaterialTitlePanel title="Options" style={style} />
-      <button type='button'onClick={(event) => {this.props.tree.remove(treeObject[(parseInt(this.props.component.component.component.props.item.key)+1).toString()],treeObject[this.props.component.component.component.props.item.key].ID,this.props.tree.traverseBF); this.props.dispatch(notShowingOptions())}}>Delete me</button>
-        <div style={styles.content}>
-          <h3 href="#" style={styles.OptionBarLink}></h3>
-        </div>
+      <button type='button'onClick={this.handleRemove.bind(this)}>Delete me</button>
+      <div style={styles.content}>
+        <h3 href="#" style={styles.OptionBarLink}></h3>
       </div>
+    </div>
     );
   }
 }
