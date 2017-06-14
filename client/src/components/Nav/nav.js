@@ -62,17 +62,7 @@ class Nav extends React.Component {
       errorTextDescription: "This field is required (minimum 20 char)",
       projectDescription: "",
     };
-<<<<<<< HEAD
-=======
-
-    this.menuButtonClick = this.menuButtonClick.bind(this);
-    this.loadButtonClick = this.loadButtonClick.bind(this);
-		this.handleOpen = this.handleOpen.bind(this);
-		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleCancel = this.handleCancel.bind(this);
-		
->>>>>>> possibly fixed save bug caused by too many open connections to postgres.
+    
   }
 
   menuButtonClick(ev) {
@@ -100,13 +90,8 @@ class Nav extends React.Component {
       open: false,
       projectName: "",
       projectDescription: "",
-<<<<<<< HEAD
-    });
-    download(document.getElementsByTagName('code')[0].innerText, 'Material-GUI.html', 'text/html');
-=======
 		}); 
     download(document.getElementsByTagName('code')[0].innerText, this.state.projectName+'.html', 'text/html');		
->>>>>>> possibly fixed save bug caused by too many open connections to postgres.
   };
 
   handleChange(event) {
