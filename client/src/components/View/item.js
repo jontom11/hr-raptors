@@ -5,9 +5,15 @@ import{ selectComponent } from '../../actions/componentActions';
 import{ showOptions } from '../../actions/codeActions';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import{ deleteComponent } from '../../actions/componentActions';
+import{ notShowingOptions } from '../../actions/codeActions';
 import DropTarget from './dropTarget.js';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import _ from 'lodash';
+import Tree from '../../dataStructure/tree';
+
+
 
 
 
@@ -27,8 +33,10 @@ const componentSource = {
 
 @connect((store) => {
   return {
-    component: store.component,
-    itemCount: store.code.item,
+    component:store.component,
+    components: store.code.components,
+    componentsLinkedList: store.code.componentsLinkedList,
+    tree: store.code.tree,
     options: store.code.options
   };
 })
@@ -38,6 +46,30 @@ class Item extends Component {
     this.state = {};
   }
   
+handleRemove() {
+  const uniqueID = this.props.component.component;
+  if (Object.keys(this.props.tree).length > 0) {
+    var treeObject = this.props.tree.traverseRendering();
+  }
+  var component;
+  var result = this.props.tree.contains(function(currentNode){
+    if (uniqueID === currentNode.ID) {
+      console.log('I FOUND THE ID YAAAAAY', currentNode.component)
+      component = currentNode.component;
+      return currentNode.component;
+    }
+  }, this.props.tree.traverseDF);
+  console.log('result', component);
+  console.log('I AM HEREEEEEE', uniqueID);
+  this.props.tree.remove(
+    component,
+    this.props.component.component,
+    this.props.tree.traverseBF
+  ); 
+  this.props.dispatch(notShowingOptions())
+}  
+
+
   handleSelect(){
     console.log('thiiiiiiiiisssssssss', this.props.item.props.className);
     this.props.dispatch(showOptions(!this.props.options)); 
@@ -67,6 +99,7 @@ class Item extends Component {
         {this.props.item}
         <Drawer open={this.props.options}>
              <h3>Text of Component</h3>
+              <button type='button'onClick={this.handleRemove.bind(this)}>Delete me</button>
            </Drawer>
       </div>);
          }
