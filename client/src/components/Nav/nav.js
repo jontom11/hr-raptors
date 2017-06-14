@@ -102,13 +102,13 @@ class Nav extends React.Component {
       projectName: event.target.value,
     })
   }
-	
+
 	handleChangeDescription(event) {
 		if (event.target.value.length > 19) {
-			this.setState({errorTextDescription: ""});	
+			this.setState({errorTextDescription: ""});
 		} else {
-			this.setState({errorTextDescription: "This field is required (minimum 20 char)"});	
-		} 
+			this.setState({errorTextDescription: "This field is required (minimum 20 char)"});
+		}
 		this.setState({
 			projectDescription: event.target.value,
 		})
@@ -176,7 +176,7 @@ class Nav extends React.Component {
 						</ul>
 						</div>
 					</Dialog>
-          <a onClick={this.loadButtonClick.bind(this)} style={styles.contentHeaderMenuLink}><i className="fa fa-user" aria-hidden="true"/></a>
+          <Link to="/projects"><a onClick={this.loadButtonClick.bind(this)} style={styles.contentHeaderMenuLink}><i className="fa fa-user" aria-hidden="true"/></a></Link>
           <a href={"/login"} style={styles.contentHeaderMenuLink}><i className="fa fa-sign-out" aria-hidden="true" /></a>
         </div>
       </div>);
