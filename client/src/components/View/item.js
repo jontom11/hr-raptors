@@ -46,34 +46,34 @@ class Item extends Component {
     super(props);
     this.state = {};
   }
-  
-handleRemove() {
-  const uniqueID = this.props.component.component;
-  if (Object.keys(this.props.tree).length > 0) {
-    var treeObject = this.props.tree.traverseRendering();
-  }
-  var component;
-  var result = this.props.tree.contains(function(currentNode){
-    if (uniqueID === currentNode.ID) {
-      console.log('I FOUND THE ID YAAAAAY', currentNode.component)
-      component = currentNode.component;
-      return currentNode.component;
+
+  handleRemove() {
+    const uniqueID = this.props.component.component;
+    if (Object.keys(this.props.tree).length > 0) {
+      var treeObject = this.props.tree.traverseRendering();
     }
-  }, this.props.tree.traverseDF);
-  console.log('result', component);
-  console.log('I AM HEREEEEEE', uniqueID);
-  this.props.tree.remove(
-    component,
-    this.props.component.component,
-    this.props.tree.traverseBF
-  ); 
-  this.props.dispatch(notShowingOptions())
-}  
+    var component;
+    var result = this.props.tree.contains(function(currentNode){
+      if (uniqueID === currentNode.ID) {
+        console.log('I FOUND THE ID YAAAAAY', currentNode.component)
+        component = currentNode.component;
+        return currentNode.component;
+      }
+    }, this.props.tree.traverseDF);
+    console.log('result', component);
+    console.log('I AM HEREEEEEE', uniqueID);
+    this.props.tree.remove(
+      component,
+      this.props.component.component,
+      this.props.tree.traverseBF
+    );
+    this.props.dispatch(notShowingOptions())
+  }
 
 
   handleSelect(){
     console.log('thiiiiiiiiisssssssss', this.props.item.props.className);
-    this.props.dispatch(showOptions(!this.props.options)); 
+    this.props.dispatch(showOptions(!this.props.options));
     this.props.dispatch(selectComponent(this.props.item.props.className));
   }
 
@@ -81,29 +81,29 @@ handleRemove() {
     console.log('OPTIONS SHOWING' + this.props.options)
     const { connectDragSource, isDragging, component } = this.props;
     if(!this.props.options){
-    return connectDragSource(
-      <div onClick={this.handleSelect.bind(this)}  style={{
+      return connectDragSource(
+        <div onClick={this.handleSelect.bind(this)}  style={{
 
-        opacity: isDragging ? 0.5 : 1,
-        cursor: 'move',
-      }}>
-        {this.props.item}
-      </div>
-    )}
+          opacity: isDragging ? 0.5 : 1,
+          cursor: 'move',
+        }}>
+          {this.props.item}
+        </div>
+      )}
     else {
       return connectDragSource(
-      <div onClick={this.handleSelect.bind(this)}  style={{
+        <div onClick={this.handleSelect.bind(this)}  style={{
 
-        opacity: isDragging ? 0.5 : 1,
-        cursor: 'move',
-      }}>
-        {this.props.item}
-        <Drawer open={this.props.options}>
-             <h3>Text of Component</h3>
-              <button type='button' id='deleteButton'onClick={this.handleRemove.bind(this)}>Delete me</button>
-           </Drawer>
-      </div>);
-         }
+          opacity: isDragging ? 0.5 : 1,
+          cursor: 'move',
+        }}>
+          {this.props.item}
+          <Drawer open={this.props.options}>
+            <h3>Text of Component</h3>
+            <button type='button' id='deleteButton'onClick={this.handleRemove.bind(this)}>Delete me</button>
+          </Drawer>
+        </div>);
+    }
   }
 }
 Item.propTypes = {

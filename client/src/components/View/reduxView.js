@@ -128,12 +128,17 @@ class reduxView extends React.Component {
 
     var treeArray = [];
     var colObject = {1: 12, 2: 6, 3: 4, 4: 3, 6: 2, 12: 1};
-    var renderLinkedList = [];
+    /*
+     Render Linked List Object populated with Render Linked List Rows allows for linked list of
+     columns to be rendered within this component without storing the rendered object in the tree.
+     Render Linked List Rows are unique dropped component with defined number of cols.
+      */
+    var renderLinkedListObject = {};
+    var objectCount = 0;
 
     if (Object.keys(this.props.tree).length > 0) {
-      var treeObject = tree.traverseRendering();
+      var treeObject = Object.assign({}, tree.traverseRendering());
     }
-
 
     _.forEach(treeObject, (node) => {
 
@@ -141,15 +146,14 @@ class reduxView extends React.Component {
 
         var colNum = colObject[Object.keys(node.rowObject.linkedList).length];
         var colClass = `col s${colNum}`;
-        var saveRowObject = node.rowObject;
 
         var current = node.rowObject.linkedList[node.rowObject.head.key];
-        node.rowObject.renderLinkedList = [];
+        var renderLinkedListRow = [];
         while (current) { // while not null
 
             if (_.startsWith(current.key, 'dnd')) {
               var newToID = current.key + node.ID;
-              node.rowObject.renderLinkedList.push(
+              renderLinkedListRow.push(
               <div className={colClass} key={current.key}>
                 <DropTarget
                   handleDrop={this.handleDroppedComponent.bind(this)}
@@ -159,7 +163,7 @@ class reduxView extends React.Component {
                 />
               </div>);
             } else {
-              node.rowObject.renderLinkedList.push(
+              renderLinkedListRow.push(
                 <div className={colClass} key={current.key}>
                   {current.component}
                 </div>
@@ -168,9 +172,9 @@ class reduxView extends React.Component {
 
             current = node.rowObject.linkedList[current.next];
         }
-
       }
-
+      renderLinkedListObject[node.ID] = renderLinkedListRow;
+      objectCount += 1;
       treeArray.push(node);
 
     });
@@ -179,7 +183,9 @@ class reduxView extends React.Component {
       <div key={index} className={node.ID}>
         <div className="row">
           { node.isRow ?
-            node.rowObject.renderLinkedList.map((col) => col) :
+            _.map(renderLinkedListObject, (col, index) => {
+              return index === node.ID ? col : null;
+            }) :
             <div>{node.component}</div>
           }
         </div>

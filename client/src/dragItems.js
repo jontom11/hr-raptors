@@ -131,15 +131,15 @@ module.exports = {
     </table>,
   image:
     <div>
-      <img className="responsive-img" src="cool_pic.jpg" />
+      <img className="responsive-img" src="http://i.dailymail.co.uk/i/pix/2015/09/10/20/2C24A6ED00000578-0-image-m-56_1441912374479.jpg" />
     </div>,
   embeddedVideo:
     <div className="video-container">
-      <iframe width="853" height="480" src="//www.youtube.com/embed/Q8TXgCzxEnw?rel=0" frameborder="0" allowfullscreen></iframe>
+      <iframe width="453" height="280" src="//www.youtube.com/embed/Q8TXgCzxEnw?rel=0" frameBorder="0" allowfullscreen></iframe>
     </div>,
   responsiveVideo:
     <video className="responsive-video" controls>
-      <source src="movie.mp4" type="video/mp4" />
+      <source src="./assets/bigbuckbunny.mp4" type="video/mp4" />
     </video>,
   h1:
     <h1>Header 1</h1>,

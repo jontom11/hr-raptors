@@ -60,13 +60,10 @@ handleRemove() {
   var component;
   var result = this.props.tree.contains(function(currentNode){
     if (uniqueID === currentNode.ID) {
-      console.log('I FOUND THE ID YAAAAAY', currentNode.component)
       component = currentNode.component;
       return currentNode.component;
     }
   }, this.props.tree.traverseDF);
-  console.log('result', component);
-  console.log('I AM HEREEEEEE', uniqueID);
   this.props.tree.remove(
     component,
     this.props.component.component,
