@@ -139,13 +139,31 @@ Tree.prototype.pushToHead = function(component, rowObject, isRow) {
 Tree.prototype.findType = function(ID, traversal, typeToFind) {
   var valid = false;
   var callback = function(node) {
-    console.log('nooooooodeeee', node.component.type);
     if (node.ID === ID && _.includes(typeToFind, node.component.type)) {
-      valid = true;  
+      valid = true;
     }
   };
   this.contains(callback, traversal);
   return valid;
+};
+
+
+/*========================
+ Replace Node Component
+ =========================*/
+Tree.prototype.replaceComponent = function(ID, traversal, newComponent) {
+  var savedComponent = null;
+  var callback = function(node) {
+    console.log('nooooooodddddeee', node);
+    if (ID === node.ID) {
+      savedComponent = node.component;
+      node.component = newComponent;
+    } else {
+      throw new Error('Could not find node, could not replace component');
+    }
+  };
+  this.contains(callback, traversal);
+  return savedComponent;
 };
 
 /*=================
@@ -167,27 +185,27 @@ Tree.prototype.remove = function(component, nodeID, traversal) {
   };
 
   this.contains(callback, traversal);
-  
+
   // Get parent Node
   var callback = function(node) {
     if (node.ID === currentNode.parentID) {
       parent = node;
     }
   };
-  this.contains(callback, traversal); 
-  
+  this.contains(callback, traversal);
+
   // save the children
   if (currentNode.children.length > 0) {
     savedChildren = currentNode.children;
   }
-  
+
   // Change the children's parentID to their new parent
   if (savedChildren) {
     savedChildren.forEach((node) => {
       node.parentID = parent.ID;
-    }); 
+    });
   }
-  
+
   if (parent) {
     index = findIndex(parent.children, currentNode.ID);
 
@@ -197,7 +215,7 @@ Tree.prototype.remove = function(component, nodeID, traversal) {
       childToRemove = parent.children.splice(index, 1);
       if (savedChildren) {
        // add the children of deleted node to new parent
-        parent.children = savedChildren; 
+        parent.children = savedChildren;
       }
     }
   } else {
