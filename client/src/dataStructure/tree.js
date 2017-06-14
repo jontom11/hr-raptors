@@ -150,6 +150,7 @@ Tree.prototype.remove = function(component, nodeID, traversal) {
       currentNode = node;
     }
   };
+
   this.contains(callback, traversal);
   
   // Get parent Node

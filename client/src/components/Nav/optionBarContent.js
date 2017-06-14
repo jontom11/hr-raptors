@@ -12,7 +12,6 @@ import { connect } from 'react-redux';
 import{ notShowingOptions } from '../../actions/codeActions';
 
 
-
 const styles = {
   OptionBar: {
     maxHeight: '100%',
