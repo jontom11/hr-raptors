@@ -56,10 +56,10 @@ module.exports = {
         });
     };
   },
-  showOptions: () => {
+  showOptions: (bool) => {
     return {
       type: 'OPTION_VIEW_OPENED',
-      payload: {},
+      payload: bool,
     };
   },
   notShowingOptions: () => {

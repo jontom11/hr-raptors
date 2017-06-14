@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Navbar from 'react-sidebar';
 import NavTitlePanel from './navTitlePanel';
@@ -13,6 +14,8 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import CodeBoilerPlate from '../Code/codeBoilerPlate' // Added for saving Capability
+import Drawer from 'material-ui/Drawer';
+
 
 import View from '../View/view';
 import Code from '../Code/code';
@@ -90,8 +93,8 @@ class Nav extends React.Component {
       open: false,
       projectName: "",
       projectDescription: "",
-		}); 
-    download(document.getElementsByTagName('code')[0].innerText, this.state.projectName+'.html', 'text/html');		
+    }); 
+    download(document.getElementsByTagName('code')[0].innerText, this.state.projectName+'.html', 'text/html');    
   };
 
   handleChange(event) {
@@ -105,16 +108,16 @@ class Nav extends React.Component {
     })
   }
 
-	handleChangeDescription(event) {
-		if (event.target.value.length > 19) {
-			this.setState({errorTextDescription: ""});
-		} else {
-			this.setState({errorTextDescription: "This field is required (minimum 20 char)"});
-		}
-		this.setState({
-			projectDescription: event.target.value,
-		})
-	}
+  handleChangeDescription(event) {
+    if (event.target.value.length > 19) {
+      this.setState({errorTextDescription: ""});
+    } else {
+      this.setState({errorTextDescription: "This field is required (minimum 20 char)"});
+    }
+    this.setState({
+      projectDescription: event.target.value,
+    })
+  }
 
   loadButtonClick() {
     // console.log('################# THIS.PROPS:', this.props)
@@ -148,36 +151,36 @@ class Nav extends React.Component {
           <Link to="/"><a style={styles.contentHeaderMenuLink}><i className="fa fa-desktop" aria-hidden="true" /></a></Link>
           <Link to="/code"><a style={styles.contentHeaderMenuLink}><i className="fa fa-code" aria-hidden="true" /></a></Link>
           <a onTouchTap={this.handleOpen.bind(this)} style={styles.contentHeaderMenuLink}><i className="fa fa-download" aria-hidden="true" /></a>
-					<Dialog
-						title="Save Project"
-						actions={actions}
-						modal={true}
-						open={this.state.open}
-					>
-						<div className="center">
-						<ul>
-							<li>{this.state.projectName}</li>
-							<li>{this.state.projectDescription}</li>
-							<li>
-								<TextField
-								hintText="Project Name"
-								errorText={this.state.errorText}
-								floatingLabelText="Project Name"
-								onChange={this.handleChange.bind(this)}
-								/>
-							</li>
-							<li>
-								<TextField
-								hintText="Project Description"
-								errorText={this.state.errorTextDescription}
-								floatingLabelText="Project Description"
-								onChange={this.handleChangeDescription.bind(this)}
-								multiLine={true}
-								/>
-							</li>
-						</ul>
-						</div>
-					</Dialog>
+          <Dialog
+            title="Save Project"
+            actions={actions}
+            modal={true}
+            open={this.state.open}
+          >
+            <div className="center">
+            <ul>
+              <li>{this.state.projectName}</li>
+              <li>{this.state.projectDescription}</li>
+              <li>
+                <TextField
+                hintText="Project Name"
+                errorText={this.state.errorText}
+                floatingLabelText="Project Name"
+                onChange={this.handleChange.bind(this)}
+                />
+              </li>
+              <li>
+                <TextField
+                hintText="Project Description"
+                errorText={this.state.errorTextDescription}
+                floatingLabelText="Project Description"
+                onChange={this.handleChangeDescription.bind(this)}
+                multiLine={true}
+                />
+              </li>
+            </ul>
+            </div>
+          </Dialog>
           <Link to="/projects"><a onClick={this.loadButtonClick.bind(this)} style={styles.contentHeaderMenuLink}><i className="fa fa-user" aria-hidden="true"/></a></Link>
           <a href={"/login"} style={styles.contentHeaderMenuLink}><i className="fa fa-sign-out" aria-hidden="true" /></a>
         </div>
@@ -206,12 +209,7 @@ class Nav extends React.Component {
               <Route exact path="/" component={View}/>
               <Route path="/code" component={Code}/>
             </div>
-            <div className ="nav-wrapper">
-              <div className='right sidebar' >
-                <OptionBarContent/>
-              </div>
-            </div>
-          </Navbar>
+            </Navbar>
         </Router>
       );
     } else {
