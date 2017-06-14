@@ -14,6 +14,8 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import CodeBoilerPlate from '../Code/codeBoilerPlate' // Added for saving Capability
+import Drawer from 'material-ui/Drawer';
+
 
 import View from '../View/view';
 import Code from '../Code/code';
@@ -207,12 +209,7 @@ class Nav extends React.Component {
               <Route exact path="/" component={View}/>
               <Route path="/code" component={Code}/>
             </div>
-            <div className ="nav-wrapper">
-              <div className='right sidebar' >
-                <OptionBarContent/>
-              </div>
-            </div>
-          </Navbar>
+            </Navbar>
         </Router>
       );
     } else {

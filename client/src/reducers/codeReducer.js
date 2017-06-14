@@ -52,7 +52,7 @@ export default function reducer(state = {
     return Object.assign({}, state, {options: true});
   }
   case 'OPTION_VIEW_CLOSED': {
-    return Object.assign({}, state, {options: false});
+    return Object.assign({}, state, {options: action.payload});
   }
 }
 

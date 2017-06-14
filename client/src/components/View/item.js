@@ -6,6 +6,8 @@ import{ showOptions } from '../../actions/codeActions';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import DropTarget from './dropTarget.js';
+import Drawer from 'material-ui/Drawer';
+
 
 
 const collect = function(connect, monitor) {
@@ -42,13 +44,18 @@ class Item extends Component {
   }
 
   render() {
+    console.log(!this.props.options)
     const { connectDragSource, isDragging, component } = this.props;
     
     return connectDragSource(
       <div onClick={this.handleSelect.bind(this)}  style={{
+
         opacity: isDragging ? 0.5 : 1,
         cursor: 'move',
       }}>
+        <Drawer open={this.props.open}>
+             HIIIIIII
+            </Drawer>
         {this.props.item}
       </div>
     );
