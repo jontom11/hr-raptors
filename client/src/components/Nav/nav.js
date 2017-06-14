@@ -65,7 +65,7 @@ class Nav extends React.Component {
       errorTextDescription: "This field is required (minimum 20 char)",
       projectDescription: "",
     };
-    
+
   }
 
   menuButtonClick(ev) {
@@ -88,13 +88,18 @@ class Nav extends React.Component {
   };
 
   handleSubmit() {
+    this.props.tree.traverseDF(function(node) {
+      console.log('nooooooddeeee', node.rowObject);
+      node.rowObject.renderLinkedList = {};
+    });
+
     this.props.dispatch(saveProject(this.props.tree, this.props.userData, this.state.projectName, this.state.projectDescription));
     this.setState({
       open: false,
       projectName: "",
       projectDescription: "",
-    }); 
-    download(document.getElementsByTagName('code')[0].innerText, this.state.projectName+'.html', 'text/html');    
+    });
+    download(document.getElementsByTagName('code')[0].innerText, this.state.projectName+'.html', 'text/html');
   };
 
   handleChange(event) {
