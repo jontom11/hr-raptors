@@ -59,7 +59,7 @@ module.exports = {
   showOptions: (bool) => {
     return {
       type: 'OPTION_VIEW_OPENED',
-      payload: {bool},
+      payload: bool,
     };
   },
   notShowingOptions: () => {

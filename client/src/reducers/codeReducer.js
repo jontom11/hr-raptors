@@ -49,7 +49,7 @@ export default function reducer(state = {
     return Object.assign({}, state, {loading: false, loaded: true, projects: action.payload });
   }
   case 'OPTION_VIEW_OPENED': {
-    return Object.assign({}, state, {options: true});
+    return Object.assign({}, state, {options: action.payload});
   }
   case 'OPTION_VIEW_CLOSED': {
     return Object.assign({}, state, {options: action.payload});
