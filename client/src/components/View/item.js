@@ -3,12 +3,19 @@ import { DragSource } from 'react-dnd';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Drawer from 'material-ui/Drawer';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import{ selectComponent } from '../../actions/componentActions';
 import{ showOptions } from '../../actions/codeActions';
 import { ItemTypes } from '../View/constants.js';
-import{ notShowingOptions } from '../../actions/codeActions';;
+import{ notShowingOptions } from '../../actions/codeActions';
 
+
+const styles = {
+  drawer: {
+    padding: '3.5vh',
+  },
+};
 
 const collect = function(connect, monitor) {
   return {
@@ -63,15 +70,16 @@ class Item extends Component {
   }
 
 
-  handleSelect(){
-    console.log('thiiiiiiiiisssssssss', this.props.item.props.className);
+  handleSelect() {
     this.props.dispatch(showOptions(!this.props.options));
     this.props.dispatch(selectComponent(this.props.item.props.className));
   }
 
   render() {
+
     console.log('OPTIONS SHOWING' + this.props.options)
     const { connectDragSource, isDragging, component } = this.props;
+
     if(!this.props.options){
       return connectDragSource(
         <div onClick={this.handleSelect.bind(this)}  style={{
@@ -90,9 +98,13 @@ class Item extends Component {
           cursor: 'move',
         }}>
           {this.props.item}
-          <Drawer open={this.props.options}>
-            <h3>Text of Component</h3>
-            <button type='button' id='deleteButton'onClick={this.handleRemove.bind(this)}>Delete me</button>
+          <Drawer id="DRAWER" containerStyle={styles.drawer}>
+            <h4>Edit Component</h4>
+            <RaisedButton
+              type='button'
+              id='deleteButton'
+              onClick={this.handleRemove.bind(this)}
+              label="Delete Me" />
           </Drawer>
         </div>);
     }
