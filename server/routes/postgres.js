@@ -10,18 +10,22 @@ const passport = require('../middleware/passport');
 const middleware = require('../middleware');
 const Pgb = require('pg-bluebird');
 var pgb = new Pgb();
-var cnn;
+var connects;
 
 
 // create DB once server Starts
-pg.connect(connectionString, (err, client, done) => {
-  if (err) {
-    done();
-    return res.status(500).json({success: false, fatal: err});
-  } else {
-    client.query('CREATE TABLE IF NOT EXISTS test1 (id serial unique primary key, profile_id int, time_stamp text, project_name text, object text, description text, foreign key (profile_id) references profiles(id))');
-  }
-});
+
+pgb.connect(connectionString)
+  .then(function(connection) {
+    connects = connection;
+    return connection.client.query('CREATE TABLE IF NOT EXISTS test1 (id serial unique primary key, profile_id int, time_stamp text, project_name text, object text, description text, foreign key (profile_id) references profiles(id))');
+  })
+  .then(function(result) {
+    connects.done();
+  })
+  .catch(function(error) {
+    return error;
+  });
 
 router.route('/tree')
   .post(middleware.auth.verify, (req, res) => {
@@ -32,8 +36,9 @@ router.route('/tree')
     var project_name = req.body.projectName;
     var object = JSON.stringify(req.body.codeTree);
     var description = req.body.projectDescription;
+    var cnn;
 
-    pgb.connect(connectionString)
+    pgb.connect(connectionString) 
       .then (function(connection) {
         cnn = connection;
         var uniqueName = connection.client.query("select id from test1 where project_name = '" + project_name + "'");
@@ -42,24 +47,31 @@ router.route('/tree')
       .then(function(uniqueName) {
         // check if name exists
         if (uniqueName.rows.length > 0) {
-          return teamRaptors;
+          throw 'POST ERROR';
+          cnn.done();
         } else {
-          cnn.client.query("insert into test1 (profile_id, time_stamp, project_name, object, description) values('" + user_id + "', '" + time_stamp + "', '" + project_name + "', '" + object + "', '" + description + "')");
-          res.status(200).send(JSON.stringify(project_name));
+          return cnn.client.query("insert into test1 (profile_id, time_stamp, project_name, object, description) values('" + user_id + "', '" + time_stamp + "', '" + project_name + "', '" + object + "', '" + description + "')");
         }
+      })
+      .then(function() {
+        cnn.done();
+        res.status(200).send(JSON.stringify(project_name));
       })
       .catch(function(error) {
         console.log('ERROR ON SERVER-SIDE POST REQUEST!', error);
-        res.status(500).json();
+        cnn.done();        
+        res.status(500).send(error);
       });
   })
 
   //  get request calls for user ID first, then inserts to DB
   .get(middleware.auth.verify, (req, res) => {
     var user_id = req.user.id;
+    var cnn;
     pgb.connect(connectionString)
       .then (function(connection) {
-        const query = connection.client.query("select profiles.email, test1.time_stamp, test1.project_name, test1.object, test1.description from profiles join test1 on profiles.id = test1.profile_id where test1.profile_id ='" + user_id + "'");
+        cnn = connection;
+        const query = cnn.client.query("select profiles.email, test1.time_stamp, test1.project_name, test1.object, test1.description from profiles join test1 on profiles.id = test1.profile_id where test1.profile_id ='" + user_id + "'");
         return query;
       })
       .then(function(query) {
@@ -67,11 +79,14 @@ router.route('/tree')
         return resData;
       })
       .then(function(responseData) {
+
+        cnn.done();
         res.status(200).send(JSON.stringify(responseData));
       })
       .catch(function(error) {
         console.log('ERROR ON SERVER-SIDE GET REQUEST!', error);
-        return res.status(500).json({success: false, fatal: err});
+        cnn.done();
+        return res.status(500).json({success: false, fatal: err}); 
       });
   });
 
