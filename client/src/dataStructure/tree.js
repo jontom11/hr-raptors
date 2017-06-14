@@ -133,6 +133,21 @@ Tree.prototype.pushToHead = function(component, rowObject, isRow) {
   return newTree;
 };
 
+/*=====================
+ Find Element Type
+ ====================*/
+Tree.prototype.findType = function(ID, traversal, typeToFind) {
+  var valid = false;
+  var callback = function(node) {
+    console.log('nooooooodeeee', node.component.type);
+    if (node.ID === ID && _.includes(typeToFind, node.component.type)) {
+      valid = true;  
+    }
+  };
+  this.contains(callback, traversal);
+  return valid;
+};
+
 /*=================
  REMOVE
  =================*/

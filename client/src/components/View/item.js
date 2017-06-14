@@ -30,11 +30,13 @@ const componentSource = {
 
 @connect((store) => {
   return {
-    component:store.component,
+    component: store.component,
     components: store.code.components,
     componentsLinkedList: store.code.componentsLinkedList,
     tree: store.code.tree,
     options: store.code.options
+    itemCount: store.code.item,
+    tree: store.code.tree,
   };
 })
 class Item extends Component {
@@ -70,6 +72,8 @@ handleRemove() {
   handleSelect(){
     console.log('thiiiiiiiiisssssssss', this.props.item.props.className);
     this.props.dispatch(showOptions(!this.props.options));
+    var typeToFind = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'];
+    var isEditable = this.props.tree.findType(this.props.item.props.className, this.props.tree.traverseDF, typeToFind);
     this.props.dispatch(selectComponent(this.props.item.props.className));
   }
 
