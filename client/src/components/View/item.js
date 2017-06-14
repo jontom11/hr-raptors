@@ -17,6 +17,7 @@ import Tree from '../../dataStructure/tree';
 
 
 
+
 const collect = function(connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
@@ -99,7 +100,7 @@ handleRemove() {
         {this.props.item}
         <Drawer open={this.props.options}>
              <h3>Text of Component</h3>
-              <button type='button'onClick={this.handleRemove.bind(this)}>Delete me</button>
+              <button type='button' id='deleteButton'onClick={this.handleRemove.bind(this)}>Delete me</button>
            </Drawer>
       </div>);
          }
