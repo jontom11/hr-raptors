@@ -120,9 +120,6 @@ class Nav extends React.Component {
   }
 
   loadButtonClick() {
-    // console.log('################# THIS.PROPS:', this.props)
-    // console.log('current user is:\n', this.props.userData);
-    // console.log('loading projects.....');
     this.props.dispatch(loadProjects(this.props.userData.name));
   }
 

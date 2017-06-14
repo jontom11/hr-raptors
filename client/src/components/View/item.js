@@ -14,10 +14,6 @@ import _ from 'lodash';
 import Tree from '../../dataStructure/tree';
 
 
-
-
-
-
 const collect = function(connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
@@ -46,7 +42,7 @@ class Item extends Component {
     super(props);
     this.state = {};
   }
-  
+
 handleRemove() {
   const uniqueID = this.props.component.component;
   if (Object.keys(this.props.tree).length > 0) {
@@ -66,14 +62,14 @@ handleRemove() {
     component,
     this.props.component.component,
     this.props.tree.traverseBF
-  ); 
+  );
   this.props.dispatch(notShowingOptions())
-}  
+}
 
 
   handleSelect(){
     console.log('thiiiiiiiiisssssssss', this.props.item.props.className);
-    this.props.dispatch(showOptions(!this.props.options)); 
+    this.props.dispatch(showOptions(!this.props.options));
     this.props.dispatch(selectComponent(this.props.item.props.className));
   }
 

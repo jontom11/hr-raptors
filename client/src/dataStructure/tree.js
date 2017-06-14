@@ -174,7 +174,6 @@ Tree.prototype.remove = function(component, nodeID, traversal) {
   }
   
   if (parent) {
-    console.log('parent', parent);
     index = findIndex(parent.children, currentNode.ID);
 
     if (index === undefined) {
