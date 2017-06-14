@@ -63,6 +63,10 @@ class Nav extends React.Component {
       errorTextDescription: "This field is required (minimum 20 char)",
       projectDescription: "",
     };
+<<<<<<< HEAD
+=======
+    
+>>>>>>> cleaning code
   }
 
   menuButtonClick(ev) {
