@@ -96,7 +96,6 @@ class Nav extends React.Component {
       projectName: "",
       projectDescription: "",
     });
-    download(document.getElementsByTagName('code')[0].innerText, this.state.projectName+'.html', 'text/html');
   };
 
   handleChange(event) {
