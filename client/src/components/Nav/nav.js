@@ -12,6 +12,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import CodeBoilerPlate from '../Code/codeBoilerPlate' // Added for saving Capability
 
 import View from '../View/view';
 import Code from '../Code/code';
@@ -61,6 +62,7 @@ class Nav extends React.Component {
       errorTextDescription: "This field is required (minimum 20 char)",
       projectDescription: "",
     };
+    
   }
 
   menuButtonClick(ev) {
@@ -88,8 +90,8 @@ class Nav extends React.Component {
       open: false,
       projectName: "",
       projectDescription: "",
-    });
-    download(document.getElementsByTagName('code')[0].innerText, 'Material-GUI.html', 'text/html');
+		}); 
+    download(document.getElementsByTagName('code')[0].innerText, this.state.projectName+'.html', 'text/html');		
   };
 
   handleChange(event) {

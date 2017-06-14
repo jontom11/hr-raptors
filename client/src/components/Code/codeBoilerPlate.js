@@ -20,7 +20,8 @@ const CodeBoilerPlate = (props) => {
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
         </head>
         <body>
-          <h1>Enjoy your HTML Webpage</h1>
+          <h4>Hire Us</h4>
+          <h6>Jonathan Tom | Brandon Brown | Alexi Taylor | Colby Duhon</h6>
           {props.tree}
         </body>
         </html>

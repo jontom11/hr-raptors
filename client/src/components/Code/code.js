@@ -22,8 +22,7 @@ class Code extends React.Component {
   render() {
 
     const { tree } = this.props;
-
-     var treeArray = [];
+    var treeArray = [];
     var colObject = {1: 12, 2: 6, 3: 4, 4: 3, 12: 1};
     var renderLinkedList = [];
 
@@ -55,14 +54,10 @@ class Code extends React.Component {
                 </div>
               );
             }
-
             current = node.rowObject.linkedList[current.next];
         }
-
       }
-
       treeArray.push(node);
-
     });
 
     const treeMap = _.map(treeArray, (node, index) => (
