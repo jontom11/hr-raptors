@@ -1,21 +1,13 @@
 import React, { Component } from 'react';
-import { ItemTypes } from '../View/constants.js';
 import { DragSource } from 'react-dnd';
-import{ selectComponent } from '../../actions/componentActions';
-import{ showOptions } from '../../actions/codeActions';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import{ deleteComponent } from '../../actions/componentActions';
-import{ notShowingOptions } from '../../actions/codeActions';
-import DropTarget from './dropTarget.js';
 import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
-import _ from 'lodash';
-import Tree from '../../dataStructure/tree';
 
-
-
-
+import{ selectComponent } from '../../actions/componentActions';
+import{ showOptions } from '../../actions/codeActions';
+import { ItemTypes } from '../View/constants.js';
+import{ notShowingOptions } from '../../actions/codeActions';;
 
 
 const collect = function(connect, monitor) {
