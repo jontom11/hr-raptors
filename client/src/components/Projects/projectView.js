@@ -8,6 +8,7 @@ import dragItems from '../../dragItems';
 import { updateTree, loadProjects } from '../../actions/codeActions';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import axios from 'axios';
+import linkers from '../../dataStructure/linkedList';
 
 @connect((store) => {
   return {
@@ -37,8 +38,10 @@ class ProjectView extends React.Component {
     var inputText = tempTree['_root'].inputText;
     var rootComponentName = tempTree['_root'].componentName;
     var oldRootChildren = tempTree['_root'].children;
-    var rowObject =  { linkedList: {}, head: null, tail: null, renderLinkedList: [] };
-    var newRootTree = new Tree(rootComponent, rowObject, false, rootComponentName, inputText);
+    var isRow = tempTree['_root'].isRow;
+    var rowObject =  tempTree['_root'].rowObject;
+
+    var newRootTree = new Tree(rootComponent, rowObject, isRow, rootComponentName, inputText);
     newRootTree['_root'].children = oldRootChildren;
 
     if (newRootTree['_root'].children.length > 0) {
@@ -46,7 +49,25 @@ class ProjectView extends React.Component {
     }
 
     newRootTree.traverseDF((node) => {
+
       newRootTree.updateComponent(node.ID, newRootTree.traverseDF, dragItems[node.componentName], node.inputText, node.componentName);
+
+      var rowObject = node.rowObject;
+
+      if (_.startsWith(node.componentName, 'rowCol')) {
+        var colNum = node.componentName.slice(6);
+        node.isRow = true;
+        for (var i = 0; i < colNum; i++) {
+          var key = 'dnd' + i;
+          node.rowObject = linkers.addToTail(
+            rowObject.linkedList,
+            false,
+            key,
+            node.rowObject.head,
+            node.rowObject.tail);
+        }
+      }
+
     });
     return newRootTree;
   }
