@@ -32,7 +32,6 @@ const collect = function(connect, monitor) {
 
 const componentSource = {
   beginDrag(props) {
-    console.log(props);
     return {component:props.item};
   }
 };
@@ -79,7 +78,6 @@ class Item extends Component {
     this.setState({
       inputText: event.target.value,
     });
-    console.log(event.target.value);
   }
 
   handleEnter(event) {
