@@ -84,10 +84,6 @@ class Nav extends React.Component {
       console.log('nooooooddeeee', node.rowObject);
       node.rowObject.renderLinkedList = {};
     });
-    // download html doc if code tag exists
-    // if (document.getElementsByTagName('code')[0]){
-    //   download(document.getElementsByTagName('code')[0].innerText, this.state.projectName +'.html', 'text/html');
-    // }
     this.props.dispatch(saveProject(this.props.tree, this.props.userData, this.state.projectName, this.state.projectDescription));
     this.setState({
       open: false,
