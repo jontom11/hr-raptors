@@ -9,7 +9,6 @@ class SaveProjectDialog extends React.Component {
     this.state = {};
   }
 
-
   render() {
 
     const actions = [
@@ -18,11 +17,11 @@ class SaveProjectDialog extends React.Component {
         primary={true}
         onTouchTap={this.props.handleCancel}
       />,
-      <FlatButton
+      <Link to="/code"><FlatButton
         label="Submit"
         primary={true}
         onTouchTap={this.props.handleSubmit}
-      />,
+      /></Link>,
     ];
 
     return (
@@ -58,7 +57,6 @@ class SaveProjectDialog extends React.Component {
       </Dialog>
     );
   }
-
 }
 
 export default SaveProjectDialog;

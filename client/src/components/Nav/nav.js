@@ -11,14 +11,10 @@ import Projects from '../Projects/projectView';
 import { saveProject } from '../../actions/codeActions';
 import { loadProjects } from '../../actions/codeActions';
 import SaveProjectDialog from './saveProjectDialog';
+import ContentHeader from './contentHeader';
 
 
 const styles = {
-  contentHeaderMenuLink: {
-    textDecoration: 'none',
-    color: 'white',
-    padding: 8,
-  },
   content: {
     padding: '2.5vh',
   },
@@ -26,8 +22,8 @@ const styles = {
     margin: 'auto',
     width: '50%',
     padding: '10px',
-  }
-}
+  },
+};
 
 @connect((store) => {
   return {
@@ -117,57 +113,12 @@ class Nav extends React.Component {
   render() {
     const sidebar = <SidebarContent />;
 
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.handleCancel.bind(this)}
-      />,
-      <Link to="/code"><FlatButton
-        label="Submit"
-        primary={true}
-        onTouchTap={this.handleSubmit.bind(this)}
-      /></Link>,
-    ];
-
-    const contentHeader = (
-      <div className="nav-wrapper">
-        <div className="left">
-          {!this.state.docked ?
-            <a onClick={this.menuButtonClick.bind(this)} style={styles.contentHeaderMenuLink}><i className="fa fa-bars" aria-hidden="true" /></a> :
-            <a onClick={this.menuButtonClick.bind(this)} style={styles.contentHeaderMenuLink}><i className="fa fa-times" aria-hidden="true" /></a>}
-          <Link to="/">
-            <a style={styles.contentHeaderMenuLink} className="tooltipped" data-position="bottom" data-delay="50" data-tooltip="View">
-              <i className="fa fa-desktop" aria-hidden="true" />
-            </a>
-          </Link>
-          <Link to="/code">
-            <a style={styles.contentHeaderMenuLink} className="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Code">
-              <i className="fa fa-code" aria-hidden="true" />
-            </a>
-          </Link>
-          <a onTouchTap={this.handleOpen.bind(this)} style={styles.contentHeaderMenuLink} className="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Download">
-            <i className="fa fa-download" aria-hidden="true" />
-          </a>
-          <Link to="/projects">
-            <a onClick={this.loadButtonClick.bind(this)} style={styles.contentHeaderMenuLink} className="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Profile">
-              <i className="fa fa-user" aria-hidden="true"/>
-            </a>
-          </Link>
-          <a href={"/login"} style={styles.contentHeaderMenuLink} className="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Sign Out">
-            <i className="fa fa-sign-out" aria-hidden="true" />
-          </a>
-
-          <SaveProjectDialog
-          state={this.state}
-          handleChange={this.handleChange.bind(this)}
-          handleChangeDescription={this.handleChangeDescription.bind(this)}
-          handleSubmit={this.handleSubmit.bind(this)}
-          handleCancel={this.handleCancel.bind(this)}
-          />
-
-        </div>
-      </div>);
+    const contentHeader = <ContentHeader
+      state={this.state}
+      menuButtonClick={this.menuButtonClick.bind(this)}
+      handleOpen={this.handleOpen.bind(this)}
+      loadButtonClick={this.loadButtonClick.bind(this)}
+    />;
 
     const sidebarProps = {
       sidebar: sidebar,
@@ -183,21 +134,9 @@ class Nav extends React.Component {
         sidebar: Object.assign({}, styles.sidebar, {position: 'fixed'})
       },
     };
-    {if (this.props.options){
-      return (
-        <Router>
-          <Navbar {...sidebarProps}>
-            <NavTitlePanel title={contentHeader} />
-            <div style={styles.content}>
-              <Route exact path="/" component={View}/>
-              <Route path="/code" component={Code}/>
-            </div>
-            </Navbar>
-        </Router>
-      );
-    } else {
       return(
         <Router>
+          <div>
           <Navbar {...sidebarProps}>
             <NavTitlePanel title={contentHeader} />
             <div style={styles.content}>
@@ -206,10 +145,17 @@ class Nav extends React.Component {
               <Route path="/projects" component={Projects}/>
             </div>
           </Navbar>
+            <SaveProjectDialog
+              state={this.state}
+              handleChange={this.handleChange.bind(this)}
+              handleChangeDescription={this.handleChangeDescription.bind(this)}
+              handleSubmit={this.handleSubmit.bind(this)}
+              handleCancel={this.handleCancel.bind(this)}
+            />
+          </div>
         </Router>
-      );}
+      );
     }
-  }
 }
 
 export default Nav;
