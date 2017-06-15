@@ -109,7 +109,6 @@ class Nav extends React.Component {
     this.props.dispatch(loadProjects(this.props.userData.name));
   }
 
-
   render() {
     const sidebar = <SidebarContent />;
 
@@ -134,9 +133,10 @@ class Nav extends React.Component {
         sidebar: Object.assign({}, styles.sidebar, {position: 'fixed'})
       },
     };
-      return(
-        <Router>
-          <div>
+
+    return(
+      <Router>
+        <div>
           <Navbar {...sidebarProps}>
             <NavTitlePanel title={contentHeader} />
             <div style={styles.content}>
@@ -145,16 +145,16 @@ class Nav extends React.Component {
               <Route path="/projects" component={Projects}/>
             </div>
           </Navbar>
-            <SaveProjectDialog
-              state={this.state}
-              handleChange={this.handleChange.bind(this)}
-              handleChangeDescription={this.handleChangeDescription.bind(this)}
-              handleSubmit={this.handleSubmit.bind(this)}
-              handleCancel={this.handleCancel.bind(this)}
-            />
-          </div>
-        </Router>
-      );
+          <SaveProjectDialog
+            state={this.state}
+            handleChange={this.handleChange.bind(this)}
+            handleChangeDescription={this.handleChangeDescription.bind(this)}
+            handleSubmit={this.handleSubmit.bind(this)}
+            handleCancel={this.handleCancel.bind(this)}
+          />
+        </div>
+      </Router>
+    );
     }
 }
 
