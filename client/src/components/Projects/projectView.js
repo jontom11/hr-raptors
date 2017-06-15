@@ -3,10 +3,11 @@ import { connect } from "react-redux"
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import _ from 'lodash';
-
-import { updateTree } from '../../actions/codeActions';
-
 import Tree from '../../dataStructure/tree.js'
+import dragItems from '../../dragItems';
+import { updateTree } from '../../actions/codeActions';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
 
 
 @connect((store) => {
@@ -50,33 +51,36 @@ class ProjectView extends React.Component {
     console.log('I AM ROOOOOOOOOOOOOOOOOT: ', tempTree['_root']);
 
     var rootComponent = tempTree['_root'].component;
+    var rootComponentName = tempTree['_root'].componentName;
     var rowObject =  {
-        linkedList: {},
-        head: null,
-        tail: null,
-        renderLinkedList: [],
+      linkedList: {},
+      head: null,
+      tail: null,
+      renderLinkedList: [],
     };
 
-    // tree['_root'].ID =  " "
-    // tree['_root'].children[0].parentID
-
     var oldRootChildren = tempTree['_root'].children;
-    console.log('CHILDREN FOR ADDING!!! ', oldRootChildren);
 
-    // function Node(component, rowObject, isRow)
-    var newRootTree = new Tree(rootComponent, rowObject, false);
+    // function Node(component, rowObject, isRow, compName)
+    var newRootTree = new Tree(rootComponent, rowObject, false, rootComponentName );
     newRootTree['_root'].children = oldRootChildren;
-    newRootTree['_root'].ID = tempTree['_root'].children[0].parentID;
+
+    if (newRootTree['_root'].children.length > 0) {
+      newRootTree['_root'].ID = newRootTree['_root'].children[0].parentID;
+    }
+
+    newRootTree.traverseDF((node) => {
+      node.component = dragItems[node.componentName];
+    });
+
     console.log('NEW ROOT TREE: ', newRootTree);
 
-    console.log('returning tree****************')
     return newRootTree;
   }
 
   handleClick(treeString) {
     var treeObject = JSON.parse(treeString);
     var selectedTree = this.addPrototypesToTree(treeObject);
-    console.log('dispatching tree********************')
     this.props.dispatch(updateTree(selectedTree));
   }
 
@@ -96,7 +100,7 @@ class ProjectView extends React.Component {
                     {project.description}
                   </CardText>
                   <CardActions>
-                    <FlatButton label="Load Project" onClick={this.handleClick.bind(this, project.object)}/>
+                    <Link to="/"><FlatButton label="Load Project" onClick={this.handleClick.bind(this, project.object)}/></Link>
                   </CardActions>
                 </Card>
               </div>
