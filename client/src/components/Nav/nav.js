@@ -1,18 +1,16 @@
 import React from 'react';
 import Navbar from 'react-sidebar';
-import download from 'downloadjs';
-import { connect } from "react-redux"
+import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
+
 import NavTitlePanel from './navTitlePanel';
 import SidebarContent from './sidebarContent';
 import View from '../View/view';
 import Code from '../Code/code';
 import Projects from '../Projects/projectView';
-import { saveProject } from "../../actions/codeActions"
-import { loadProjects } from "../../actions/codeActions"
+import { saveProject } from '../../actions/codeActions';
+import { loadProjects } from '../../actions/codeActions';
+import SaveProjectDialog from './saveProjectDialog';
 
 
 const styles = {
@@ -38,7 +36,6 @@ const styles = {
     options: store.code.options
   };
 })
-
 class Nav extends React.Component {
   constructor(props) {
     super(props);
@@ -60,8 +57,7 @@ class Nav extends React.Component {
     };
   }
 
-  menuButtonClick(ev) {
-    // ev.preventDefault();
+  menuButtonClick() {
     this.setState({
       docked: !this.state.docked,
     });
@@ -81,7 +77,6 @@ class Nav extends React.Component {
 
   handleSubmit() {
     this.props.tree.traverseDF(function(node) {
-      console.log('nooooooddeeee', node.rowObject);
       node.rowObject.renderLinkedList = {};
     });
     this.props.dispatch(saveProject(this.props.tree, this.props.userData, this.state.projectName, this.state.projectDescription));
@@ -163,36 +158,13 @@ class Nav extends React.Component {
             <i className="fa fa-sign-out" aria-hidden="true" />
           </a>
 
-          <Dialog
-            title="Save Project"
-            actions={actions}
-            modal={true}
-            open={this.state.open}
-          >
-            <div className="center">
-            <ul>
-              <li>{this.state.projectName}</li>
-              <li>{this.state.projectDescription}</li>
-              <li>
-                <TextField
-                hintText="Project Name"
-                errorText={this.state.errorText}
-                floatingLabelText="Project Name"
-                onChange={this.handleChange.bind(this)}
-                />
-              </li>
-              <li>
-                <TextField
-                hintText="Project Description"
-                errorText={this.state.errorTextDescription}
-                floatingLabelText="Project Description"
-                onChange={this.handleChangeDescription.bind(this)}
-                multiLine={true}
-                />
-              </li>
-            </ul>
-            </div>
-          </Dialog>
+          <SaveProjectDialog
+          state={this.state}
+          handleChange={this.handleChange.bind(this)}
+          handleChangeDescription={this.handleChangeDescription.bind(this)}
+          handleSubmit={this.handleSubmit.bind(this)}
+          handleCancel={this.handleCancel.bind(this)}
+          />
 
         </div>
       </div>);
