@@ -87,32 +87,9 @@ class Item extends Component {
       var uniqueID = this.state.uniqueID;
       var inputText = this.state.inputText;
       var changeComponent;
+      var componentName = this.state.componentName;
 
-      if (this.state.componentName === 'h1') {
-        changeComponent = <h1>{inputText}</h1>;
-      } else if (this.state.componentName === 'h2') {
-        changeComponent = <h2>{inputText}</h2>;
-      } else if (this.state.componentName === 'h3') {
-        changeComponent = <h3>{inputText}</h3>;
-      } else if (this.state.componentName === 'h4') {
-        changeComponent = <h4>{inputText}</h4>;
-      } else if (this.state.componentName === 'h5') {
-        changeComponent = <h5>{inputText}</h5>;
-      } else if (this.state.componentName === 'h6') {
-        changeComponent = <h6>{inputText}</h6>;
-      } else if (this.state.componentName === 'strong') {
-        changeComponent = <strong>{inputText}</strong>;
-      } else if (this.state.componentName === 'emphasis') {
-        changeComponent = <emphasis>{inputText}</emphasis>;
-      } else if (this.state.componentName === 'bold') {
-        changeComponent = <bold>{inputText}</bold>;
-      } else if (this.state.componentName === 'paragraph') {
-        changeComponent = <p>{inputText}</p>;
-      } else if (this.state.componentName === 'blockquote') {
-        changeComponent = <blockquote>{inputText}</blockquote>;
-      }
-
-      this.props.tree.updateComponent(uniqueID, this.props.tree.traverseDF, changeComponent);
+      this.props.tree.updateComponent(uniqueID, this.props.tree.traverseDF, null, inputText, componentName);
       this.props.dispatch(updateTree(this.props.tree));
       this.props.dispatch(showOptions(!this.props.toggleOptions));
     }
@@ -123,14 +100,12 @@ class Item extends Component {
     var componentName;
     // className is Unique ID for node selected
     var className = this.props.item.props.className;
-    console.log('===========================', className);
     this.props.tree.traverseDF(function(node){
       if (node.ID === className) {
         component = node.component;
         componentName = node.componentName;
       }
     });
-    console.log('component.props.type', component.props.children);
 
     this.setState({
       componentName: componentName,
