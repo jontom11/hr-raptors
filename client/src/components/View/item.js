@@ -57,10 +57,9 @@ class Item extends Component {
     };
   }
 
-  handleRemove() {
-    var component;
+  handleRemove(component) {
     this.props.tree.remove(
-      component,
+      this.props.component,
       this.props.component.component,
       this.props.tree.traverseBF
     );
@@ -175,3 +174,4 @@ Item.propTypes = {
 };
 
 export default DragSource(ItemTypes.COMPONENT, componentSource, collect)(Item);
+
