@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from "react-redux"
-import {Card, CardActions, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
 import _ from 'lodash';
 import { updateTree, loadProjects } from '../../actions/codeActions';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
@@ -86,23 +84,30 @@ class ProjectView extends React.Component {
   render() {
     var projects = this.state.projectData;
 
+    var projectTitle;
+
+    if (Object.keys(projects).length <= 1) {
+      projectTitle = 'Project';
+    } else {
+      projectTitle = 'Projects'
+    }
+
     return (
       <div className="center-content">
-        <h1>Project View</h1>
-        <div className="row">
+        <h2>Hi <bold className="highlight-name">{this.props.projects.user_name}</bold>, you have <bold className="highlight-name">{Object.keys(projects).length}</bold> {projectTitle}</h2>
+        <div className="card-row">
           {
             _.map(projects, (project, index) =>
-              <div className="col s4" id="card" key={index}>
-                <Card id="card">
-                  <CardTitle title={project.project_name} subtitle={project.time_stamp} />
-                  <CardText>
-                    {project.description}
-                  </CardText>
-                  <CardActions>
-                    <FlatButton style={{border:'2px solid #555', transition: 'opacity 3s ease-in-out'}} label="Delete Project" onClick={this.deleteClick.bind(this, project.project_name)}/>
-                    <Link to="/"><FlatButton style={{border:'2px solid #555' }} label="Load Project" onClick={this.handleClick.bind(this, project.object)}/></Link>
-                  </CardActions>
-                </Card>
+              <div key={index} className="card-project">
+                <div className="card-project_inner">
+                  <h4>{project.project_name}</h4>
+                  <p>{project.time_stamp}</p>
+                  <p>{project.description}</p>
+                  <div className="card-button">
+                    <button className="button-depth waves-effect" onClick={this.deleteClick.bind(this, project.project_name)}>Delete Project</button>
+                    <Link to="/"><button className="button-depth waves-effect" onClick={this.handleClick.bind(this, project.object)}>Load Project</button></Link>
+                  </div>
+                </div>
               </div>
             )
           }
