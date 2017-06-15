@@ -5,10 +5,13 @@ Quickly build an html webpage with drag and drop components.
 
 ## Team
 
-- teamMember
-- teamMember
-- teamMember
-- teamMember
+- Jonathan Tom  
+- Alexi Taylo   
+- Brandon Brown
+- Colby Duhon
+
+<img height="500" src='./public/materialgui.gif' />
+
 
 ## Roadmap
 
@@ -66,9 +69,6 @@ Use grunt to create a new database for your development and test environments:
 Development envronment: `grunt pgcreatedb:default`
 
 Other environments, specify like so: `NODE_ENV=test grunt pgcreatedb:default`
-
-<img height="500" src='./public/materialgui.gif' />
-
 
 ### Run Migrations & Data Seeds
 

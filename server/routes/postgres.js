@@ -12,15 +12,14 @@ const Pgb = require('pg-bluebird');
 var pgb = new Pgb();
 var connects;
 
-
-// create DB once server Starts
-
+// create table below. 
 pgb.connect(connectionString)
   .then(function(connection) {
     connects = connection;
     return connection.client.query('CREATE TABLE IF NOT EXISTS test1 (id serial unique primary key, profile_id int, time_stamp text, project_name text, object text, description text, foreign key (profile_id) references profiles(id))');
   })
   .then(function(result) {
+    // close postgres connection
     connects.done();
   })
   .catch(function(error) {
@@ -37,16 +36,16 @@ router.route('/tree')
     var object = JSON.stringify(req.body.codeTree);
     var description = req.body.projectDescription;
     var cnn;
-
+    // connect to postgres db for post request
     pgb.connect(connectionString) 
       .then (function(connection) {
         cnn = connection;
-        var uniqueName = connection.client.query("select id from test1 where project_name = '" + project_name + "'");
-        return uniqueName;
+        var uniqueID = connection.client.query("select id from test1 where project_name = '" + project_name + "'");
+        return uniqueID;
       })
-      .then(function(uniqueName) {
-        // check if name exists
-        if (uniqueName.rows.length > 0) {
+      .then(function(uniqueID) {
+        // uniqueID.rows will return an array of 1 length if project name exists. 
+        if (uniqueID.rows.length === 1) {
           throw 'POST ERROR';
           cnn.done();
         } else {
@@ -79,20 +78,34 @@ router.route('/tree')
         return resData;
       })
       .then(function(responseData) {
-
         cnn.done();
         res.status(200).send(JSON.stringify(responseData));
       })
       .catch(function(error) {
         console.log('ERROR ON SERVER-SIDE GET REQUEST!', error);
         cnn.done();
-        return res.status(500).json({success: false, fatal: err}); 
+        return res.status(500).json({success: false, fatal: error}); 
       });
   });
 
-module.exports = router;
+// remove project from database
+router.route('/delete')
+  .post((req, res)=>{
+    var cnn;
+    pgb.connect(connectionString)
+     .then(function(connection) {
+       cnn=connection;
+       const remove = cnn.client.query("delete from test1 where project_name = '" + req.body.project_name + "'");
+       return remove;
+     })
+     .then (function(remove) {
+       cnn.done();
+       res.status(200).send('Delete Successful');
+     })
+     .catch(function(error) {
+       cnn.done();
+       return res.status(500).json({success: false, fatal:error});
+     });
+  });
 
-// DB queriers below.... DELETE when finished with project.
-// select profiles.email, test5.object from profiles join test5 on profiles.id = test5.profile_id where test5.profile_id = 1;
-// select profiles.email, test6.project_name, test6.object from profiles join test6 on profiles.id = test6.profile_id where test6.profile_id ='"+user_id+"';
-//  select profiles.email, test5.object from profiles join test5 on profiles.id = test5.profile_id where test5.profile_id = ('1');
+module.exports = router;

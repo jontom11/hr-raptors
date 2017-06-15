@@ -1,6 +1,8 @@
 import axios from 'axios';
 import Tree from '../dataStructure/tree';
 import dragItems from '../dragItems';
+import download from 'downloadjs';
+import $ from 'jquery';
 
 
 module.exports = {
@@ -35,7 +37,8 @@ module.exports = {
       dispatch({type: 'SAVE_PROJECT'});
       axios.post( '/postgres/tree', { codeTree: tree, userData: userData, projectName: projectName, projectDescription: projectDescription })
         .then((response) => {
-          dispatch({type: 'SAVE_PROJECT_FULFILLED', payload: response.data});
+          download(document.getElementsByTagName('code')[0].innerText, response.data+'.html', 'text/html');		
+          return dispatch({type: 'SAVE_PROJECT_FULFILLED', payload: response.data});
         })
         .catch((err) => {
           dispatch({type: 'SAVE_PROJECT_REJECTED', payload: err});

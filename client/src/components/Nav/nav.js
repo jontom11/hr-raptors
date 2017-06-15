@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-
 import NavTitlePanel from './navTitlePanel';
 import SidebarContent from './sidebarContent';
 import View from '../View/view';
@@ -59,7 +58,6 @@ class Nav extends React.Component {
       errorTextDescription: "This field is required (minimum 20 char)",
       projectDescription: "",
     };
-
   }
 
   menuButtonClick(ev) {
@@ -93,7 +91,6 @@ class Nav extends React.Component {
       projectName: "",
       projectDescription: "",
     });
-    download(document.getElementsByTagName('code')[0].innerText, this.state.projectName+'.html', 'text/html');
   };
 
   handleChange(event) {
@@ -121,6 +118,7 @@ class Nav extends React.Component {
   loadButtonClick() {
     this.props.dispatch(loadProjects(this.props.userData.name));
   }
+  
 
   render() {
     const sidebar = <SidebarContent />;

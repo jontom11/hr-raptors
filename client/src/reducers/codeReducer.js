@@ -52,6 +52,5 @@ export default function reducer(state = {
     return Object.assign({}, state, {toggleOptions: action.payload});
   }
 }
-
   return state;
 }
