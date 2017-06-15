@@ -33,11 +33,11 @@ class ProjectView extends React.Component {
 
   createNewTree(tempTree) {
     var rootComponent = tempTree['_root'].component;
+    var inputText = tempTree['_root'].inputText;
     var rootComponentName = tempTree['_root'].componentName;
     var oldRootChildren = tempTree['_root'].children;
     var rowObject =  { linkedList: {}, head: null, tail: null, renderLinkedList: [] };
-
-    var newRootTree = new Tree(rootComponent, rowObject, false, rootComponentName );
+    var newRootTree = new Tree(rootComponent, rowObject, false, rootComponentName, inputText);
     newRootTree['_root'].children = oldRootChildren;
 
     if (newRootTree['_root'].children.length > 0) {
@@ -45,7 +45,7 @@ class ProjectView extends React.Component {
     }
 
     newRootTree.traverseDF((node) => {
-      node.component = dragItems[node.componentName];
+      newRootTree.updateComponent(node.ID, newRootTree.traverseDF, dragItems[node.componentName], node.inputText, node.componentName);
     });
 
     return newRootTree;

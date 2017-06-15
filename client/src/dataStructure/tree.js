@@ -3,7 +3,7 @@ import Queue from './queue';
 import shortid from 'shortid';
 import _ from 'lodash';
 
-var Node = function(component, rowObject, isRow, componentName) {
+var Node = function(component, rowObject, isRow, componentName, inputText) {
   this.component = component;
   this.ID = shortid.generate();
   this.parentID = null;
@@ -11,10 +11,16 @@ var Node = function(component, rowObject, isRow, componentName) {
   this.rowObject = rowObject;
   this.isRow = isRow;
   this.componentName = componentName;
+  this.inputText = inputText;
 };
 
-var Tree = function(component, rowObject, isRow, componentName) {
-  var node = new Node(component, rowObject, isRow, componentName);
+var Tree = function(component, rowObject, isRow, componentName, inputText) {
+
+  if (inputText) {
+    component = this.changeElementText(inputText, componentName);
+  }
+
+  var node = new Node(component, rowObject, isRow, componentName, inputText);
   this._root = node;
 };
 
@@ -124,13 +130,10 @@ Tree.prototype.updateRowObject = function(toID, traversal, rowObject) {
   }
 };
 
-/*=================
- UPDATE COMPONENT
- =================*/
-Tree.prototype.updateComponent = function(toID, traversal, component) {
-  console.log(toID);
-  console.log(traversal);
-  console.log(component);
+/*================================
+ UPDATE COMPONENT AND INPUT TEXT
+ ==================================*/
+Tree.prototype.updateComponent = function(toID, traversal, component, inputText, componentName) {
   var updateNode = null,
     callback = function(node) {
       if (node.ID === toID) {
@@ -140,12 +143,47 @@ Tree.prototype.updateComponent = function(toID, traversal, component) {
 
   this.contains(callback, traversal);
 
+  if (inputText) {
+    component = this.changeElementText(inputText, componentName);
+  }
+
   if (updateNode) {
-    console.log('uppppddddaattenoooooode', updateNode.component);
     updateNode.component = component;
+    updateNode.inputText = inputText;
   } else {
     throw new Error('Cannot add node to a non-existent parent.');
   }
+};
+
+/*================================
+CHANGE ELEMENT WITH CUSTOM TEXT
+ ==================================*/
+Tree.prototype.changeElementText = function(inputText, componentName) {
+  var changeComponent;
+  if (componentName === 'h1') {
+    changeComponent = <h1>{inputText}</h1>;
+  } else if (componentName === 'h2') {
+    changeComponent = <h2>{inputText}</h2>;
+  } else if (componentName === 'h3') {
+    changeComponent = <h3>{inputText}</h3>;
+  } else if (componentName === 'h4') {
+    changeComponent = <h4>{inputText}</h4>;
+  } else if (componentName === 'h5') {
+    changeComponent = <h5>{inputText}</h5>;
+  } else if (componentName === 'h6') {
+    changeComponent = <h6>{inputText}</h6>;
+  } else if (componentName === 'strong') {
+    changeComponent = <strong>{inputText}</strong>;
+  } else if (componentName === 'emphasis') {
+    changeComponent = <emphasis>{inputText}</emphasis>;
+  } else if (componentName === 'bold') {
+    changeComponent = <bold>{inputText}</bold>;
+  } else if (componentName === 'paragraph') {
+    changeComponent = <p>{inputText}</p>;
+  } else if (componentName === 'blockquote') {
+    changeComponent = <blockquote>{inputText}</blockquote>;
+  }
+  return changeComponent;
 };
 
 /*=================

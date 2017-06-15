@@ -7,3 +7,4 @@ client/src/reducers/codeReducer.js
 client/src/components/Nav/nav.js
 client/src/components/Nav/optionBarContent.js
 client/src/components/View/item.js
+client/src/components/Projects/projectView.js
