@@ -84,7 +84,6 @@ class Nav extends React.Component {
       console.log('nooooooddeeee', node.rowObject);
       node.rowObject.renderLinkedList = {};
     });
-
     this.props.dispatch(saveProject(this.props.tree, this.props.userData, this.state.projectName, this.state.projectDescription));
     this.setState({
       open: false,

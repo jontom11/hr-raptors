@@ -37,7 +37,9 @@ module.exports = {
       dispatch({type: 'SAVE_PROJECT'});
       axios.post( '/postgres/tree', { codeTree: tree, userData: userData, projectName: projectName, projectDescription: projectDescription })
         .then((response) => {
-          download(document.getElementsByTagName('code')[0].innerText, response.data+'.html', 'text/html');		
+          if (document.getElementsByTagName('code')[0]){
+            download(document.getElementsByTagName('code')[0].innerText, response.data +'.html', 'text/html');
+          }
           return dispatch({type: 'SAVE_PROJECT_FULFILLED', payload: response.data});
         })
         .catch((err) => {
