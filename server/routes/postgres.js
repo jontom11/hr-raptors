@@ -84,9 +84,28 @@ router.route('/tree')
       .catch(function(error) {
         console.log('ERROR ON SERVER-SIDE GET REQUEST!', error);
         cnn.done();
-        return res.status(500).json({success: false, fatal: err}); 
+        return res.status(500).json({success: false, fatal: error}); 
       });
   });
 
-module.exports = router;
+// remove project from database
+router.route('/delete')
+  .post((req, res)=>{
+    var cnn;
+    pgb.connect(connectionString)
+     .then(function(connection) {
+       cnn=connection;
+       const remove = cnn.client.query("delete from test1 where project_name = '" + req.body.project_name + "'");
+       return remove;
+     })
+     .then (function(remove) {
+       cnn.done();
+       res.status(200).send('Delete Successful');
+     })
+     .catch(function(error) {
+       cnn.done();
+       return res.status(500).json({success: false, fatal:error});
+     });
+  });
 
+module.exports = router;

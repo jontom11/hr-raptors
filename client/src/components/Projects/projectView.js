@@ -5,15 +5,16 @@ import FlatButton from 'material-ui/FlatButton';
 import _ from 'lodash';
 import Tree from '../../dataStructure/tree.js'
 import dragItems from '../../dragItems';
-import { updateTree } from '../../actions/codeActions';
+import { updateTree, loadProjects } from '../../actions/codeActions';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-
+import axios from 'axios';
 
 @connect((store) => {
   return {
     projects: store.code.projects,
     projectData: store.code.projects.query_rows,
     tree: store.code.tree,
+    userData: store.user.user,
   };
 })
 
@@ -21,7 +22,7 @@ class ProjectView extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { projectData: [] }
+    this.state = { projectData: [], re_render: false }
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -47,7 +48,6 @@ class ProjectView extends React.Component {
     newRootTree.traverseDF((node) => {
       newRootTree.updateComponent(node.ID, newRootTree.traverseDF, dragItems[node.componentName], node.inputText, node.componentName);
     });
-
     return newRootTree;
   }
 
@@ -55,6 +55,18 @@ class ProjectView extends React.Component {
     var treeObject = JSON.parse(treeString);
     var selectedTree = this.createNewTree(treeObject);
     this.props.dispatch(updateTree(selectedTree));
+  }
+
+  deleteClick(project_name) {
+    axios.post( '/postgres/delete', {project_name: project_name})
+      .then((response) => {
+        console.log('responded with this:', response);
+        this.props.dispatch(loadProjects(this.props.userData.name));
+        return response;
+      })
+      .catch((err) => {
+        throw err;
+      });
   }
 
   render() {
@@ -73,6 +85,7 @@ class ProjectView extends React.Component {
                     {project.description}
                   </CardText>
                   <CardActions>
+                    <FlatButton label="Delete Project" onClick={this.deleteClick.bind(this, project.project_name)}/>
                     <Link to="/"><FlatButton label="Load Project" onClick={this.handleClick.bind(this, project.object)}/></Link>
                   </CardActions>
                 </Card>
@@ -81,7 +94,6 @@ class ProjectView extends React.Component {
           }
         </div>
       </div>
-
     );
   }
 }
