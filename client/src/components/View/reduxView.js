@@ -20,6 +20,7 @@ const styles = {
     tree: store.code.tree,
     item: store.code.item,
     currentRowObject: store.code.currentRowObject,
+    toggleOptions: store.code.toggleOptions,
   };
 })
 class reduxView extends React.Component {
@@ -124,7 +125,7 @@ class reduxView extends React.Component {
   }
 
   render() {
-    const { tree } = this.props;
+    const { tree, toggleOptions } = this.props;
 
     var treeArray = [];
     var colObject = {1: 12, 2: 6, 3: 4, 4: 3, 6: 2, 12: 1};

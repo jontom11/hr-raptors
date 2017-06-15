@@ -8,7 +8,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentDelete from 'material-ui/svg-icons/content/clear';
 
 import{ selectComponent } from '../../actions/componentActions';
-import{ showOptions } from '../../actions/codeActions';
+import{ showOptions, updateTree } from '../../actions/codeActions';
 import { ItemTypes } from '../View/constants.js';
 import{ notShowingOptions } from '../../actions/codeActions';
 
@@ -48,23 +48,24 @@ const componentSource = {
 class Item extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      update: false,
+    };
   }
 
   handleRemove() {
+    console.log('ddeeeeeellllleeetteee', this.props.component.component);
+    console.log('ddeeeeeellllleeetteee', this.props);
     var component;
     this.props.tree.remove(
       component,
       this.props.component.component,
       this.props.tree.traverseBF
     );
-    this.props.dispatch(notShowingOptions())
-  }
+    this.props.dispatch(showOptions(!this.props.toggleOptions));
+    this.props.dispatch(updateTree(this.props.tree));
 
-
-  handleSelect() {
-    // this.props.dispatch(showOptions(!this.props.toggleOptions));
-    this.props.dispatch(selectComponent(this.props.item.props.className));
+    // this.props.dispatch(notShowingOptions())
   }
 
   handleOptionsToggle() {
@@ -77,34 +78,39 @@ class Item extends Component {
 
   render() {
 
-    console.log('OPTIONS SHOWING' + this.props.options)
     const { connectDragSource, isDragging, toggleOptions } = this.props;
 
       return connectDragSource(
         <div>
-        <div
-          onTouchTap={this.handleOptionsToggle.bind(this)}
-          onClick={this.handleSelectComponent.bind(this)}
-          style={{
-            opacity: isDragging ? 0.5 : 1,
-            cursor: 'move',
-          }}
-        >
-          {this.props.item}
-        </div>
+          <div
+            onTouchTap={this.handleOptionsToggle.bind(this)}
+            onClick={this.handleSelectComponent.bind(this)}
+            style={{
+              opacity: isDragging ? 0.5 : 1,
+              cursor: 'move',
+            }}
+          >
+            {this.props.item}
+          </div>
           <Drawer
             id="DRAWER"
             open={toggleOptions}
             containerStyle={styles.drawer}
           >
-            <FloatingActionButton style={styles.button} onClick={this.handleOptionsToggle.bind(this)} mini={true}>
+            <FloatingActionButton
+              style={styles.button}
+              onClick={this.handleOptionsToggle.bind(this)}
+              mini={true}
+            >
               <ContentDelete />
             </FloatingActionButton>
             <h4>Edit Component</h4>
             <RaisedButton
-              type='button'
-              id='deleteButton'
-              label="Delete Me" />
+              type="button"
+              id="deleteButton"
+              label="Delete Me"
+              onClick={this.handleRemove.bind(this)}
+            />
           </Drawer>
         </div>);
 
