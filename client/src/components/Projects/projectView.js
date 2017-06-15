@@ -94,7 +94,7 @@ class ProjectView extends React.Component {
 
     return (
       <div className="center-content">
-        <h2>You have {Object.keys(projects).length} {projectTitle}</h2>
+        <h2>Hi <bold className="highlight-name">{this.props.projects.user_name}</bold>, you have <bold className="highlight-name">{Object.keys(projects).length}</bold> {projectTitle}</h2>
         <div className="card-row">
           {
             _.map(projects, (project, index) =>
