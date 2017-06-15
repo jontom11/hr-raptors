@@ -13,14 +13,14 @@ var pgb = new Pgb();
 var connects;
 
 
-// create DB once server Starts
-
+// create table below. 
 pgb.connect(connectionString)
   .then(function(connection) {
     connects = connection;
     return connection.client.query('CREATE TABLE IF NOT EXISTS test1 (id serial unique primary key, profile_id int, time_stamp text, project_name text, object text, description text, foreign key (profile_id) references profiles(id))');
   })
   .then(function(result) {
+    // close postgres connection
     connects.done();
   })
   .catch(function(error) {
@@ -37,16 +37,16 @@ router.route('/tree')
     var object = JSON.stringify(req.body.codeTree);
     var description = req.body.projectDescription;
     var cnn;
-
+    // connect to postgres db for post request
     pgb.connect(connectionString) 
       .then (function(connection) {
         cnn = connection;
-        var uniqueName = connection.client.query("select id from test1 where project_name = '" + project_name + "'");
-        return uniqueName;
+        var uniqueID = connection.client.query("select id from test1 where project_name = '" + project_name + "'");
+        return uniqueID;
       })
-      .then(function(uniqueName) {
-        // check if name exists
-        if (uniqueName.rows.length > 0) {
+      .then(function(uniqueID) {
+        // uniqueID.rows will return an array of 1 length if project name exists. 
+        if (uniqueID.rows.length === 1) {
           throw 'POST ERROR';
           cnn.done();
         } else {
@@ -79,7 +79,6 @@ router.route('/tree')
         return resData;
       })
       .then(function(responseData) {
-
         cnn.done();
         res.status(200).send(JSON.stringify(responseData));
       })
