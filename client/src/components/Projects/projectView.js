@@ -88,10 +88,11 @@ class ProjectView extends React.Component {
 
     return (
       <div className="center-content">
-        <h1>Project View</h1>
-        <div className="row">
+        <h1>{this.props.user}</h1>
+        <div className="card-row">
           {
             _.map(projects, (project, index) =>
+<<<<<<< HEAD
               <div className="col s4" id="card" key={index}>
                 <Card id="card">
                   <CardTitle title={project.project_name} subtitle={project.time_stamp} />
@@ -103,6 +104,18 @@ class ProjectView extends React.Component {
                     <Link to="/"><FlatButton style={{border:'2px solid #555' }} label="Load Project" onClick={this.handleClick.bind(this, project.object)}/></Link>
                   </CardActions>
                 </Card>
+=======
+              <div className="card-project">
+                <div className="card-project_inner">
+                  <h4>{project.project_name}</h4>
+                  <p>{project.time_stamp}</p>
+                  <p>{project.description}</p>
+                  <div className="card-button">
+                    <button className="button-depth waves-effect" onClick={this.deleteClick.bind(this, project.project_name)}>Delete Project</button>
+                    <Link to="/"><button className="button-depth waves-effect" onClick={this.handleClick.bind(this, project.object)}>Load Project</button></Link>
+                  </div>
+                </div>
+>>>>>>> Re-style cards in profile
               </div>
             )
           }
