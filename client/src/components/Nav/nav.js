@@ -117,7 +117,7 @@ class Nav extends React.Component {
   loadButtonClick() {
     this.props.dispatch(loadProjects(this.props.userData.name));
   }
-  
+
 
   render() {
     const sidebar = <SidebarContent />;
@@ -141,9 +141,28 @@ class Nav extends React.Component {
           {!this.state.docked ?
             <a onClick={this.menuButtonClick.bind(this)} style={styles.contentHeaderMenuLink}><i className="fa fa-bars" aria-hidden="true" /></a> :
             <a onClick={this.menuButtonClick.bind(this)} style={styles.contentHeaderMenuLink}><i className="fa fa-times" aria-hidden="true" /></a>}
-          <Link to="/"><a style={styles.contentHeaderMenuLink}><i className="fa fa-desktop" aria-hidden="true" /></a></Link>
-          <Link to="/code"><a style={styles.contentHeaderMenuLink}><i className="fa fa-code" aria-hidden="true" /></a></Link>
-          <a onTouchTap={this.handleOpen.bind(this)} style={styles.contentHeaderMenuLink}><i className="fa fa-download" aria-hidden="true" /></a>
+          <Link to="/">
+            <a style={styles.contentHeaderMenuLink} className="tooltipped" data-position="bottom" data-delay="50" data-tooltip="View">
+              <i className="fa fa-desktop" aria-hidden="true" />
+            </a>
+          </Link>
+          <Link to="/code">
+            <a style={styles.contentHeaderMenuLink} className="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Code">
+              <i className="fa fa-code" aria-hidden="true" />
+            </a>
+          </Link>
+          <a onTouchTap={this.handleOpen.bind(this)} style={styles.contentHeaderMenuLink} className="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Download">
+            <i className="fa fa-download" aria-hidden="true" />
+          </a>
+          <Link to="/projects">
+            <a onClick={this.loadButtonClick.bind(this)} style={styles.contentHeaderMenuLink} className="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Profile">
+              <i className="fa fa-user" aria-hidden="true"/>
+            </a>
+          </Link>
+          <a href={"/login"} style={styles.contentHeaderMenuLink} className="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Sign Out">
+            <i className="fa fa-sign-out" aria-hidden="true" />
+          </a>
+
           <Dialog
             title="Save Project"
             actions={actions}
@@ -174,8 +193,7 @@ class Nav extends React.Component {
             </ul>
             </div>
           </Dialog>
-          <Link to="/projects"><a onClick={this.loadButtonClick.bind(this)} style={styles.contentHeaderMenuLink}><i className="fa fa-user" aria-hidden="true"/></a></Link>
-          <a href={"/login"} style={styles.contentHeaderMenuLink}><i className="fa fa-sign-out" aria-hidden="true" /></a>
+
         </div>
       </div>);
 
