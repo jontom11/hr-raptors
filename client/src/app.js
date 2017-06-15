@@ -33,7 +33,6 @@ class App extends React.Component {
   }
 
   toggleView() {
-    console.log('I was clicked');
     this.setState({
       viewState: !this.state.viewState,
     });
@@ -43,17 +42,13 @@ class App extends React.Component {
     this.setState({
       viewingOptions: !this.state.viewingOptions,
       currentComponent: component
-    })
-    console.log(component)
-    console.log('Selected:' + component);
+    });
   }
-
-
 
   render() {
     let main = <View toggleoptionview={this.toggleOptionView} currentComponent={this.state.currentComponent}/>;
     if (this.state.viewState) {
-      main = <View toggleoptionview={this.toggleOptionView} currentComponent={this.state.currentComponent}/>
+      main = <View toggleoptionview={this.toggleOptionView} currentComponent={this.state.currentComponent}/>;
     } else {
       main = <Code />;
     }
@@ -61,9 +56,6 @@ class App extends React.Component {
       <Provider store={store}>
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <div>
-          <div>
-            <h3 draggable="true">HELLO</h3>
-          </div>
           <Nav view={main} toggleView={this.toggleView} showingOptionView={this.state.viewingOptions} deleteComponent={this.deleteComponent} currentComponent={this.state.currentComponent} />
         </div>
       </MuiThemeProvider>
