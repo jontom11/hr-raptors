@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from "react-redux"
-import {Card, CardActions, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
 import _ from 'lodash';
 import { updateTree, loadProjects } from '../../actions/codeActions';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
