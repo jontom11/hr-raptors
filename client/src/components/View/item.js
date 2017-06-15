@@ -6,6 +6,7 @@ import Drawer from 'material-ui/Drawer';
 import RaisedButton from 'material-ui/RaisedButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentDelete from 'material-ui/svg-icons/content/clear';
+import TextField from 'material-ui/TextField';
 
 import{ selectComponent } from '../../actions/componentActions';
 import{ showOptions, updateTree } from '../../actions/codeActions';
@@ -51,6 +52,9 @@ class Item extends Component {
     this.state = {
       update: false,
       componentName: null,
+      input: null,
+      inputText: null,
+      uniqueID: null,
     };
   }
 
@@ -71,9 +75,53 @@ class Item extends Component {
     this.props.dispatch(showOptions(!this.props.toggleOptions));
   }
 
+  handleInputChange(event) {
+    this.setState({
+      inputText: event.target.value,
+    });
+    console.log(event.target.value);
+  }
+
+  handleEnter(event) {
+    if (event.key === 'Enter') {
+      var uniqueID = this.state.uniqueID;
+      var inputText = this.state.inputText;
+      var changeComponent;
+
+      if (this.state.componentName === 'h1') {
+        changeComponent = <h1>{inputText}</h1>;
+      } else if (this.state.componentName === 'h2') {
+        changeComponent = <h2>{inputText}</h2>;
+      } else if (this.state.componentName === 'h3') {
+        changeComponent = <h3>{inputText}</h3>;
+      } else if (this.state.componentName === 'h4') {
+        changeComponent = <h4>{inputText}</h4>;
+      } else if (this.state.componentName === 'h5') {
+        changeComponent = <h5>{inputText}</h5>;
+      } else if (this.state.componentName === 'h6') {
+        changeComponent = <h6>{inputText}</h6>;
+      } else if (this.state.componentName === 'strong') {
+        changeComponent = <strong>{inputText}</strong>;
+      } else if (this.state.componentName === 'emphasis') {
+        changeComponent = <emphasis>{inputText}</emphasis>;
+      } else if (this.state.componentName === 'bold') {
+        changeComponent = <bold>{inputText}</bold>;
+      } else if (this.state.componentName === 'paragraph') {
+        changeComponent = <p>{inputText}</p>;
+      } else if (this.state.componentName === 'blockquote') {
+        changeComponent = <blockquote>{inputText}</blockquote>;
+      }
+
+      this.props.tree.updateComponent(uniqueID, this.props.tree.traverseDF, changeComponent);
+      this.props.dispatch(updateTree(this.props.tree));
+      this.props.dispatch(showOptions(!this.props.toggleOptions));
+    }
+  }
+
   handleSelectComponent() {
     var component;
     var componentName;
+    // className is Unique ID for node selected
     var className = this.props.item.props.className;
     console.log('===========================', className);
     this.props.tree.traverseDF(function(node){
@@ -83,10 +131,20 @@ class Item extends Component {
       }
     });
     console.log('component.props.type', component.props.children);
-    console.log('component.props.type', component);
+
     this.setState({
       componentName: componentName,
+      uniqueID: className,
     });
+
+    var editableTextEl = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'strong', 'emphasis', 'bold', 'paragraph', 'blockquote'];
+    if (_.includes(editableTextEl, componentName)) {
+      // add input field
+      this.setState({
+        input: <TextField hintText="Edit Text" onChange={this.handleInputChange.bind(this)} onKeyPress={this.handleEnter.bind(this)} />,
+      });
+    }
+
     this.props.dispatch(selectComponent(this.props.item.props.className));
   }
 
@@ -125,6 +183,7 @@ class Item extends Component {
               label="Delete Me"
               onClick={this.handleRemove.bind(this)}
             />
+            <div>{this.state.input}</div>
           </Drawer>
         </div>);
 

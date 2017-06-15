@@ -108,17 +108,41 @@ Tree.prototype.add = function(component, toID, traversal, rowObject, isRow, comp
  UPDATE ROW OBJECT
  =================*/
 Tree.prototype.updateRowObject = function(toID, traversal, rowObject) {
-  var parent = null,
+  var updateNode = null,
     callback = function(node) {
       if (node.ID === toID) {
-        parent = node;
+        updateNode = node;
       }
     };
 
   this.contains(callback, traversal);
 
-  if (parent) {
-    parent.rowObject = rowObject;
+  if (updateNode) {
+    updateNode.rowObject = rowObject;
+  } else {
+    throw new Error('Cannot add node to a non-existent parent.');
+  }
+};
+
+/*=================
+ UPDATE COMPONENT
+ =================*/
+Tree.prototype.updateComponent = function(toID, traversal, component) {
+  console.log(toID);
+  console.log(traversal);
+  console.log(component);
+  var updateNode = null,
+    callback = function(node) {
+      if (node.ID === toID) {
+        updateNode = node;
+      }
+    };
+
+  this.contains(callback, traversal);
+
+  if (updateNode) {
+    console.log('uppppddddaattenoooooode', updateNode.component);
+    updateNode.component = component;
   } else {
     throw new Error('Cannot add node to a non-existent parent.');
   }
