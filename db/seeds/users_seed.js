@@ -15,7 +15,7 @@ exports.seed = function (knex, Promise) {
       }).save();
     })
     .error(err => {
-      console.error('ERROR: failed to create profile');
+      console.error('ERROR: failed to create profile.');
       throw err;
     })
     .then((profile) => {
@@ -26,10 +26,10 @@ exports.seed = function (knex, Promise) {
       }).save();
     })
     .error(err => {
-      console.error('ERROR: failed to create auth');
+      console.error('ERROR: failed to create auth.');
     })
     .catch(() => {
-      console.log('WARNING: defualt user already exists.');
+      console.log('WARNING: default user already exists.');
     });
 
 };

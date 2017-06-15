@@ -23,7 +23,7 @@ exports.rollback = (done) => {
       done();
     })
     .catch(function (err) {
-      console.log('err in migration afterEach');
+      console.log('err in migration afterEach', err);
       done();
     });
 };
