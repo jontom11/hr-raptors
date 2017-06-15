@@ -93,14 +93,14 @@ class ProjectView extends React.Component {
           {
             _.map(projects, (project, index) =>
               <div className="col s4" id="card" key={index}>
-                <Card>
+                <Card id="card">
                   <CardTitle title={project.project_name} subtitle={project.time_stamp} />
                   <CardText>
                     {project.description}
                   </CardText>
                   <CardActions>
-                    <FlatButton label="Delete Project" onClick={this.deleteClick.bind(this, project.project_name)}/>
-                    <Link to="/"><FlatButton label="Load Project" onClick={this.handleClick.bind(this, project.object)}/></Link>
+                    <FlatButton style={{border:'2px solid #555', transition: 'opacity 3s ease-in-out'}} label="Delete Project" onClick={this.deleteClick.bind(this, project.project_name)}/>
+                    <Link to="/"><FlatButton style={{border:'2px solid #555' }} label="Load Project" onClick={this.handleClick.bind(this, project.object)}/></Link>
                   </CardActions>
                 </Card>
               </div>

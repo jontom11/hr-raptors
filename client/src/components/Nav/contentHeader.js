@@ -6,6 +6,7 @@ const styles = {
     textDecoration: 'none',
     color: 'white',
     padding: 8,
+    cursor: 'pointer'
   },
 };
 
