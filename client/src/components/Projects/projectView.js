@@ -24,7 +24,7 @@ class ProjectView extends React.Component {
     this.state = { projectData: [] }
     this.handleClick = this.handleClick.bind(this);
   }
-  
+
   componentWillReceiveProps(nextProps) {
     if(nextProps.projectData !== this.props.projectData) {
       this.setState({projectData: nextProps.projectData });
@@ -66,7 +66,7 @@ class ProjectView extends React.Component {
         <div className="row">
           {
             _.map(projects, (project, index) =>
-              <div className="col s4" key={index}>
+              <div className="col s4" id="card" key={index}>
                 <Card>
                   <CardTitle title={project.project_name} subtitle={project.time_stamp} />
                   <CardText>
