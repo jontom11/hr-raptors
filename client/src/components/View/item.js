@@ -175,3 +175,4 @@ Item.propTypes = {
 };
 
 export default DragSource(ItemTypes.COMPONENT, componentSource, collect)(Item);
+
