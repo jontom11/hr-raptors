@@ -18,12 +18,13 @@ import linkers from '../../dataStructure/linkedList';
     userData: store.user.user,
   };
 })
-
 class ProjectView extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { projectData: [], re_render: false }
+    this.state = {
+      projectData: [],
+    };
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -54,19 +55,44 @@ class ProjectView extends React.Component {
 
       var rowObject = node.rowObject;
 
-      if (_.startsWith(node.componentName, 'rowCol')) {
-        var colNum = node.componentName.slice(6);
-        node.isRow = true;
-        for (var i = 0; i < colNum; i++) {
-          var key = 'dnd' + i;
-          node.rowObject = linkers.addToTail(
-            rowObject.linkedList,
-            false,
-            key,
-            node.rowObject.head,
-            node.rowObject.tail);
-        }
-      }
+
+      // _.forEach(rowObject, (col, key) => {
+      //   if (_.startsWith(key, 'dnd')) {
+      //
+      //   }
+      // });
+      //
+      // if (_.startsWith(node.componentName, 'rowCol')) {
+      //   var colNum = node.componentName.slice(6);
+      //   node.isRow = true;
+      //   for (var i = 0; i < colNum; i++) {
+      //     var key = 'dnd' + i;
+      //     node.rowObject = linkers.addToTail(
+      //       rowObject.linkedList,
+      //       false,
+      //       key,
+      //       node.rowObject.head,
+      //       node.rowObject.tail);
+      //   }
+      // } else if (_.startsWith(node.uniqueID, 'col')) {
+      //   isRow = true;
+      //   var index = node.uniqueID[3];
+      //   var newKey = 'col' + index;
+      //   var dndToCompkey = node.uniqueID.slice(0, 4);
+      //   uniqueID = node.uniqueID.slice(4);
+      //
+      //   node.rowObject = linkers.replaceNode(
+      //     rowObject,
+      //     dragItems[rowObject.linkedList[newKey].linkedComponentName],
+      //     dndToCompkey,
+      //     node.rowObject.head,
+      //     node.rowObject.tail,
+      //     newKey
+      //   );
+      //
+      //   isUpdateRowObject = true;
+      //
+      // }
 
     });
     return newRootTree;

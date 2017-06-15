@@ -78,7 +78,8 @@ class reduxView extends React.Component {
         dndToCompkey,
         rowObject.head,
         rowObject.tail,
-        newKey
+        newKey,
+        componentName
       )
 
       isUpdateRowObject = true;

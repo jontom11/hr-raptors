@@ -21,19 +21,19 @@ var Tree = function(component, rowObject, isRow, componentName, inputText) {
     component = this.changeElementText(inputText, componentName);
   }
 
-  if (_.startsWith(componentName, 'rowCol')) {
-    var colNum = componentName.slice(6);
-    isRow = true;
-    for (var i = 0; i < colNum; i++) {
-      var key = 'dnd' + i;
-      rowObject = linkers.addToTail(
-        rowObject.linkedList,
-        false,
-        key,
-        rowObject.head,
-        rowObject.tail);
-    }
-  }
+  // if (_.startsWith(componentName, 'rowCol')) {
+  //   var colNum = componentName.slice(6);
+  //   isRow = true;
+  //   for (var i = 0; i < colNum; i++) {
+  //     var key = 'dnd' + i;
+  //     rowObject = linkers.addToTail(
+  //       rowObject.linkedList,
+  //       false,
+  //       key,
+  //       rowObject.head,
+  //       rowObject.tail);
+  //   }
+  // }
 
   var node = new Node(component, rowObject, isRow, componentName, inputText);
   this._root = node;
