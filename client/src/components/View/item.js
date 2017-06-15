@@ -57,10 +57,9 @@ class Item extends Component {
     };
   }
 
-  handleRemove() {
-    var component;
+  handleRemove(component) {
     this.props.tree.remove(
-      component,
+      this.props.component,
       this.props.component.component,
       this.props.tree.traverseBF
     );

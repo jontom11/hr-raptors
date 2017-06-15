@@ -246,7 +246,7 @@ Tree.prototype.remove = function(component, nodeID, traversal) {
     index,
     currentNode = null,
     savedChildren = null;
-
+    console.log(nodeID);
   // Get current Node
   var callback = function(node) {
     if (node.ID === nodeID) {
@@ -270,7 +270,7 @@ Tree.prototype.remove = function(component, nodeID, traversal) {
   }
 
   // Change the children's parentID to their new parent
-  if (savedChildren) {
+  if (savedChildren && parent) {
     savedChildren.forEach((node) => {
       node.parentID = parent.ID;
     });
@@ -288,7 +288,14 @@ Tree.prototype.remove = function(component, nodeID, traversal) {
         parent.children = savedChildren;
       }
     }
-  } else {
+  } else if(component.component===this._root.ID && this._root.children.length>=1){
+    var newRoot = this._root.children[0];
+    this._root= newRoot;
+  }
+  else if(component.component===this._root.ID){
+    delete this._root;
+  }
+ else {
     throw new Error('Parent does not exist.');
   }
 
