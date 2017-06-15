@@ -269,7 +269,7 @@ Tree.prototype.remove = function(component, nodeID, traversal) {
   }
 
   // Change the children's parentID to their new parent
-  if (savedChildren) {
+  if (savedChildren && parent) {
     savedChildren.forEach((node) => {
       node.parentID = parent.ID;
     });
