@@ -42,7 +42,11 @@ class App extends React.Component {
     this.setState({
       viewingOptions: !this.state.viewingOptions,
       currentComponent: component
+<<<<<<< HEAD
     });
+=======
+    })
+>>>>>>> Cleaning code of console logs.
   }
 
   render() {

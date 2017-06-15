@@ -224,7 +224,6 @@ Tree.prototype.findType = function(ID, traversal, typeToFind) {
 Tree.prototype.replaceComponent = function(ID, traversal, newComponent) {
   var savedComponent = null;
   var callback = function(node) {
-    console.log('nooooooodddddeee', node);
     if (ID === node.ID) {
       savedComponent = node.component;
       node.component = newComponent;
@@ -307,7 +306,6 @@ var findIndex = function(arr, ID) {
 
   for (var i = 0; i < arr.length; i++) {
     if (arr[i].ID === ID) {
-      console.log(true);
       index = i;
     }
   }

@@ -17,14 +17,12 @@ var code = [ {id: '1', text: 'Hello World'}, {id: '2', text: 'Hello AGAIN World'
 
 router.route('/code')
 .get((req, res) => {
-  console.log('GOT SOMETHING');
   res.status(200).send(code);
 });
 
 
 router.route('/users')
 .get((req, res) => {
-  console.log('GOT SOMETHING');
   res.status(200).send({name: 'Alexi', age: 32}); // user data is being sent from here to auth. 
 });
 
