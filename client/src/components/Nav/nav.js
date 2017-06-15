@@ -128,11 +128,11 @@ class Nav extends React.Component {
         primary={true}
         onTouchTap={this.handleCancel.bind(this)}
       />,
-      <FlatButton
+      <Link to="/code"><FlatButton
         label="Submit"
         primary={true}
         onTouchTap={this.handleSubmit.bind(this)}
-      />,
+      /></Link>,
     ];
 
     const contentHeader = (
