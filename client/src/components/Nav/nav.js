@@ -1,26 +1,20 @@
 import React from 'react';
 import Navbar from 'react-sidebar';
-import download from 'downloadjs';
-import { connect } from "react-redux"
+import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
+
 import NavTitlePanel from './navTitlePanel';
 import SidebarContent from './sidebarContent';
 import View from '../View/view';
 import Code from '../Code/code';
 import Projects from '../Projects/projectView';
-import { saveProject } from "../../actions/codeActions"
-import { loadProjects } from "../../actions/codeActions"
+import { saveProject } from '../../actions/codeActions';
+import { loadProjects } from '../../actions/codeActions';
+import SaveProjectDialog from './saveProjectDialog';
+import ContentHeader from './contentHeader';
 
 
 const styles = {
-  contentHeaderMenuLink: {
-    textDecoration: 'none',
-    color: 'white',
-    padding: 8,
-  },
   content: {
     padding: '2.5vh',
   },
@@ -28,8 +22,8 @@ const styles = {
     margin: 'auto',
     width: '50%',
     padding: '10px',
-  }
-}
+  },
+};
 
 @connect((store) => {
   return {
@@ -38,7 +32,6 @@ const styles = {
     options: store.code.options
   };
 })
-
 class Nav extends React.Component {
   constructor(props) {
     super(props);
@@ -60,8 +53,7 @@ class Nav extends React.Component {
     };
   }
 
-  menuButtonClick(ev) {
-    // ev.preventDefault();
+  menuButtonClick() {
     this.setState({
       docked: !this.state.docked,
     });
@@ -81,7 +73,6 @@ class Nav extends React.Component {
 
   handleSubmit() {
     this.props.tree.traverseDF(function(node) {
-      console.log('nooooooddeeee', node.rowObject);
       node.rowObject.renderLinkedList = {};
     });
     this.props.dispatch(saveProject(this.props.tree, this.props.userData, this.state.projectName, this.state.projectDescription));
@@ -117,67 +108,16 @@ class Nav extends React.Component {
   loadButtonClick() {
     this.props.dispatch(loadProjects(this.props.userData.name));
   }
-  
 
   render() {
     const sidebar = <SidebarContent />;
 
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.handleCancel.bind(this)}
-      />,
-      <Link to="/code"><FlatButton
-        label="Submit"
-        primary={true}
-        onTouchTap={this.handleSubmit.bind(this)}
-      /></Link>,
-    ];
-
-    const contentHeader = (
-      <div className="nav-wrapper">
-        <div className="left">
-          {!this.state.docked ?
-            <a onClick={this.menuButtonClick.bind(this)} style={styles.contentHeaderMenuLink}><i className="fa fa-bars" aria-hidden="true" /></a> :
-            <a onClick={this.menuButtonClick.bind(this)} style={styles.contentHeaderMenuLink}><i className="fa fa-times" aria-hidden="true" /></a>}
-          <Link to="/"><a style={styles.contentHeaderMenuLink}><i className="fa fa-desktop" aria-hidden="true" /></a></Link>
-          <Link to="/code"><a style={styles.contentHeaderMenuLink}><i className="fa fa-code" aria-hidden="true" /></a></Link>
-          <a onTouchTap={this.handleOpen.bind(this)} style={styles.contentHeaderMenuLink}><i className="fa fa-download" aria-hidden="true" /></a>
-          <Dialog
-            title="Save Project"
-            actions={actions}
-            modal={true}
-            open={this.state.open}
-          >
-            <div className="center">
-            <ul>
-              <li>{this.state.projectName}</li>
-              <li>{this.state.projectDescription}</li>
-              <li>
-                <TextField
-                hintText="Project Name"
-                errorText={this.state.errorText}
-                floatingLabelText="Project Name"
-                onChange={this.handleChange.bind(this)}
-                />
-              </li>
-              <li>
-                <TextField
-                hintText="Project Description"
-                errorText={this.state.errorTextDescription}
-                floatingLabelText="Project Description"
-                onChange={this.handleChangeDescription.bind(this)}
-                multiLine={true}
-                />
-              </li>
-            </ul>
-            </div>
-          </Dialog>
-          <Link to="/projects"><a onClick={this.loadButtonClick.bind(this)} style={styles.contentHeaderMenuLink}><i className="fa fa-user" aria-hidden="true"/></a></Link>
-          <a href={"/login"} style={styles.contentHeaderMenuLink}><i className="fa fa-sign-out" aria-hidden="true" /></a>
-        </div>
-      </div>);
+    const contentHeader = <ContentHeader
+      state={this.state}
+      menuButtonClick={this.menuButtonClick.bind(this)}
+      handleOpen={this.handleOpen.bind(this)}
+      loadButtonClick={this.loadButtonClick.bind(this)}
+    />;
 
     const sidebarProps = {
       sidebar: sidebar,
@@ -193,21 +133,10 @@ class Nav extends React.Component {
         sidebar: Object.assign({}, styles.sidebar, {position: 'fixed'})
       },
     };
-    {if (this.props.options){
-      return (
-        <Router>
-          <Navbar {...sidebarProps}>
-            <NavTitlePanel title={contentHeader} />
-            <div style={styles.content}>
-              <Route exact path="/" component={View}/>
-              <Route path="/code" component={Code}/>
-            </div>
-            </Navbar>
-        </Router>
-      );
-    } else {
-      return(
-        <Router>
+
+    return(
+      <Router>
+        <div>
           <Navbar {...sidebarProps}>
             <NavTitlePanel title={contentHeader} />
             <div style={styles.content}>
@@ -216,10 +145,17 @@ class Nav extends React.Component {
               <Route path="/projects" component={Projects}/>
             </div>
           </Navbar>
-        </Router>
-      );}
+          <SaveProjectDialog
+            state={this.state}
+            handleChange={this.handleChange.bind(this)}
+            handleChangeDescription={this.handleChangeDescription.bind(this)}
+            handleSubmit={this.handleSubmit.bind(this)}
+            handleCancel={this.handleCancel.bind(this)}
+          />
+        </div>
+      </Router>
+    );
     }
-  }
 }
 
 export default Nav;

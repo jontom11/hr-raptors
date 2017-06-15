@@ -3,11 +3,12 @@ import { connect } from "react-redux"
 import {Card, CardActions, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import _ from 'lodash';
-import Tree from '../../dataStructure/tree.js'
-import dragItems from '../../dragItems';
 import { updateTree, loadProjects } from '../../actions/codeActions';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import axios from 'axios';
+
+import Tree from '../../dataStructure/tree.js'
+import dragItems from '../../dragItems';
 
 @connect((store) => {
   return {
@@ -34,18 +35,18 @@ class ProjectView extends React.Component {
   }
 
   createNewTree(tempTree) {
-    var rootComponent = tempTree['_root'].component;
-    var inputText = tempTree['_root'].inputText;
-    var rootComponentName = tempTree['_root'].componentName;
-    var oldRootChildren = tempTree['_root'].children;
-    var isRow = tempTree['_root'].isRow;
-    var rowObject =  tempTree['_root'].rowObject;
+    var rootComponent = tempTree._root.component;
+    var inputText = tempTree._root.inputText;
+    var rootComponentName = tempTree._root.componentName;
+    var oldRootChildren = tempTree._root.children;
+    var isRow = tempTree._root.isRow;
+    var rowObject =  tempTree._root.rowObject;
 
     var newRootTree = new Tree(rootComponent, rowObject, isRow, rootComponentName, inputText);
-    newRootTree['_root'].children = oldRootChildren;
+    newRootTree._root.children = oldRootChildren;
 
-    if (newRootTree['_root'].children.length > 0) {
-      newRootTree['_root'].ID = newRootTree['_root'].children[0].parentID;
+    if (newRootTree._root.children.length > 0) {
+      newRootTree._root.ID = newRootTree._root.children[0].parentID;
     }
 
     newRootTree.traverseDF((node) => {
