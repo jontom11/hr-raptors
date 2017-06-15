@@ -86,26 +86,21 @@ class ProjectView extends React.Component {
   render() {
     var projects = this.state.projectData;
 
+    var projectTitle;
+
+    if (Object.keys(projects).length <= 1) {
+      projectTitle = 'Project';
+    } else {
+      projectTitle = 'Projects'
+    }
+
     return (
       <div className="center-content">
-        <h1>{this.props.user}</h1>
+        <h2>You have {Object.keys(projects).length} {projectTitle}</h2>
         <div className="card-row">
           {
             _.map(projects, (project, index) =>
-<<<<<<< HEAD
-              <div className="col s4" id="card" key={index}>
-                <Card id="card">
-                  <CardTitle title={project.project_name} subtitle={project.time_stamp} />
-                  <CardText>
-                    {project.description}
-                  </CardText>
-                  <CardActions>
-                    <FlatButton style={{border:'2px solid #555', transition: 'opacity 3s ease-in-out'}} label="Delete Project" onClick={this.deleteClick.bind(this, project.project_name)}/>
-                    <Link to="/"><FlatButton style={{border:'2px solid #555' }} label="Load Project" onClick={this.handleClick.bind(this, project.object)}/></Link>
-                  </CardActions>
-                </Card>
-=======
-              <div className="card-project">
+              <div key={index} className="card-project">
                 <div className="card-project_inner">
                   <h4>{project.project_name}</h4>
                   <p>{project.time_stamp}</p>
@@ -115,7 +110,6 @@ class ProjectView extends React.Component {
                     <Link to="/"><button className="button-depth waves-effect" onClick={this.handleClick.bind(this, project.object)}>Load Project</button></Link>
                   </div>
                 </div>
->>>>>>> Re-style cards in profile
               </div>
             )
           }
