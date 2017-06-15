@@ -50,12 +50,11 @@ class Item extends Component {
     super(props);
     this.state = {
       update: false,
+      componentName: null,
     };
   }
 
   handleRemove() {
-    console.log('ddeeeeeellllleeetteee', this.props.component.component);
-    console.log('ddeeeeeellllleeetteee', this.props);
     var component;
     this.props.tree.remove(
       component,
@@ -73,6 +72,21 @@ class Item extends Component {
   }
 
   handleSelectComponent() {
+    var component;
+    var componentName;
+    var className = this.props.item.props.className;
+    console.log('===========================', className);
+    this.props.tree.traverseDF(function(node){
+      if (node.ID === className) {
+        component = node.component;
+        componentName = node.componentName;
+      }
+    });
+    console.log('component.props.type', component.props.children);
+    console.log('component.props.type', component);
+    this.setState({
+      componentName: componentName,
+    });
     this.props.dispatch(selectComponent(this.props.item.props.className));
   }
 
@@ -83,8 +97,8 @@ class Item extends Component {
       return connectDragSource(
         <div>
           <div
-            onTouchTap={this.handleOptionsToggle.bind(this)}
             onClick={this.handleSelectComponent.bind(this)}
+            onTouchTap={this.handleOptionsToggle.bind(this)}
             style={{
               opacity: isDragging ? 0.5 : 1,
               cursor: 'move',
@@ -104,7 +118,7 @@ class Item extends Component {
             >
               <ContentDelete />
             </FloatingActionButton>
-            <h4>Edit Component</h4>
+            <h5>Edit: {this.state.componentName}</h5>
             <RaisedButton
               type="button"
               id="deleteButton"

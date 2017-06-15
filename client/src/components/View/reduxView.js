@@ -90,7 +90,8 @@ class reduxView extends React.Component {
         var tree = new Tree(
           dragItems[componentName],
           rowObject,
-          isRow
+          isRow,
+          componentName
         );
         this.props.dispatch(updateTree(tree));
       } else if (uniqueID === 'head') {
@@ -98,7 +99,8 @@ class reduxView extends React.Component {
         tree = tree.pushToHead(
           dragItems[componentName],
           rowObject,
-          isRow
+          isRow,
+          componentName
         );
         this.props.dispatch(updateTree(tree));
       } else if (isUpdateRowObject) {
@@ -116,7 +118,8 @@ class reduxView extends React.Component {
           uniqueID,
           tree.traverseBF,
           rowObject,
-          isRow
+          isRow,
+          componentName
         );
         this.props.dispatch(updateTree(tree));
       }

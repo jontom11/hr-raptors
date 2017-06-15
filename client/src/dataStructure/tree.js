@@ -3,17 +3,18 @@ import Queue from './queue';
 import shortid from 'shortid';
 import _ from 'lodash';
 
-var Node = function(component, rowObject, isRow) {
+var Node = function(component, rowObject, isRow, componentName) {
   this.component = component;
   this.ID = shortid.generate();
   this.parentID = null;
   this.children = [];
   this.rowObject = rowObject;
   this.isRow = isRow;
+  this.componentName = componentName;
 };
 
-var Tree = function(component, rowObject, isRow) {
-  var node = new Node(component, rowObject, isRow);
+var Tree = function(component, rowObject, isRow, componentName) {
+  var node = new Node(component, rowObject, isRow, componentName);
   this._root = node;
 };
 
@@ -84,8 +85,8 @@ Tree.prototype.contains = function(callback, traversal) {
 /*=================
 ADD
  =================*/
-Tree.prototype.add = function(component, toID, traversal, rowObject, isRow) {
-  var child = new Node(component, rowObject, isRow),
+Tree.prototype.add = function(component, toID, traversal, rowObject, isRow, componentName) {
+  var child = new Node(component, rowObject, isRow, componentName),
     parent = null,
     callback = function(node) {
       if (node.ID === toID) {
@@ -126,8 +127,8 @@ Tree.prototype.updateRowObject = function(toID, traversal, rowObject) {
 /*=================
  PUSH TO HEAD
  =================*/
-Tree.prototype.pushToHead = function(component, rowObject, isRow) {
-  var newTree = new Tree(component, rowObject, isRow);
+Tree.prototype.pushToHead = function(component, rowObject, isRow, componentName) {
+  var newTree = new Tree(component, rowObject, isRow, componentName);
   this._root.parentID = newTree._root.ID;
   newTree._root.children.push(this._root);
   return newTree;

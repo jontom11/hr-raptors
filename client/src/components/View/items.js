@@ -10,7 +10,7 @@ let Items = (props) => {
 
   return (
     <div >
-        {itemCollection}
+      {itemCollection}
     </div>
   );
 };
