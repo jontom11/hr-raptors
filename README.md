@@ -1,12 +1,19 @@
-# Material-GUI
+# Material Studio
 
-The project description
-Quickly build an html webpage with drag and drop components. 
+Material Studio is a web app intended for beginner web designers to quickly build 
+a simple website. Our drag and drop components are Materialize Design based - a unified 
+user experience created by Google to simplify HTML and CSS web design. 
+
+Users can easily create a site and see not only a dynamically rendered visual representation 
+of their work-in-progress, but also their code base being built in real-time. Users can 
+rapidly build a clean, professional, and simple site. Users can save their project on the 
+cloud for future use, or locally to an HTML file for viewing in a browser or sharing with others. 
+Users can also resume previously saved projects.
 
 ## Team
 
 - Jonathan Tom  
-- Alexi Taylo   
+- Alexi Taylor   
 - Brandon Brown
 - Colby Duhon
 
