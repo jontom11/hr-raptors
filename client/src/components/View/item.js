@@ -32,7 +32,6 @@ const collect = function(connect, monitor) {
 
 const componentSource = {
   beginDrag(props) {
-    console.log(props);
     return {component:props.item};
   }
 };
@@ -79,7 +78,6 @@ class Item extends Component {
     this.setState({
       inputText: event.target.value,
     });
-    console.log(event.target.value);
   }
 
   handleEnter(event) {
@@ -92,6 +90,13 @@ class Item extends Component {
       this.props.tree.updateComponent(uniqueID, this.props.tree.traverseDF, null, inputText, componentName);
       this.props.dispatch(updateTree(this.props.tree));
       this.props.dispatch(showOptions(!this.props.toggleOptions));
+
+      this.setState({
+        componentName: null,
+        input: null,
+        inputText: null,
+        uniqueID: null,
+      });
     }
   }
 

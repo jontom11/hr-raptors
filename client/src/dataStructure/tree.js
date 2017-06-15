@@ -2,6 +2,7 @@ import React from 'react';
 import Queue from './queue';
 import shortid from 'shortid';
 import _ from 'lodash';
+import dragItems from '../dragItems';
 
 var Node = function(component, rowObject, isRow, componentName, inputText) {
   this.component = component;
@@ -19,6 +20,12 @@ var Tree = function(component, rowObject, isRow, componentName, inputText) {
   if (inputText) {
     component = this.changeElementText(inputText, componentName);
   }
+
+  _.forEach(rowObject.linkedList, (col, key) => {
+    if (_.startsWith(key, 'col')) {
+      col.component = dragItems[col.linkedComponentName];
+    }
+  });
 
   var node = new Node(component, rowObject, isRow, componentName, inputText);
   this._root = node;

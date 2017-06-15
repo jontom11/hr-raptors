@@ -18,13 +18,14 @@ exports.addToTail = (linkedList, component, key, head, tail) => {
   return {linkedList, head, tail, key};
 };
 
-exports.replaceNode = (rowObject, component, key, head, tail, newKey) => {
+exports.replaceNode = (rowObject, component, key, head, tail, newKey, linkedComponentName) => {
   var oldLinkedListNode = rowObject.linkedList[key];
   rowObject.linkedList[newKey] = {
     component: component,
     key: newKey,
     next: oldLinkedListNode.next,
     prev: oldLinkedListNode.prev,
+    linkedComponentName: linkedComponentName
   };
 
   // Change next node's prev value

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux"
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import _ from 'lodash';
 import Tree from '../../dataStructure/tree.js'
@@ -17,12 +17,13 @@ import axios from 'axios';
     userData: store.user.user,
   };
 })
-
 class ProjectView extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { projectData: [], re_render: false }
+    this.state = {
+      projectData: [],
+    };
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -37,8 +38,10 @@ class ProjectView extends React.Component {
     var inputText = tempTree['_root'].inputText;
     var rootComponentName = tempTree['_root'].componentName;
     var oldRootChildren = tempTree['_root'].children;
-    var rowObject =  { linkedList: {}, head: null, tail: null, renderLinkedList: [] };
-    var newRootTree = new Tree(rootComponent, rowObject, false, rootComponentName, inputText);
+    var isRow = tempTree['_root'].isRow;
+    var rowObject =  tempTree['_root'].rowObject;
+
+    var newRootTree = new Tree(rootComponent, rowObject, isRow, rootComponentName, inputText);
     newRootTree['_root'].children = oldRootChildren;
 
     if (newRootTree['_root'].children.length > 0) {
@@ -46,7 +49,17 @@ class ProjectView extends React.Component {
     }
 
     newRootTree.traverseDF((node) => {
+
       newRootTree.updateComponent(node.ID, newRootTree.traverseDF, dragItems[node.componentName], node.inputText, node.componentName);
+
+      var rowObject = node.rowObject;
+
+      _.forEach(rowObject.linkedList, (col, key) => {
+        if (_.startsWith(key, 'col')) {
+          col.component = dragItems[col.linkedComponentName];
+        }
+      });
+
     });
     return newRootTree;
   }
