@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Drawer from 'material-ui/Drawer';
 import RaisedButton from 'material-ui/RaisedButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentDelete from 'material-ui/svg-icons/content/clear';
 
 import{ selectComponent } from '../../actions/componentActions';
 import{ showOptions } from '../../actions/codeActions';
@@ -14,6 +16,9 @@ import{ notShowingOptions } from '../../actions/codeActions';
 const styles = {
   drawer: {
     padding: '3.5vh',
+  },
+  button: {
+    marginRight: 20,
   },
 };
 
@@ -37,7 +42,7 @@ const componentSource = {
     components: store.code.components,
     componentsLinkedList: store.code.componentsLinkedList,
     tree: store.code.tree,
-    options: store.code.options
+    toggleOptions: store.code.toggleOptions,
   };
 })
 class Item extends Component {
@@ -47,20 +52,7 @@ class Item extends Component {
   }
 
   handleRemove() {
-    const uniqueID = this.props.component.component;
-    if (Object.keys(this.props.tree).length > 0) {
-      var treeObject = this.props.tree.traverseRendering();
-    }
     var component;
-    var result = this.props.tree.contains(function(currentNode){
-      if (uniqueID === currentNode.ID) {
-        console.log('I FOUND THE ID YAAAAAY', currentNode.component)
-        component = currentNode.component;
-        return currentNode.component;
-      }
-    }, this.props.tree.traverseDF);
-    console.log('result', component);
-    console.log('I AM HEREEEEEE', uniqueID);
     this.props.tree.remove(
       component,
       this.props.component.component,
@@ -71,43 +63,51 @@ class Item extends Component {
 
 
   handleSelect() {
-    this.props.dispatch(showOptions(!this.props.options));
+    // this.props.dispatch(showOptions(!this.props.toggleOptions));
+    this.props.dispatch(selectComponent(this.props.item.props.className));
+  }
+
+  handleOptionsToggle() {
+    this.props.dispatch(showOptions(!this.props.toggleOptions));
+  }
+
+  handleSelectComponent() {
     this.props.dispatch(selectComponent(this.props.item.props.className));
   }
 
   render() {
 
     console.log('OPTIONS SHOWING' + this.props.options)
-    const { connectDragSource, isDragging, component } = this.props;
+    const { connectDragSource, isDragging, toggleOptions } = this.props;
 
-    if(!this.props.options){
       return connectDragSource(
-        <div onClick={this.handleSelect.bind(this)}  style={{
-
-          opacity: isDragging ? 0.5 : 1,
-          cursor: 'move',
-        }}>
+        <div>
+        <div
+          onTouchTap={this.handleOptionsToggle.bind(this)}
+          onClick={this.handleSelectComponent.bind(this)}
+          style={{
+            opacity: isDragging ? 0.5 : 1,
+            cursor: 'move',
+          }}
+        >
           {this.props.item}
         </div>
-      )}
-    else {
-      return connectDragSource(
-        <div onClick={this.handleSelect.bind(this)}  style={{
-
-          opacity: isDragging ? 0.5 : 1,
-          cursor: 'move',
-        }}>
-          {this.props.item}
-          <Drawer id="DRAWER" containerStyle={styles.drawer}>
+          <Drawer
+            id="DRAWER"
+            open={toggleOptions}
+            containerStyle={styles.drawer}
+          >
+            <FloatingActionButton style={styles.button} onClick={this.handleOptionsToggle.bind(this)} mini={true}>
+              <ContentDelete />
+            </FloatingActionButton>
             <h4>Edit Component</h4>
             <RaisedButton
               type='button'
               id='deleteButton'
-              onClick={this.handleRemove.bind(this)}
               label="Delete Me" />
           </Drawer>
         </div>);
-    }
+
   }
 }
 Item.propTypes = {
