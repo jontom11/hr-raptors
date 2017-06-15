@@ -12,7 +12,6 @@ const Pgb = require('pg-bluebird');
 var pgb = new Pgb();
 var connects;
 
-
 // create table below. 
 pgb.connect(connectionString)
   .then(function(connection) {
