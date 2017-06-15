@@ -8,7 +8,6 @@ import dragItems from '../../dragItems';
 import { updateTree, loadProjects } from '../../actions/codeActions';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import axios from 'axios';
-import linkers from '../../dataStructure/linkedList';
 
 @connect((store) => {
   return {
