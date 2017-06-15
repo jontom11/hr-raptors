@@ -2,6 +2,7 @@ import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 class SaveProjectDialog extends React.Component {
   constructor(props) {
