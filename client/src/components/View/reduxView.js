@@ -80,7 +80,7 @@ class reduxView extends React.Component {
         rowObject.tail,
         newKey,
         componentName
-      )
+      );
 
       isUpdateRowObject = true;
 
@@ -139,7 +139,6 @@ class reduxView extends React.Component {
      Render Linked List Rows are unique dropped component with defined number of cols.
       */
     var renderLinkedListObject = {};
-    var objectCount = 0;
 
     if (Object.keys(this.props.tree).length > 0) {
       var treeObject = Object.assign({}, tree.traverseRendering());
@@ -179,7 +178,6 @@ class reduxView extends React.Component {
         }
       }
       renderLinkedListObject[node.ID] = renderLinkedListRow;
-      objectCount += 1;
       treeArray.push(node);
 
     });
