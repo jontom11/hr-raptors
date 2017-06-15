@@ -9,7 +9,6 @@ import { updateTree } from '../../actions/codeActions';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 
-
 @connect((store) => {
   return {
     projects: store.code.projects,
@@ -25,43 +24,19 @@ class ProjectView extends React.Component {
     this.state = { projectData: [] }
     this.handleClick = this.handleClick.bind(this);
   }
-
-
-
+  
   componentWillReceiveProps(nextProps) {
-    console.log('@@@ inside componentWillReceiveProps')
-    console.log('this.props.projectData: ', this.props.projectData);
-    console.log('nextprops projectdata: ', nextProps.projectData)
-    console.log('STATE!!', this.state.projectData);
-
     if(nextProps.projectData !== this.props.projectData) {
-      console.log('@@@ inside IF nextProps.projectData !== this.props.projectData');
-      this.setState({projectData: nextProps.projectData }, ()=> {
-        console.log('STATE!!', this.state.projectData);
-        var PD = this.state.projectData;
-        PD.forEach((proj,idx) => {
-          console.log(`project #${idx+1}: `, proj);
-          console.log('project code: ', proj.object);
-        });
-      });
+      this.setState({projectData: nextProps.projectData });
     }
   }
 
-  addPrototypesToTree(tempTree) {
-    console.log('I AM ROOOOOOOOOOOOOOOOOT: ', tempTree['_root']);
-
+  createNewTree(tempTree) {
     var rootComponent = tempTree['_root'].component;
     var rootComponentName = tempTree['_root'].componentName;
-    var rowObject =  {
-      linkedList: {},
-      head: null,
-      tail: null,
-      renderLinkedList: [],
-    };
-
     var oldRootChildren = tempTree['_root'].children;
+    var rowObject =  { linkedList: {}, head: null, tail: null, renderLinkedList: [] };
 
-    // function Node(component, rowObject, isRow, compName)
     var newRootTree = new Tree(rootComponent, rowObject, false, rootComponentName );
     newRootTree['_root'].children = oldRootChildren;
 
@@ -73,14 +48,12 @@ class ProjectView extends React.Component {
       node.component = dragItems[node.componentName];
     });
 
-    console.log('NEW ROOT TREE: ', newRootTree);
-
     return newRootTree;
   }
 
   handleClick(treeString) {
     var treeObject = JSON.parse(treeString);
-    var selectedTree = this.addPrototypesToTree(treeObject);
+    var selectedTree = this.createNewTree(treeObject);
     this.props.dispatch(updateTree(selectedTree));
   }
 
@@ -114,6 +87,3 @@ class ProjectView extends React.Component {
 }
 
 export default ProjectView;
-
-// const treeMap = _.map(treeArray, (node, index) => (
-
