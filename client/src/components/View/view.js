@@ -35,10 +35,6 @@ class View extends React.Component {
     this.props.dispatch(fetchUser());
   }
 
-  clearCodeClick() {
-    this.props.dispatch(clearCode());
-  }
-
   handleDroppedComponent(droppedInItem, ID, rowObject) {
     var newCount = this.state.counter + 1;
     this.setState({
