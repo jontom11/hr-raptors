@@ -1,13 +1,17 @@
 import React from 'react';
-import ComponentView from '../components/view/componentView';
 
 export default function reducer(state = {
-  code: [],
-  view: [],
-  index: 0,
+  code: {},
   fetching: false,
   fetched: false,
   error: null,
+  tree: {},
+  saving: false,
+  saved: false,
+  loading: false,
+  loaded: false,
+  toggleOptions: false,
+  projects: [],
 }, action) {
 
   switch (action.type) {
@@ -20,25 +24,33 @@ export default function reducer(state = {
   case 'FETCH_CODE_FULFILLED': {
     return Object.assign({}, state, {fetching: false, fetched: true, code: action.payload});
   }
-  case 'ADD_CODE': {
-    return Object.assign({}, state, {code: state.code.concat(action.payload)});
-  }
   case 'CLEAR_CODE': {
-    return Object.assign({}, state, {code: [] });
+    return Object.assign({}, state, {componentsLinkedList: {} });
   }
-  case 'FETCH_DEFAULT_VIEW': {
-    return Object.assign({}, state, {view: state.view.concat(action.payload.view)});
+  case 'UPDATE_TREE': {
+    return Object.assign({}, state, { tree: action.payload.tree });
   }
-  case 'FETCH_VIEW': {
-    return Object.assign({}, state, {fetchingView: true});
+  case 'SAVE_PROJECT': {
+    return Object.assign({}, state, {saving: true});
   }
-  case 'CHANGE_DROP_COMPONENT': {
-    return Object.assign({}, state, {view: action.payload.view});
+  case 'SAVE_PROJECT_REJECTED': {
+    return Object.assign({}, state, {saving: false, error: action.payload});
   }
-  case 'INCREMENT_INDEX': {
-    return Object.assign({}, state, {index: action.payload.index});
+  case 'SAVE_PROJECT_FULFILLED': {
+    return Object.assign({}, state, {saving: false, saved: true});
   }
+  case 'LOAD_PROJECTS': {
+    return Object.assign({}, state, {loading: true});
   }
-
+  case 'LOAD_PROJECTS_REJECTED': {
+    return Object.assign({}, state, {loading: false, error: action.payload});
+  }
+  case 'LOAD_PROJECTS_FULFILLED': {
+    return Object.assign({}, state, {loading: false, loaded: true, projects: action.payload });
+  }
+  case 'SHOW_OPTIONS': {
+    return Object.assign({}, state, {toggleOptions: action.payload});
+  }
+}
   return state;
 }

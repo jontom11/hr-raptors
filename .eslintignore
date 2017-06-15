@@ -1,5 +1,10 @@
 public/dist/*
 server/views/*
 client/src/components/View/reduxView.js
-client/src/components/View/view.js
 client/src/components/Code/code.js
+client/src/components/View/view.js
+client/src/reducers/codeReducer.js
+client/src/components/Nav/nav.js
+client/src/components/Nav/optionBarContent.js
+client/src/components/View/item.js
+client/src/components/Projects/projectView.js

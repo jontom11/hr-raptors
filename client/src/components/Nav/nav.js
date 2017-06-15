@@ -1,8 +1,19 @@
 import React from 'react';
 import Navbar from 'react-sidebar';
-
+import download from 'downloadjs';
+import { connect } from "react-redux"
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 import NavTitlePanel from './navTitlePanel';
 import SidebarContent from './sidebarContent';
+import View from '../View/view';
+import Code from '../Code/code';
+import Projects from '../Projects/projectView';
+import { saveProject } from "../../actions/codeActions"
+import { loadProjects } from "../../actions/codeActions"
+
 
 const styles = {
   contentHeaderMenuLink: {
@@ -13,7 +24,20 @@ const styles = {
   content: {
     padding: '2.5vh',
   },
-};
+  center: {
+    margin: 'auto',
+    width: '50%',
+    padding: '10px',
+  }
+}
+
+@connect((store) => {
+  return {
+    tree: store.code.tree,
+    userData: store.user.user,
+    options: store.code.options
+  };
+})
 
 class Nav extends React.Component {
   constructor(props) {
@@ -28,9 +52,12 @@ class Nav extends React.Component {
       pullRight: false,
       touchHandleWidth: 20,
       dragToggleDistance: 30,
+      open: false,
+      errorText: "This field is required (minimum 3 char)",
+      projectName: "",
+      errorTextDescription: "This field is required (minimum 20 char)",
+      projectDescription: "",
     };
-
-    this.menuButtonClick = this.menuButtonClick.bind(this);
   }
 
   menuButtonClick(ev) {
@@ -40,16 +67,115 @@ class Nav extends React.Component {
     });
   }
 
+  handleOpen() {
+    this.setState({open: true});
+  };
+
+  handleCancel() {
+    this.setState({
+      open: false,
+      projectName: "",
+      projectDescription: ""
+    });
+  };
+
+  handleSubmit() {
+    this.props.tree.traverseDF(function(node) {
+      console.log('nooooooddeeee', node.rowObject);
+      node.rowObject.renderLinkedList = {};
+    });
+    this.props.dispatch(saveProject(this.props.tree, this.props.userData, this.state.projectName, this.state.projectDescription));
+    this.setState({
+      open: false,
+      projectName: "",
+      projectDescription: "",
+    });
+  };
+
+  handleChange(event) {
+    if (event.target.value.length > 2) {
+      this.setState({errorText: ""});
+    } else {
+      this.setState({errorText: "This field is required (minimum 3 char)"});
+    }
+    this.setState({
+      projectName: event.target.value,
+    })
+  }
+
+  handleChangeDescription(event) {
+    if (event.target.value.length > 19) {
+      this.setState({errorTextDescription: ""});
+    } else {
+      this.setState({errorTextDescription: "This field is required (minimum 20 char)"});
+    }
+    this.setState({
+      projectDescription: event.target.value,
+    })
+  }
+
+  loadButtonClick() {
+    this.props.dispatch(loadProjects(this.props.userData.name));
+  }
+  
+
   render() {
     const sidebar = <SidebarContent />;
+
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleCancel.bind(this)}
+      />,
+      <Link to="/code"><FlatButton
+        label="Submit"
+        primary={true}
+        onTouchTap={this.handleSubmit.bind(this)}
+      /></Link>,
+    ];
 
     const contentHeader = (
       <div className="nav-wrapper">
         <div className="left">
-        {!this.state.docked ?
-        <a onClick={this.menuButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-bars" aria-hidden="true" /></a> :
-          <a onClick={this.menuButtonClick} style={styles.contentHeaderMenuLink}><i className="fa fa-times" aria-hidden="true" /></a>}
-        <a onClick={this.props.toggleView} style={styles.contentHeaderMenuLink}><i className="fa fa-code" aria-hidden="true" /></a>
+          {!this.state.docked ?
+            <a onClick={this.menuButtonClick.bind(this)} style={styles.contentHeaderMenuLink}><i className="fa fa-bars" aria-hidden="true" /></a> :
+            <a onClick={this.menuButtonClick.bind(this)} style={styles.contentHeaderMenuLink}><i className="fa fa-times" aria-hidden="true" /></a>}
+          <Link to="/"><a style={styles.contentHeaderMenuLink}><i className="fa fa-desktop" aria-hidden="true" /></a></Link>
+          <Link to="/code"><a style={styles.contentHeaderMenuLink}><i className="fa fa-code" aria-hidden="true" /></a></Link>
+          <a onTouchTap={this.handleOpen.bind(this)} style={styles.contentHeaderMenuLink}><i className="fa fa-download" aria-hidden="true" /></a>
+          <Dialog
+            title="Save Project"
+            actions={actions}
+            modal={true}
+            open={this.state.open}
+          >
+            <div className="center">
+            <ul>
+              <li>{this.state.projectName}</li>
+              <li>{this.state.projectDescription}</li>
+              <li>
+                <TextField
+                hintText="Project Name"
+                errorText={this.state.errorText}
+                floatingLabelText="Project Name"
+                onChange={this.handleChange.bind(this)}
+                />
+              </li>
+              <li>
+                <TextField
+                hintText="Project Description"
+                errorText={this.state.errorTextDescription}
+                floatingLabelText="Project Description"
+                onChange={this.handleChangeDescription.bind(this)}
+                multiLine={true}
+                />
+              </li>
+            </ul>
+            </div>
+          </Dialog>
+          <Link to="/projects"><a onClick={this.loadButtonClick.bind(this)} style={styles.contentHeaderMenuLink}><i className="fa fa-user" aria-hidden="true"/></a></Link>
+          <a href={"/login"} style={styles.contentHeaderMenuLink}><i className="fa fa-sign-out" aria-hidden="true" /></a>
         </div>
       </div>);
 
@@ -67,16 +193,32 @@ class Nav extends React.Component {
         sidebar: Object.assign({}, styles.sidebar, {position: 'fixed'})
       },
     };
-
-    return (
-
-      <Navbar {...sidebarProps} className="navZ">
-        <NavTitlePanel title={contentHeader} />
-        <div style={styles.content}>
-          {this.props.view}
-        </div>
-      </Navbar>
-    );
+    {if (this.props.options){
+      return (
+        <Router>
+          <Navbar {...sidebarProps}>
+            <NavTitlePanel title={contentHeader} />
+            <div style={styles.content}>
+              <Route exact path="/" component={View}/>
+              <Route path="/code" component={Code}/>
+            </div>
+            </Navbar>
+        </Router>
+      );
+    } else {
+      return(
+        <Router>
+          <Navbar {...sidebarProps}>
+            <NavTitlePanel title={contentHeader} />
+            <div style={styles.content}>
+              <Route exact path="/" component={View}/>
+              <Route path="/code" component={Code}/>
+              <Route path="/projects" component={Projects}/>
+            </div>
+          </Navbar>
+        </Router>
+      );}
+    }
   }
 }
 

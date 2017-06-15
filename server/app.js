@@ -9,7 +9,12 @@ const app = express();
 app.use(middleware.morgan('dev'));
 app.use(middleware.cookieParser());
 app.use(middleware.bodyParser.urlencoded({extended: false}));
-app.use(middleware.bodyParser.json());
+//app.use(middleware.bodyParser.json())
+
+// added properties to bodyParser for passing tree object
+app.use(middleware.bodyParser.json({limit: '5mb'}));
+app.use(middleware.bodyParser.urlencoded({limit: '5mb'}));
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -40,5 +45,6 @@ app.use(function(req, res, next) {
 app.use('/', routes.auth);
 app.use('/api', routes.api);
 app.use('/api/profiles', routes.profiles);
+app.use('/postgres', routes.postgres);
 
 module.exports = app;

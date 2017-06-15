@@ -1,63 +1,67 @@
-import React from 'react';
-import { connect } from 'react-redux';
 
-import { fetchDefaultView, changeDropComponent, incrementIndex } from "../../actions/codeActions"
+import React from 'react';
+import { connect } from "react-redux"
+import { fetchUser } from "../../actions/userActions"
+import { clearCode } from "../../actions/codeActions"
 
 import ReduxView from './reduxView';
-import ComponentView from './componentView';
-import componentData from '../dragItems';
+import DropTarget from './dropTarget';
 
 @connect((store) => {
   return {
-    view: store.code.view,
-    index: store.code.index,
+    user: store.user.user,
+    userFetched: store.user.fetched,
+    tree: store.code.tree,
   };
 })
 class View extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      viewDefault:
-        {
-          code: null,
-          componentView: (
-            <div className="col s12">
-              <ComponentView handleDroppedComponent={this.handleDroppedComponent.bind(this)} />
-            </div>),
-          isDropped: false,
-        },
+      componentName: null,
+      ID: null,
+      counter: 0,
+      dropTarget: (
+        <div className="col s12">
+          <DropTarget handleDroppedComponent={this.handleDroppedComponent.bind(this)} />
+        </div>),
+      showingOptionsView: false,
+      rowObject: {},
     };
+    this.handleDroppedComponent = this.handleDroppedComponent.bind(this);
   }
 
-  componentDidMount() {
-    if (this.props.view.length === 0) {
-      this.props.dispatch(fetchDefaultView(this.state.viewDefault));
-    }
+  componentWillMount() {
+    this.props.dispatch(fetchUser());
   }
 
-  handleDroppedComponent(componentKey) {
-    var key = componentKey.component;
-    this.props.view[this.props.index] = Object.assign({}, this.props.view[this.props.index], {isDropped: true, code: componentData[key]});
-    this.props.view[this.props.index + 1] = this.state.viewDefault;
-    this.props.dispatch(changeDropComponent(this.props.view));
-    this.props.dispatch(incrementIndex(this.props.index + 1));
+  handleDroppedComponent(droppedInItem, ID, rowObject) {
+    var newCount = this.state.counter + 1;
+    this.setState({
+      componentName: droppedInItem,
+      counter: newCount,
+      ID: ID,
+      rowObject: rowObject,
+    });
   }
 
   render() {
-    const { view } = this.props;
+    const { tree } = this.props;
 
     return (
       <article className="center-content">
-        <h1>{this.props.index}</h1>
-        {view.map((item, index) =>
-          <div className="row" key={index}>
-            {!item.isDropped ?
-              item.componentView :
-              item.code
-            }
-          </div>
-        )}
-        <ReduxView />
+          <DropTarget
+            handleDrop={this.handleDroppedComponent.bind(this)}
+            oldTree={tree}
+            dispatch={this.props.dispatch}
+            toID="head"
+
+          />
+        <ReduxView
+          componentState={this.state}
+          handleDrop={this.handleDroppedComponent.bind(this)}
+        />
+
       </article>
     );
   }

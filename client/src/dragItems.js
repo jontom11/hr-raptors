@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React from "react";
 module.exports = {
   button: <a className="waves-effect waves-light btn-large">Button</a>,
   footer:
@@ -87,48 +86,11 @@ module.exports = {
       </form>
     </div>,
   icon: <i className="material-icons">add</i>,
-  container:
-    <div className="container">
-    </div>,
-  rowCol1:
-    <div className="row">
-      <div className="col s12">
-          1
-      </div>
-    </div>,
-  rowCol2:
-    <div className="row">
-      <div className="col s6">1</div>
-      <div className="col s6">2</div>
-    </div>,
-  rowCol3:
-    <div className="row">
-      <div className="col s4">1</div>
-      <div className="col s4">2</div>
-      <div className="col s4">3</div>
-    </div>,
-  rowCol4:
-    <div className="row">
-      <div className="col s3">1</div>
-      <div className="col s3">2</div>
-      <div className="col s3">3</div>
-      <div className="col s3">4</div>
-    </div>,
-  rowCol12:
-    <div className="row">
-      <div className="col s1">1</div>
-      <div className="col s1">2</div>
-      <div className="col s1">3</div>
-      <div className="col s1">4</div>
-      <div className="col s1">5</div>
-      <div className="col s1">6</div>
-      <div className="col s1">7</div>
-      <div className="col s1">8</div>
-      <div className="col s1">9</div>
-      <div className="col s1">10</div>
-      <div className="col s1">11</div>
-      <div className="col s1">12</div>
-    </div>,
+  rowCol2: 'col2',
+  rowCol3: 'col3',
+  rowCol4: 'col4',
+  rowCol6: 'col6',
+  rowCol12: 'col12',
   navbar:
     <nav>
       <div className="nav-wrapper">
@@ -169,15 +131,15 @@ module.exports = {
     </table>,
   image:
     <div>
-      <img className="responsive-img" src="cool_pic.jpg" />
+      <img className="responsive-img" src="http://i.dailymail.co.uk/i/pix/2015/09/10/20/2C24A6ED00000578-0-image-m-56_1441912374479.jpg" />
     </div>,
   embeddedVideo:
     <div className="video-container">
-      <iframe width="853" height="480" src="//www.youtube.com/embed/Q8TXgCzxEnw?rel=0" frameborder="0" allowfullscreen></iframe>
+      <iframe width="453" height="280" src="//www.youtube.com/embed/Q8TXgCzxEnw?rel=0" frameBorder="0" allowfullscreen></iframe>
     </div>,
   responsiveVideo:
     <video className="responsive-video" controls>
-      <source src="movie.mp4" type="video/mp4" />
+      <source src="./assets/bigbuckbunny.mp4" type="video/mp4" />
     </video>,
   h1:
     <h1>Header 1</h1>,
@@ -201,9 +163,7 @@ module.exports = {
     <p>This is a paragraph.</p>,
   blockquote:
     <blockquote>“Far out in the uncharted backwaters of the unfashionable end of the western spiral arm of the
-                Galaxy lies a small unregarded yellow sun. Orbiting this at a distance of roughly ninety-two million
-                miles is an utterly insignificant little blue green planet whose ape-descended life forms are so
-                amazingly primitive that they still think digital watches are a pretty neat idea.”</blockquote>,
+      Galaxy lies a small unregarded yellow sun. Orbiting this at a distance of roughly ninety-two million
+      miles is an utterly insignificant little blue green planet whose ape-descended life forms are so
+      amazingly primitive that they still think digital watches are a pretty neat idea.”</blockquote>,
 };
-
-

@@ -16,7 +16,6 @@ let storeOptions = process.env.REDIS_URL ?
   port: 6379
 };
 
-
 module.exports.session = session({
   store: new RedisStore(storeOptions),
   secret: 'more laughter, more love, more life',

@@ -47,7 +47,6 @@ passport.use('local-signup', new LocalStrategy({
         if (profile.related('auths').at(0)) {
           throw profile;
         }
-
         return profile;
       })
       .tap(profile => {
