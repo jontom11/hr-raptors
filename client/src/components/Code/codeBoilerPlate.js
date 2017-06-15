@@ -4,7 +4,7 @@ let beautify_html = require("js-beautify").html;
 
 const CodeBoilerPlate = (props) => {
   return (
-  <code>
+  <code id="boilerPlate">
     <div className="code-box">
       {beautify_html(ReactDOMServer.renderToStaticMarkup(
         <html lang="en">
