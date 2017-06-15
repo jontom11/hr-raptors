@@ -246,7 +246,7 @@ Tree.prototype.remove = function(component, nodeID, traversal) {
     index,
     currentNode = null,
     savedChildren = null;
-    // Get current Node
+     // Get current Node
   var callback = function(node) {
     if (node.ID === nodeID) {
       currentNode = node;
@@ -269,7 +269,7 @@ Tree.prototype.remove = function(component, nodeID, traversal) {
   }
 
   // Change the children's parentID to their new parent
-  if (savedChildren && parent) {
+  if (savedChildren) {
     savedChildren.forEach((node) => {
       node.parentID = parent.ID;
     });
