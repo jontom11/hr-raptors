@@ -40,7 +40,7 @@ const SidebarContent = (props) => {
 
   return (
     <div>
-    <MaterialTitlePanel title="Material UI" style={style} />
+    <MaterialTitlePanel title="Material Studio" style={style} />
       <div style={styles.content}>
         <h3 href="#" style={styles.sidebarLink}>Components</h3>
         <div style={styles.divider} />
