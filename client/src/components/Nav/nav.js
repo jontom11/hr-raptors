@@ -1,25 +1,19 @@
-
 import React from 'react';
 import Navbar from 'react-sidebar';
-import NavTitlePanel from './navTitlePanel';
-import SidebarContent from './sidebarContent';
-import OptionBarContent from './optionBarContent';
 import download from 'downloadjs';
-import { saveProject } from "../../actions/codeActions"
-import { loadProjects } from "../../actions/codeActions"
 import { connect } from "react-redux"
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import CodeBoilerPlate from '../Code/codeBoilerPlate' // Added for saving Capability
-import Drawer from 'material-ui/Drawer';
 
-
+import NavTitlePanel from './navTitlePanel';
+import SidebarContent from './sidebarContent';
 import View from '../View/view';
 import Code from '../Code/code';
 import Projects from '../Projects/projectView';
+import { saveProject } from "../../actions/codeActions"
+import { loadProjects } from "../../actions/codeActions"
 
 
 const styles = {

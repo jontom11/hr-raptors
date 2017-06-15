@@ -51,7 +51,7 @@ class View extends React.Component {
 
   render() {
     const { tree } = this.props;
-		
+
     return (
       <article className="center-content">
           <DropTarget
@@ -64,8 +64,6 @@ class View extends React.Component {
         <ReduxView
           componentState={this.state}
           handleDrop={this.handleDroppedComponent.bind(this)}
-          toggleoptionview={this.props.toggleoptionview}
-
         />
 
       </article>

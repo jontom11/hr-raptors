@@ -20,6 +20,7 @@ const styles = {
     tree: store.code.tree,
     item: store.code.item,
     currentRowObject: store.code.currentRowObject,
+    toggleOptions: store.code.toggleOptions,
   };
 })
 class reduxView extends React.Component {
@@ -89,7 +90,8 @@ class reduxView extends React.Component {
         var tree = new Tree(
           dragItems[componentName],
           rowObject,
-          isRow
+          isRow,
+          componentName
         );
         this.props.dispatch(updateTree(tree));
       } else if (uniqueID === 'head') {
@@ -97,7 +99,8 @@ class reduxView extends React.Component {
         tree = tree.pushToHead(
           dragItems[componentName],
           rowObject,
-          isRow
+          isRow,
+          componentName
         );
         this.props.dispatch(updateTree(tree));
       } else if (isUpdateRowObject) {
@@ -115,7 +118,8 @@ class reduxView extends React.Component {
           uniqueID,
           tree.traverseBF,
           rowObject,
-          isRow
+          isRow,
+          componentName
         );
         this.props.dispatch(updateTree(tree));
       }
@@ -124,7 +128,7 @@ class reduxView extends React.Component {
   }
 
   render() {
-    const { tree } = this.props;
+    const { tree, toggleOptions } = this.props;
 
     var treeArray = [];
     var colObject = {1: 12, 2: 6, 3: 4, 4: 3, 6: 2, 12: 1};
@@ -200,7 +204,7 @@ class reduxView extends React.Component {
 
     return (
       <div style={styles.bottomUp}>
-        <Items items={treeMap} toggleoptionview={this.props.toggleoptionview} />
+        <Items items={treeMap} />
       </div>
     );
   }

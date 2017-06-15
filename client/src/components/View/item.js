@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
-import { ItemTypes } from '../View/constants.js';
 import { DragSource } from 'react-dnd';
-import{ selectComponent } from '../../actions/componentActions';
-import{ showOptions } from '../../actions/codeActions';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import{ deleteComponent } from '../../actions/componentActions';
-import{ notShowingOptions } from '../../actions/codeActions';
-import DropTarget from './dropTarget.js';
 import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
-import _ from 'lodash';
-import Tree from '../../dataStructure/tree';
+import RaisedButton from 'material-ui/RaisedButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentDelete from 'material-ui/svg-icons/content/clear';
+
+import{ selectComponent } from '../../actions/componentActions';
+import{ showOptions, updateTree } from '../../actions/codeActions';
+import { ItemTypes } from '../View/constants.js';
+import{ notShowingOptions } from '../../actions/codeActions';
 
 
-
-
-
+const styles = {
+  drawer: {
+    padding: '3.5vh',
+  },
+  button: {
+    marginRight: 20,
+  },
+};
 
 const collect = function(connect, monitor) {
   return {
@@ -38,72 +42,92 @@ const componentSource = {
     components: store.code.components,
     componentsLinkedList: store.code.componentsLinkedList,
     tree: store.code.tree,
-    options: store.code.options
+    toggleOptions: store.code.toggleOptions,
   };
 })
 class Item extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      update: false,
+      componentName: null,
+    };
   }
 
   handleRemove() {
-    const uniqueID = this.props.component.component;
-    if (Object.keys(this.props.tree).length > 0) {
-      var treeObject = this.props.tree.traverseRendering();
-    }
     var component;
-    var result = this.props.tree.contains(function(currentNode){
-      if (uniqueID === currentNode.ID) {
-        console.log('I FOUND THE ID YAAAAAY', currentNode.component)
-        component = currentNode.component;
-        return currentNode.component;
-      }
-    }, this.props.tree.traverseDF);
-    console.log('result', component);
-    console.log('I AM HEREEEEEE', uniqueID);
     this.props.tree.remove(
       component,
       this.props.component.component,
       this.props.tree.traverseBF
     );
-    this.props.dispatch(notShowingOptions())
+    this.props.dispatch(showOptions(!this.props.toggleOptions));
+    this.props.dispatch(updateTree(this.props.tree));
+
+    // this.props.dispatch(notShowingOptions())
   }
 
+  handleOptionsToggle() {
+    this.props.dispatch(showOptions(!this.props.toggleOptions));
+  }
 
-  handleSelect(){
-    console.log('thiiiiiiiiisssssssss', this.props.item.props.className);
-    this.props.dispatch(showOptions(!this.props.options));
+  handleSelectComponent() {
+    var component;
+    var componentName;
+    var className = this.props.item.props.className;
+    console.log('===========================', className);
+    this.props.tree.traverseDF(function(node){
+      if (node.ID === className) {
+        component = node.component;
+        componentName = node.componentName;
+      }
+    });
+    console.log('component.props.type', component.props.children);
+    console.log('component.props.type', component);
+    this.setState({
+      componentName: componentName,
+    });
     this.props.dispatch(selectComponent(this.props.item.props.className));
   }
 
   render() {
-    console.log('OPTIONS SHOWING' + this.props.options)
-    const { connectDragSource, isDragging, component } = this.props;
-    if(!this.props.options){
-      return connectDragSource(
-        <div onClick={this.handleSelect.bind(this)}  style={{
 
-          opacity: isDragging ? 0.5 : 1,
-          cursor: 'move',
-        }}>
-          {this.props.item}
-        </div>
-      )}
-    else {
-      return connectDragSource(
-        <div onClick={this.handleSelect.bind(this)}  style={{
+    const { connectDragSource, isDragging, toggleOptions } = this.props;
 
-          opacity: isDragging ? 0.5 : 1,
-          cursor: 'move',
-        }}>
-          {this.props.item}
-          <Drawer open={this.props.options}>
-            <h3>Text of Component</h3>
-            <button type='button' id='deleteButton'onClick={this.handleRemove.bind(this)}>Delete me</button>
+      return connectDragSource(
+        <div>
+          <div
+            onClick={this.handleSelectComponent.bind(this)}
+            onTouchTap={this.handleOptionsToggle.bind(this)}
+            style={{
+              opacity: isDragging ? 0.5 : 1,
+              cursor: 'move',
+            }}
+          >
+            {this.props.item}
+          </div>
+          <Drawer
+            id="DRAWER"
+            open={toggleOptions}
+            containerStyle={styles.drawer}
+          >
+            <FloatingActionButton
+              style={styles.button}
+              onClick={this.handleOptionsToggle.bind(this)}
+              mini={true}
+            >
+              <ContentDelete />
+            </FloatingActionButton>
+            <h5>Edit: {this.state.componentName}</h5>
+            <RaisedButton
+              type="button"
+              id="deleteButton"
+              label="Delete Me"
+              onClick={this.handleRemove.bind(this)}
+            />
           </Drawer>
         </div>);
-    }
+
   }
 }
 Item.propTypes = {
