@@ -92,6 +92,13 @@ class Item extends Component {
       this.props.tree.updateComponent(uniqueID, this.props.tree.traverseDF, null, inputText, componentName);
       this.props.dispatch(updateTree(this.props.tree));
       this.props.dispatch(showOptions(!this.props.toggleOptions));
+
+      this.setState({
+        componentName: null,
+        input: null,
+        inputText: null,
+        uniqueID: null,
+      });
     }
   }
 

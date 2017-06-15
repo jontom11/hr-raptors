@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux"
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import _ from 'lodash';
 import Tree from '../../dataStructure/tree.js'
@@ -55,44 +55,11 @@ class ProjectView extends React.Component {
 
       var rowObject = node.rowObject;
 
-
-      // _.forEach(rowObject, (col, key) => {
-      //   if (_.startsWith(key, 'dnd')) {
-      //
-      //   }
-      // });
-      //
-      // if (_.startsWith(node.componentName, 'rowCol')) {
-      //   var colNum = node.componentName.slice(6);
-      //   node.isRow = true;
-      //   for (var i = 0; i < colNum; i++) {
-      //     var key = 'dnd' + i;
-      //     node.rowObject = linkers.addToTail(
-      //       rowObject.linkedList,
-      //       false,
-      //       key,
-      //       node.rowObject.head,
-      //       node.rowObject.tail);
-      //   }
-      // } else if (_.startsWith(node.uniqueID, 'col')) {
-      //   isRow = true;
-      //   var index = node.uniqueID[3];
-      //   var newKey = 'col' + index;
-      //   var dndToCompkey = node.uniqueID.slice(0, 4);
-      //   uniqueID = node.uniqueID.slice(4);
-      //
-      //   node.rowObject = linkers.replaceNode(
-      //     rowObject,
-      //     dragItems[rowObject.linkedList[newKey].linkedComponentName],
-      //     dndToCompkey,
-      //     node.rowObject.head,
-      //     node.rowObject.tail,
-      //     newKey
-      //   );
-      //
-      //   isUpdateRowObject = true;
-      //
-      // }
+      _.forEach(rowObject.linkedList, (col, key) => {
+        if (_.startsWith(key, 'col')) {
+          col.component = dragItems[col.linkedComponentName];
+        }
+      });
 
     });
     return newRootTree;

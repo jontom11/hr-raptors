@@ -2,7 +2,7 @@ import React from 'react';
 import Queue from './queue';
 import shortid from 'shortid';
 import _ from 'lodash';
-import linkers from './linkedList';
+import dragItems from '../dragItems';
 
 var Node = function(component, rowObject, isRow, componentName, inputText) {
   this.component = component;
@@ -21,19 +21,11 @@ var Tree = function(component, rowObject, isRow, componentName, inputText) {
     component = this.changeElementText(inputText, componentName);
   }
 
-  // if (_.startsWith(componentName, 'rowCol')) {
-  //   var colNum = componentName.slice(6);
-  //   isRow = true;
-  //   for (var i = 0; i < colNum; i++) {
-  //     var key = 'dnd' + i;
-  //     rowObject = linkers.addToTail(
-  //       rowObject.linkedList,
-  //       false,
-  //       key,
-  //       rowObject.head,
-  //       rowObject.tail);
-  //   }
-  // }
+  _.forEach(rowObject.linkedList, (col, key) => {
+    if (_.startsWith(key, 'col')) {
+      col.component = dragItems[col.linkedComponentName];
+    }
+  });
 
   var node = new Node(component, rowObject, isRow, componentName, inputText);
   this._root = node;
