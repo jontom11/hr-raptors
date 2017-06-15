@@ -132,7 +132,7 @@ class Nav extends React.Component {
         label="Submit"
         primary={true}
         onTouchTap={this.handleSubmit.bind(this)}
-      /></Link>,
+      /></ploginLink>,
     ];
 
     const contentHeader = (
