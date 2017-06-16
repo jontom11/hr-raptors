@@ -13,6 +13,7 @@ import dragItems from '../../dragItems';
     projectData: store.code.projects.query_rows,
     tree: store.code.tree,
     userData: store.user.user,
+    projects: store.code.projects,
   };
 })
 class ProjectView extends React.Component {
@@ -84,6 +85,7 @@ class ProjectView extends React.Component {
     var projects = this.state.projectData;
 
     var projectTitle;
+    var user = this.props.projects.user_name || 'User';
 
     if (Object.keys(projects).length <= 1) {
       projectTitle = 'Project';
@@ -93,7 +95,7 @@ class ProjectView extends React.Component {
 
     return (
       <div className="center-content">
-        <h2>Hi <bold className="highlight-name">{this.props.projects.user_name}</bold>, you have <bold className="highlight-name">{Object.keys(projects).length}</bold> {projectTitle}</h2>
+        <h2>Hi <bold className="highlight-name">{user}</bold>, you have <bold className="highlight-name">{Object.keys(projects).length}</bold> {projectTitle}</h2>
         <div className="card-row">
           {
             _.map(projects, (project, index) =>
