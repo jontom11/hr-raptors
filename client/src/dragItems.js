@@ -68,6 +68,43 @@ module.exports = {
         </div>
       </div>
     </div>,
+  h1:
+    <h1>Header 1</h1>,
+  h2:
+    <h2>Header 2</h2>,
+  h3:
+    <h3>Header 3</h3>,
+  h4:
+    <h4>Header 4</h4>,
+  h5:
+    <h5>Header 5</h5>,
+  h6:
+    <h6>Header 6</h6>,
+  strong:
+    <strong>Very Important</strong>,
+  emphasis:
+    <em>Important information</em>,
+  bold:
+    <b>Bloody, bold, and resolute</b>,
+  paragraph:
+    <p>This is a paragraph.</p>,
+  blockquote:
+    <blockquote>“Far out in the uncharted backwaters of the unfashionable end of the western spiral arm of the
+      Galaxy lies a small unregarded yellow sun. Orbiting this at a distance of roughly ninety-two million
+      miles is an utterly insignificant little blue green planet whose ape-descended life forms are so
+      amazingly primitive that they still think digital watches are a pretty neat idea.”</blockquote>,
+  image:
+    <div>
+      <img className="responsive-img" src="http://i.dailymail.co.uk/i/pix/2015/09/10/20/2C24A6ED00000578-0-image-m-56_1441912374479.jpg" />
+    </div>,
+  embeddedVideo:
+    <div className="video-container">
+      <iframe width="453" height="280" src="//www.youtube.com/embed/Q8TXgCzxEnw?rel=0" frameBorder="0" allowfullscreen></iframe>
+    </div>,
+  responsiveVideo:
+    <video className="responsive-video" controls>
+      <source src="./assets/bigbuckbunny.mp4" type="video/mp4" />
+    </video>,
   collection:
     <div className="collection">
       <a href="#!" className="collection-item">Alvin</a>
@@ -209,41 +246,4 @@ module.exports = {
       </tr>
       </tbody>
     </table>,
-  image:
-    <div>
-      <img className="responsive-img" src="http://i.dailymail.co.uk/i/pix/2015/09/10/20/2C24A6ED00000578-0-image-m-56_1441912374479.jpg" />
-    </div>,
-  embeddedVideo:
-    <div className="video-container">
-      <iframe width="453" height="280" src="//www.youtube.com/embed/Q8TXgCzxEnw?rel=0" frameBorder="0" allowfullscreen></iframe>
-    </div>,
-  responsiveVideo:
-    <video className="responsive-video" controls>
-      <source src="./assets/bigbuckbunny.mp4" type="video/mp4" />
-    </video>,
-  h1:
-    <h1>Header 1</h1>,
-  h2:
-    <h2>Header 2</h2>,
-  h3:
-    <h3>Header 3</h3>,
-  h4:
-    <h4>Header 4</h4>,
-  h5:
-    <h5>Header 5</h5>,
-  h6:
-    <h6>Header 6</h6>,
-  strong:
-    <strong>Very Important</strong>,
-  emphasis:
-    <em>Important information</em>,
-  bold:
-    <b>Bloody, bold, and resolute</b>,
-  paragraph:
-    <p>This is a paragraph.</p>,
-  blockquote:
-    <blockquote>“Far out in the uncharted backwaters of the unfashionable end of the western spiral arm of the
-      Galaxy lies a small unregarded yellow sun. Orbiting this at a distance of roughly ninety-two million
-      miles is an utterly insignificant little blue green planet whose ape-descended life forms are so
-      amazingly primitive that they still think digital watches are a pretty neat idea.”</blockquote>,
 };
