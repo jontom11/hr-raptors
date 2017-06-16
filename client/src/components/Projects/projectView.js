@@ -10,7 +10,6 @@ import dragItems from '../../dragItems';
 
 @connect((store) => {
   return {
-    projects: store.code.projects,
     projectData: store.code.projects.query_rows,
     tree: store.code.tree,
     userData: store.user.user,
