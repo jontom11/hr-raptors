@@ -1,6 +1,13 @@
 import React from "react";
 module.exports = {
   button: <a className="waves-effect waves-light btn-large">Button</a>,
+  floatingButton: <a className="btn-floating btn-large waves-effect waves-light red"><i className="material-icons">add</i></a>,
+  pulse: <a className="btn btn-floating btn-large pulse"><i className="material-icons">cloud</i></a>,
+  rowCol2: 'col2',
+  rowCol3: 'col3',
+  rowCol4: 'col4',
+  rowCol6: 'col6',
+  rowCol12: 'col12',
   footer:
     <footer className="page-footer">
       <div className="container">
@@ -41,6 +48,57 @@ module.exports = {
             <a href="#">This is a link</a>
           </div>
         </div>
+      </div>
+    </div>,
+  imageCard:
+    <div className="row">
+      <div className="col s12 m7">
+        <div className="card">
+          <div className="card-image">
+            <img src="http://i.dailymail.co.uk/i/pix/2015/09/10/20/2C24A6F100000578-0-image-m-41_1441911642266.jpg" />
+              <span className="card-title">Card Title</span>
+          </div>
+          <div className="card-content">
+            <p>I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively.</p>
+          </div>
+          <div className="card-action">
+            <a href="#">This is a link</a>
+          </div>
+        </div>
+      </div>
+    </div>,
+  collection:
+    <div className="collection">
+      <a href="#!" className="collection-item">Alvin</a>
+      <a href="#!" className="collection-item active">Alvin</a>
+      <a href="#!" className="collection-item">Alvin</a>
+      <a href="#!" className="collection-item">Alvin</a>
+    </div>,
+  pagination:
+    <ul className="pagination">
+      <li className="disabled"><a href="#!"><i className="material-icons">chevron_left</i></a></li>
+      <li className="active"><a href="#!">1</a></li>
+      <li className="waves-effect"><a href="#!">2</a></li>
+      <li className="waves-effect"><a href="#!">3</a></li>
+      <li className="waves-effect"><a href="#!">4</a></li>
+      <li className="waves-effect"><a href="#!">5</a></li>
+      <li className="waves-effect"><a href="#!"><i className="material-icons">chevron_right</i></a></li>
+    </ul>,
+  preloader:
+    <div className="progress">
+      <div className="indeterminate"></div>
+    </div>,
+  circularPreloader:
+    <div className="preloader-wrapper big active">
+      <div className="spinner-layer spinner-blue-only">
+        <div className="circle-clipper left">
+          <div className="circle"></div>
+        </div><div className="gap-patch">
+        <div className="circle"></div>
+      </div><div className="circle-clipper right">
+        <div className="circle"></div>
+      </div>
       </div>
     </div>,
   form:
@@ -85,12 +143,24 @@ module.exports = {
         </div>
       </form>
     </div>,
+  simpleForm:
+    <div className="row">
+      <form className="col s12">
+        <div className="row">
+          <div className="input-field col s6">
+            <i className="material-icons prefix">account_circle</i>
+            <input id="icon_prefix" type="text" className="validate" />
+              <label for="icon_prefix">First Name</label>
+          </div>
+          <div className="input-field col s6">
+            <i className="material-icons prefix">phone</i>
+            <input id="icon_telephone" type="tel" className="validate" />
+              <label for="icon_telephone">Telephone</label>
+          </div>
+        </div>
+      </form>
+    </div>,
   icon: <i className="material-icons">add</i>,
-  rowCol2: 'col2',
-  rowCol3: 'col3',
-  rowCol4: 'col4',
-  rowCol6: 'col6',
-  rowCol12: 'col12',
   navbar:
     <nav>
       <div className="nav-wrapper">
@@ -100,6 +170,16 @@ module.exports = {
           <li><a href="badges.html">Components</a></li>
           <li><a href="collapsible.html">JavaScript</a></li>
         </ul>
+      </div>
+    </nav>,
+  breadCrumbs:
+    <nav>
+      <div className="nav-wrapper">
+        <div className="col s12">
+          <a href="#!" className="breadcrumb">First</a>
+          <a href="#!" className="breadcrumb">Second</a>
+          <a href="#!" className="breadcrumb">Third</a>
+        </div>
       </div>
     </nav>,
   table:
